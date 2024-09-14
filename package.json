@@ -1,0 +1,30 @@
+{
+  "name": "@safex/pixi",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "export": "safex build -p ios",
+    "start": "parcel src/index.html -p 8080",
+    "dev": "parcel src/index.html -p 8080 --no-cache",
+    "build": "tsc",
+    "fix": "eslint ./src --ext .ts --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@pixi/ui": "^0.9.0",
+    "entityx-ts": "workspace:^1.0.0",
+    "howler-pixi-loader-middleware": "^4.0.0",
+    "lodash": "^4.17.21",
+    "pixi-action-ease": "^1.0.12",
+    "pixi.js": "^7.2.4"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.191",
+    "typescript": "^5.2.2"
+  }
+}
