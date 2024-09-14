@@ -75,7 +75,7 @@ export class GUISystem implements System {
         const ett = event.entity
         const label = ett.getComponent(LabelComp)
         const node = new Text()
-        node.texture.rotate = 8
+        // node.texture.rotate = 8
         node.style.fill = '#fff'
         label.node = ett.assign(new NodeComp(node, ett))
         const { string = '', font = '', size } = label

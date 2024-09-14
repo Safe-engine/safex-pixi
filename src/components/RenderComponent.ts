@@ -9,11 +9,11 @@ export class NodeRender extends ComponentX {
 }
 
 export class SpriteRender extends ComponentX {
-  private spriteFrame: TextureSource
-  private type: SpriteTypes
-  private fillType: LoadingBarMode = LoadingBarMode.BAR
-  private fillRange = 1
-  private fillCenter: Point
+  public spriteFrame: TextureSource
+  public type: SpriteTypes
+  public fillType: LoadingBarMode = LoadingBarMode.BAR
+  public fillRange = 1
+  public fillCenter: Point
   loadingBar: LoadingBar
 
   // set fillStart(val: number) {

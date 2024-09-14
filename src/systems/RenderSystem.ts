@@ -4,7 +4,7 @@ import {
 } from 'entityx-ts'
 import { Container, Graphics, Sprite } from 'pixi.js'
 
-import { NodeComp } from '../..'
+import { NodeComp } from '..'
 import { GraphicsRender, NodeRender, SpriteRender } from '../components/RenderComponent'
 import { LoadingBar } from '../core/LoadingBar'
 
@@ -53,7 +53,7 @@ export class RenderSystem implements System {
           spriteComp.loadingBar = loadingBar
           // node.setMidpoint(fillCenter)
         }
-        node.texture.rotate = 8
+        // node.texture.rotate = 8
         spriteComp.node = ett.assign(new NodeComp(node, ett))
         // spriteComp.node.anchorX = 0.5
         // spriteComp.node.anchorY = 0.5

@@ -1,7 +1,19 @@
 import { Assets, Text } from 'pixi.js'
 
+import { Size, Vec2 } from '..'
+import { Color4B } from '../core/Color'
 import { ComponentX, NoRenderComponentX } from '../core/decorator'
 import { LoadingBar, LoadingBarMode } from '../core/LoadingBar'
+import { HtmlTextParser } from '../helper/html-text-parser'
+
+const _htmlTextParser = new HtmlTextParser()
+export const FillType = {
+  HORIZONTAL: 0,
+  VERTICAL: 1,
+  RADIAL: 2,
+}
+type Keys = keyof typeof FillType
+type Values = (typeof FillType)[Keys]
 
 export class ButtonComp extends NoRenderComponentX {
   normalImage: string
@@ -77,8 +89,59 @@ export class LabelComp extends ComponentX {
 }
 
 export class ScrollView extends ComponentX {
-  width: Float
-  height: Float
+  width: number
+  height: number
 }
 
 export class BlockInputEventsComp extends NoRenderComponentX {}
+
+export class ProgressTimerComp extends ComponentX {
+  spriteFrame: string
+  fillType: Values
+  fillRange: number
+  fillCenter: Vec2
+  isReverse: boolean
+
+  getFillRange() {
+    // if (this.node.instance instanceof cc.ProgressTimer) {
+    //   return this.node.instance.getPercentage() * 0.01
+    // }
+  }
+
+  setFillStart(val: number) {
+    // if (this.node.instance instanceof cc.ProgressTimer) {
+    //   this.node.instance.setMidpoint(Vec2(val, val))
+    // }
+  }
+
+  setFillRange(val: number) {
+    // if (this.node.instance instanceof cc.ProgressTimer) {
+    //   this.node.instance.setPercentage(val * 100)
+    // }
+  }
+}
+
+export class RichTextComp extends ComponentX {
+  protected font: string
+  protected string: string
+  protected size: number
+
+  getString() {
+    return this.string
+  }
+
+  setString(val: string) {
+    this.string = val
+  }
+}
+
+export class LabelOutlineComp extends NoRenderComponentX {
+  color: typeof Color4B
+  width: number
+}
+
+export class LabelShadowComp extends NoRenderComponentX {
+  color: typeof Color4B
+  blur: number
+  offset: Size
+}
