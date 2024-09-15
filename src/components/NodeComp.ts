@@ -315,7 +315,7 @@ export class NodeComp {
   }
 
   runAction(act: Action) {
-    const animation = actionManager.runAction(this.instance as Sprite, act)
+    const animation = actionManager.runAction(this.instance as any, act)
     this.actionsList.push(animation)
   }
 
