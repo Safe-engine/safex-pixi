@@ -1,7 +1,8 @@
+import { GameWorld } from '@safe-engine/core'
 import { Application } from 'pixi.js'
 import { actionManager } from 'pixi-action-ease'
 
-import { GameWorld } from './gworld'
+import { NodeComp } from './components/NodeComp'
 import { GUISystem } from './systems/GUISystem'
 import { RenderSystem } from './systems/RenderSystem'
 
@@ -31,7 +32,7 @@ export async function addGameCanvasTo(id = 'game') {
   app.ticker.add(() => {
     const dt = app.ticker.deltaMS * 0.001
     actionManager.update(dt)
-    GameWorld.Instance.update(dt)
+    world.update(dt)
   })
   Object.assign(app.canvas.style, {
     width: `${window.innerWidth}px`,
@@ -41,11 +42,13 @@ export async function addGameCanvasTo(id = 'game') {
 
   const gameDiv = document.getElementById(id)
   gameDiv.appendChild(app.canvas)
+  const world = GameWorld.Instance.setup(NodeComp, app.stage)
+  initWorld(world)
 }
 
-export function initWorld() {
-  GameWorld.Instance.systems.add(RenderSystem)
-  GameWorld.Instance.systems.add(GUISystem)
-  GameWorld.Instance.systems.configureOnce(RenderSystem)
-  GameWorld.Instance.systems.configureOnce(GUISystem)
+export function initWorld(world:GameWorld) {
+  world.systems.add(RenderSystem)
+  world.systems.add(GUISystem)
+  world.systems.configureOnce(RenderSystem)
+  world.systems.configureOnce(GUISystem)
 }

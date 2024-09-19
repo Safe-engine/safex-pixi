@@ -17,6 +17,8 @@
   "license": "ISC",
   "dependencies": {
     "@pixi/ui": "^2.1.5",
+    "@safe-engine/core": "workspace:*",
+    "@safe-engine/pixi-dragonbones": "workspace:*",
     "entityx-ts": "workspace:*",
     "lodash": "^4.17.21",
     "pixi-action-ease": "^1.0.12",

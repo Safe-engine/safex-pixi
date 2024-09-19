@@ -1,11 +1,11 @@
+import { ComponentX, GameWorld } from '@safe-engine/core'
 import {
   Constructor, EntityManager, EventManager, EventReceive,
   EventTypes,
   System
 } from 'entityx-ts'
 
-import { ComponentX, NodeComp } from '..'
-import { GameWorld } from '../gworld'
+import { NodeComp } from '..'
 
 export function registerSystem<T extends ComponentX>(component: Constructor<T>) {
   if (GameWorld.Instance.systems.isRegistered(`${component.name}System`)) {
