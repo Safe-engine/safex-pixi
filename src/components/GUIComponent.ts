@@ -1,6 +1,5 @@
-import { Assets, Text } from 'pixi.js'
+import { Assets, Point, Text } from 'pixi.js'
 
-import { Size, Vec2 } from '..'
 import { Color4B } from '../core/Color'
 import { ComponentX, NoRenderComponentX } from '../core/decorator'
 import { LoadingBar, LoadingBarMode } from '../core/LoadingBar'
@@ -99,7 +98,7 @@ export class ProgressTimerComp extends ComponentX {
   spriteFrame: string
   fillType: Values
   fillRange: number
-  fillCenter: Vec2
+  fillCenter: Point
   isReverse: boolean
 
   getFillRange() {
@@ -143,5 +142,5 @@ export class LabelOutlineComp extends NoRenderComponentX {
 export class LabelShadowComp extends NoRenderComponentX {
   color: typeof Color4B
   blur: number
-  offset: Size
+  offset: Point
 }

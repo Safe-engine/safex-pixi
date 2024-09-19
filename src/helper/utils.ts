@@ -1,10 +1,10 @@
 import {
-  ComponentAddedEvent,
   Constructor, EntityManager, EventManager, EventReceive,
+  EventTypes,
   System
 } from 'entityx-ts'
 
-import {  ComponentX, NodeComp } from '..'
+import { ComponentX, NodeComp } from '..'
 import { GameWorld } from '../gworld'
 
 export function registerSystem<T extends ComponentX>(component: Constructor<T>) {
@@ -14,21 +14,15 @@ export function registerSystem<T extends ComponentX>(component: Constructor<T>) 
   class NewSystem implements System {
     configure(event_manager: EventManager) {
       console.log('configure registerSystem', component.name)
-      event_manager.subscribe(ComponentAddedEvent(component), this)
+      event_manager.subscribe(EventTypes.ComponentAdded, component, this.receiveComponentAddedEvent.bind(this))
     }
 
-    receive(type: string, event: EventReceive) {
-      switch (type) {
-        case ComponentAddedEvent(component): {
-          const ett = event.entity
-          const newComp: any = ett.getComponent(component)
-          newComp.node = ett.getComponent(NodeComp)
-          break
-        }
-        default:
-          break
-      }
+    receiveComponentAddedEvent(event: EventReceive<T>) {
+      const ett = event.entity
+      const newComp: any = ett.getComponent(component)
+      newComp.node = ett.getComponent(NodeComp)
     }
+
     update(entities: EntityManager, events: EventManager, dt: number) {
       for (const entt of entities.entities_with_components(component)) {
         const comp = entt.getComponent(component)
@@ -48,17 +42,4 @@ export function registerSystem<T extends ComponentX>(component: Constructor<T>) 
 
 export function instantiate<T>(ComponentType: Constructor<T>, data?: any): T {
   return (ComponentType as any).create(data)
-}
-
-export class Size {
-  constructor(width, height) {
-    this.width = width
-    this.height = height
-  }
-  width: number
-  height: number
-}
-
-export function size(width: number, height: number) {
-  return new Size(width, height)
 }

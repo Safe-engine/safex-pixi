@@ -1,6 +1,6 @@
 {
-  "name": "@safex/pixi",
-  "version": "1.0.2",
+  "name": "@safe-engine/pixi",
+  "version": "1.0.1",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -17,8 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "@pixi/ui": "^2.1.5",
-    "entityx-ts": "^1.0.0",
-    "howler-pixi-loader-middleware": "^5.0.0",
+    "entityx-ts": "^2.0.2",
     "lodash": "^4.17.21",
     "pixi-action-ease": "^1.0.12",
     "pixi.js": "^8.4.0"
