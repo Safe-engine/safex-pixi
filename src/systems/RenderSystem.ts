@@ -1,11 +1,12 @@
 import {
-  ComponentAddedEvent, ComponentRemovedEvent, EventManager, EventReceive,
+  EventManager,
+  EventTypes,
   System
 } from 'entityx-ts'
 import { Container, Graphics, Sprite } from 'pixi.js'
 
 import { NodeComp } from '..'
-import { GraphicsRender, NodeRender, SpriteRender } from '../components/RenderComponent'
+import { GraphicsRender, MaskRender, NodeRender, SpriteRender } from '../components/RenderComponent'
 import { LoadingBar } from '../core/LoadingBar'
 
 export enum SpriteTypes {
@@ -19,81 +20,50 @@ export enum SpriteTypes {
 
 export class RenderSystem implements System {
   configure(event_manager: EventManager) {
-    event_manager.subscribe(ComponentAddedEvent(NodeRender), this)
-    event_manager.subscribe(ComponentAddedEvent(SpriteRender), this)
-    // event_manager.subscribe(ComponentAddedEvent(ImageRender), this)
-    // event_manager.subscribe(ComponentAddedEvent(MaskRender), this)
-    event_manager.subscribe(ComponentAddedEvent(GraphicsRender), this)
-    event_manager.subscribe(ComponentAddedEvent(NodeComp), this)
-    event_manager.subscribe(ComponentRemovedEvent(NodeComp), this)
+    event_manager.subscribe(EventTypes.ComponentAdded, NodeRender, ({ entity }) => {
+      const nodeRenderComp = entity.getComponent(NodeRender)
+      const node = new Container()
+      nodeRenderComp.node = entity.assign(new NodeComp(node, entity))
+    })
+    event_manager.subscribe(EventTypes.ComponentAdded, SpriteRender, ({ entity, component }) => {
+      const { spriteFrame, type, fillType, fillRange, fillCenter } = component
+      const node = Sprite.from(spriteFrame)
+      if (type === SpriteTypes.FILLED) {
+        // console.log('fillType', fillType)
+        const loadingBar = new LoadingBar(fillType, node)
+        if (fillRange) loadingBar.progress = fillRange
+        if (fillCenter) loadingBar.fillCenter = fillCenter
+        component.loadingBar = loadingBar
+        // node.setMidpoint(fillCenter)
+      }
+      // node.texture.rotate = 8
+      component.node = entity.assign(new NodeComp(node, entity))
+      // component.node.anchorX = 0.5
+      // component.node.anchorY = 0.5
+    })
+    event_manager.subscribe(EventTypes.ComponentAdded, MaskRender, ({ component }) => {
+      console.log('MaskRender', component);
+      // const { type, segments, inverted } = maskComp
+      // const node = new cc.ClippingNode()
+      // node.setInverted(inverted)
+      // maskComp.node = ett.assign(new NodeComp(node, ett))
+    })
+    event_manager.subscribe(EventTypes.ComponentAdded, GraphicsRender, ({ entity, component }) => {
+      const { lineWidth, strokeColor, fillColor } = component
+      const node = new Graphics()
+      node.fill(fillColor)
+      node.fillStyle = strokeColor
+      node.width = lineWidth
+      component.node = entity.assign(new NodeComp(node, entity))
+      // node.drawCircle(0, 0, 100)
+    })
+    event_manager.subscribe(EventTypes.ComponentRemoved, NodeComp, ({ component }) => {
+      if (component) {
+        component.instance.removeFromParent()
+      }
+    })
   }
 
-  receive(type: string, event: EventReceive) {
-    switch (type) {
-      case ComponentAddedEvent(NodeRender): {
-        // console.log('NodeRender', event)
-        const ett = event.entity
-        const nodeRenderComp = ett.getComponent(NodeRender)
-        const node = new Container()
-        nodeRenderComp.node = ett.assign(new NodeComp(node, ett))
-        break
-      }
-
-      case ComponentAddedEvent(SpriteRender): {
-        // console.log('ComponentAddedEvent SpriteRender', event)
-        const ett = event.entity
-        const spriteComp = ett.getComponent(SpriteRender)
-        const { spriteFrame, type, fillType, fillRange, fillCenter } = spriteComp
-        const node = Sprite.from(spriteFrame)
-        if (type === SpriteTypes.FILLED) {
-          // console.log('fillType', fillType)
-          const loadingBar = new LoadingBar(fillType, node)
-          if (fillRange) loadingBar.progress = fillRange
-          if (fillCenter) loadingBar.fillCenter = fillCenter
-          spriteComp.loadingBar = loadingBar
-          // node.setMidpoint(fillCenter)
-        }
-        // node.texture.rotate = 8
-        spriteComp.node = ett.assign(new NodeComp(node, ett))
-        // spriteComp.node.anchorX = 0.5
-        // spriteComp.node.anchorY = 0.5
-        break
-      }
-
-      // case ComponentAddedEvent(MaskRender): {
-      //   console.log('MaskRender', event.component);
-      //   const ett = event.entity
-      //   const maskComp = event.entity.getComponent(MaskRender)
-      //   const { type, segments, inverted } = maskComp
-      //   const node = new cc.ClippingNode()
-      //   node.setInverted(inverted)
-      //   maskComp.node = ett.assign(new NodeComp(node, ett))
-      //   break
-      // }
-
-      case ComponentAddedEvent(GraphicsRender): {
-        console.log('MaskRender', event.component)
-        const ett = event.entity
-        const graphics = event.entity.getComponent(GraphicsRender)
-        const { lineWidth, strokeColor, fillColor } = graphics
-        const node = new Graphics()
-        node.beginFill(fillColor)
-        node.lineStyle(lineWidth, strokeColor)
-        graphics.node = ett.assign(new NodeComp(node, ett))
-        // node.drawCircle(0, 0, 100)
-        break
-      }
-      case ComponentRemovedEvent(NodeComp): {
-        const node = event.component as NodeComp
-        if (node) {
-          node.instance.removeFromParent()
-        }
-        break
-      }
-      default:
-        break
-    }
-  }
   update() {
     // throw new Error('Method not implemented.');
   }

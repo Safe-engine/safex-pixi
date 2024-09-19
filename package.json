@@ -17,8 +17,7 @@
   "license": "ISC",
   "dependencies": {
     "@pixi/ui": "^2.1.5",
-    "entityx-ts": "^1.0.0",
-    "howler-pixi-loader-middleware": "^5.0.0",
+    "entityx-ts": "workspace:*",
     "lodash": "^4.17.21",
     "pixi-action-ease": "^1.0.12",
     "pixi.js": "^8.4.0"
