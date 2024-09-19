@@ -4,9 +4,8 @@
 name: Publish NPM Package
 
 on:
-  release:
-    types: [created]
-  workflow_dispatch: # Allows you to run this workflow manually
+  push:
+    branches: ["release"]
 
 jobs:
   build:
@@ -16,20 +15,17 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 20
-      - run: npm ci
-      - run: npm run build
-
-  publish-npm:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v3
+      - uses: pnpm/action-setup@v2.0.1
+        name: Install pnpm
+        id: pnpm-install
         with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
-      - run: npm ci
-      - run: npm run build
-      - run: npm publish
+          version: 9
+          run_install: false
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build project
+        run: pnpm build
+      - name: Publish project
+        run: pnpm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
+          NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
