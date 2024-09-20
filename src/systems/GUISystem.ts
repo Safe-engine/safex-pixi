@@ -9,8 +9,8 @@ import { Sprite, Text } from 'pixi.js'
 import { CallFunc, EaseBackIn, ScaleTo, Sequence } from 'pixi-action-ease'
 
 import { NodeComp, SpriteRender } from '..'
-import { ButtonComp, LabelComp, ProgressBarComp, ScrollView } from '../components/GUIComponent'
-import { LoadingBar } from '../core/LoadingBar'
+import { ButtonComp, LabelComp, ProgressBarComp, ProgressTimerComp, ScrollView } from '../components/GUIComponent'
+import { LoadingBar, LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
 
 export class GUISystem implements System {
   configure(event_manager: EventManager<GameWorld>) {
@@ -46,6 +46,12 @@ export class GUISystem implements System {
       spriteComp.node.instance.mask = node
       component.node = entity.assign(new NodeComp(node, entity))
       node.progress = progress
+    })
+    event_manager.subscribe(EventTypes.ComponentAdded, ProgressTimerComp, ({ entity, component }) => {
+      console.log(component, '.progress')
+      const { spriteFrame, fillCenter } = component
+      const node = new ProgressTimer(LoadingBarMode.BAR, spriteFrame)
+      component.node = entity.assign(new NodeComp(node.spriteComp, entity))
     })
     event_manager.subscribe(EventTypes.ComponentAdded, ScrollView, ({ entity, component }) => {
       const { width, height } = component

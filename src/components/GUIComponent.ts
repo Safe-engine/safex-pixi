@@ -92,7 +92,7 @@ export class ScrollView extends ComponentX {
   height: number
 }
 
-export class BlockInputEventsComp extends NoRenderComponentX {}
+export class BlockInputEventsComp extends NoRenderComponentX { }
 
 export class ProgressTimerComp extends ComponentX {
   spriteFrame: string
@@ -102,21 +102,15 @@ export class ProgressTimerComp extends ComponentX {
   isReverse: boolean
 
   getFillRange() {
-    // if (this.node.instance instanceof cc.ProgressTimer) {
-    //   return this.node.instance.getPercentage() * 0.01
-    // }
+    return (this.node.instance as LoadingBar).progress
   }
 
   setFillStart(val: number) {
-    // if (this.node.instance instanceof cc.ProgressTimer) {
-    //   this.node.instance.setMidpoint(Vec2(val, val))
-    // }
+    (this.node.instance as LoadingBar).fillCenter.x = val
   }
 
   setFillRange(val: number) {
-    // if (this.node.instance instanceof cc.ProgressTimer) {
-    //   this.node.instance.setPercentage(val * 100)
-    // }
+    (this.node.instance as LoadingBar).progress = val
   }
 }
 
