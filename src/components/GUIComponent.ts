@@ -1,7 +1,7 @@
+import { ComponentX, NoRenderComponentX } from '@safe-engine/core'
 import { Assets, Point, Text } from 'pixi.js'
 
 import { Color4B } from '../core/Color'
-import { ComponentX, NoRenderComponentX } from '../core/decorator'
 import { LoadingBar, LoadingBarMode } from '../core/LoadingBar'
 import { HtmlTextParser } from '../helper/html-text-parser'
 

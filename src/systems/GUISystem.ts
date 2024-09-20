@@ -1,4 +1,5 @@
 import { Button, ScrollBox } from '@pixi/ui'
+import { GameWorld } from '@safe-engine/core'
 import {
   EventManager,
   EventTypes,
@@ -12,7 +13,7 @@ import { ButtonComp, LabelComp, ProgressBarComp, ScrollView } from '../component
 import { LoadingBar } from '../core/LoadingBar'
 
 export class GUISystem implements System {
-  configure(event_manager: EventManager) {
+  configure(event_manager: EventManager<GameWorld>) {
     event_manager.subscribe(EventTypes.ComponentAdded, ButtonComp, ({ entity, component }) => {
       const nodeComp = entity.getComponent(NodeComp)
       // const { normalImage, selectedImage, disableImage, texType, zoomScale } = button

@@ -1,6 +1,6 @@
+import { ComponentX } from '@safe-engine/core'
 import { ColorSource, Point, Sprite, Texture, TextureSource } from 'pixi.js'
 
-import { ComponentX } from '../core/decorator'
 import { LoadingBar, LoadingBarMode } from '../core/LoadingBar'
 import { SpriteTypes } from '../systems/RenderSystem'
 
