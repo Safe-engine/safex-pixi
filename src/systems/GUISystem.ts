@@ -51,7 +51,7 @@ export class GUISystem implements System {
       console.log(component, '.progress')
       const { spriteFrame, fillCenter } = component
       const node = new ProgressTimer(LoadingBarMode.BAR, spriteFrame)
-      component.node = entity.assign(new NodeComp(node.spriteComp, entity))
+      component.node = entity.assign(new NodeComp(node, entity))
     })
     event_manager.subscribe(EventTypes.ComponentAdded, ScrollView, ({ entity, component }) => {
       const { width, height } = component

@@ -1,4 +1,4 @@
-import { Graphics, Point, Sprite, Texture } from 'pixi.js'
+import { Container, Graphics, Point, Sprite, Texture } from 'pixi.js'
 
 export enum LoadingBarMode {
   BAR,
@@ -32,12 +32,13 @@ export class LoadingBar extends Graphics {
   }
 }
 
-export class ProgressTimer {
+export class ProgressTimer extends Container {
   graphics: Graphics
   spriteComp: Sprite
   mode: LoadingBarMode
   fillCenter = new Point(0.5, 0.5)
   constructor(mode: LoadingBarMode, spriteFrame: string) {
+    super()
     const texture = Texture.from(spriteFrame)
     this.spriteComp = Sprite.from(texture)
     this.graphics = new Graphics()
@@ -45,7 +46,8 @@ export class ProgressTimer {
     this.graphics.fill(0xffffff)
     this.graphics.rect(0, 0, this.spriteComp.width, this.spriteComp.height)
     this.spriteComp.mask = this.graphics
-    this.spriteComp.addChild(this.graphics)
+    this.addChild(this.graphics)
+    this.addChild(this.spriteComp)
     this.graphics.x = -this.spriteComp.width * this.fillCenter.x
     this.graphics.y = -this.spriteComp.height * this.fillCenter.y
   }
