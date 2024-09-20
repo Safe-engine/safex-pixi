@@ -64,7 +64,7 @@ export class GUISystem implements System {
     })
     // event_manager.subscribe(EventTypes.ComponentAdded, BlockInputEventsComp), this);
   }
-  update() {
-    // throw new Error('Method not implemented.');
-  }
+  // update() {
+  // throw new Error('Method not implemented.');
+  // }
 }

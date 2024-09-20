@@ -64,7 +64,7 @@ export class RenderSystem implements System {
     })
   }
 
-  update() {
-    // throw new Error('Method not implemented.');
-  }
+  // update() {
+  // throw new Error('Method not implemented.');
+  // }
 }

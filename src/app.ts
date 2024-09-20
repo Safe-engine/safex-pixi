@@ -1,9 +1,9 @@
+import { GameWorld } from '@safe-engine/core'
+import { Constructor, System } from 'entityx-ts'
 import { Application } from 'pixi.js'
 import { actionManager } from 'pixi-action-ease'
 
-import { GameWorld } from './gworld'
-import { GUISystem } from './systems/GUISystem'
-import { RenderSystem } from './systems/RenderSystem'
+import { NodeComp } from './components/NodeComp'
 
 export const app = new Application()
 
@@ -26,13 +26,6 @@ export async function addGameCanvasTo(id = 'game') {
       wheel: false,
     },
   })
-  // app.ticker.speed = 0.5
-  // Listen for frame updates
-  app.ticker.add(() => {
-    const dt = app.ticker.deltaMS * 0.001
-    actionManager.update(dt)
-    GameWorld.Instance.update(dt)
-  })
   Object.assign(app.canvas.style, {
     width: `${window.innerWidth}px`,
     // height: `${window.innerHeight}px`,
@@ -41,11 +34,28 @@ export async function addGameCanvasTo(id = 'game') {
 
   const gameDiv = document.getElementById(id)
   gameDiv.appendChild(app.canvas)
+  GameWorld.Instance.setup(NodeComp, app.stage)
 }
 
-export function initWorld() {
-  GameWorld.Instance.systems.add(RenderSystem)
-  GameWorld.Instance.systems.add(GUISystem)
-  GameWorld.Instance.systems.configureOnce(RenderSystem)
-  GameWorld.Instance.systems.configureOnce(GUISystem)
+function startGameLoop(world: GameWorld) {
+  // Listen for frame updates
+  app.ticker.add(() => {
+    const dt = app.ticker.deltaMS * 0.001
+    actionManager.update(dt)
+    world.update(dt)
+  })
+  // app.ticker.speed = 0.5
+}
+
+export function startGameWithSystems(systemsList: Constructor<System>[]) {
+  const world = GameWorld.Instance
+  systemsList.forEach(system => {
+    world.systems.add(system)
+    const sys = world.systemsMap[system.name]
+    if (sys.update) {
+      world.listUpdate.push(system)
+    }
+  })
+  world.systems.configure()
+  startGameLoop(world)
 }

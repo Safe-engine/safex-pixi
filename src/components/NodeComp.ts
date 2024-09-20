@@ -1,10 +1,10 @@
+import { ComponentType, EnhancedComponent } from '@safe-engine/core'
 import { Constructor,Entity } from 'entityx-ts'
 import remove from 'lodash/remove'
 import { Color, ColorSource, Container, Point, Sprite } from 'pixi.js'
 import { Action, actionManager, Animation } from 'pixi-action-ease'
 
-import { Size } from '../helper/utils'
-import { ComponentType, EnhancedComponent } from './EnhancedComponent'
+import { Size } from '../core/Size'
 import { ProgressBarComp } from './GUIComponent'
 
 export type EventCallbackType = (...args) => void
@@ -289,7 +289,7 @@ export class NodeComp {
   // }
 
   getContentSize(): Size {
-    return this.instance
+    return this.instance.boundsArea
   }
 
   // setContentSize(size: cc.Size | number, height?: number) {
