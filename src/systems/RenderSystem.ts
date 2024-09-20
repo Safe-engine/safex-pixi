@@ -27,6 +27,7 @@ export class RenderSystem implements System {
     })
     event_manager.subscribe(EventTypes.ComponentAdded, SpriteRender, ({ entity, component }) => {
       const { spriteFrame, type, fillType, fillRange, fillCenter } = component
+      // console.log('SpriteRender', component)
       const node = Sprite.from(spriteFrame)
       if (type === SpriteTypes.FILLED) {
         // console.log('fillType', fillType)
