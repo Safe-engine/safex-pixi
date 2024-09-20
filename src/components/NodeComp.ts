@@ -1,5 +1,5 @@
-import { ComponentType, EnhancedComponent } from '@safe-engine/core'
-import { Constructor,Entity } from 'entityx-ts'
+import { BaseNode, ComponentType, EnhancedComponent } from '@safe-engine/core'
+import { Constructor, Entity } from 'entityx-ts'
 import remove from 'lodash/remove'
 import { Color, ColorSource, Container, Point, Sprite } from 'pixi.js'
 import { Action, actionManager, Animation } from 'pixi-action-ease'
@@ -14,9 +14,9 @@ export interface EventMap {
 
 type TouchEVentCallback = (target: { location: Point }) => void
 
-export class NodeComp {
+export class NodeComp<C extends Container = Container> implements BaseNode<C> {
   entity: Entity
-  instance: Container
+  instance: C
   events: EventMap = {}
   data: { [key: string]: any } = {}
   parent: NodeComp
@@ -64,7 +64,7 @@ export class NodeComp {
     })
   }
 
-  constructor(instance: Container, entity: Entity) {
+  constructor(instance: C, entity: Entity) {
     this.entity = entity
     this.instance = instance
     this.instance.eventMode = 'static'
@@ -123,7 +123,9 @@ export class NodeComp {
   }
 
   get anchorX() {
-    return (this.instance as Sprite).anchor.x
+    if (this.instance instanceof Sprite)
+      return (this.instance as Sprite).anchor.x
+    return 0
   }
 
   set anchorX(val: number) {
@@ -131,8 +133,10 @@ export class NodeComp {
   }
 
   get anchorY() {
-    return (this.instance as Sprite).anchor.y
-  }
+    if (this.instance instanceof Sprite)
+      return (this.instance as Sprite).anchor.y
+    return 0
+  }ß
 
   set anchorY(val: number) {
     if (this.instance instanceof Sprite) this.instance.anchor.y = val
@@ -157,7 +161,9 @@ export class NodeComp {
   }
 
   get color() {
-    return (this.instance as Sprite).tint
+    if (this.instance instanceof Sprite)
+      return (this.instance as Sprite).tint
+    return 0xffffff
   }
 
   set color(val: ColorSource) {
@@ -306,7 +312,8 @@ export class NodeComp {
   // }
 
   setColor(color: Color) {
-    (this.instance as Sprite).tint = color
+    if (this.instance instanceof Sprite)
+      (this.instance as Sprite).tint = color
   }
 
   setScale(scaleX: number, scaleY?: number) {
@@ -390,7 +397,7 @@ export class NodeComp {
     }
   }
 
-  resolveComponent(component: EnhancedComponent) {
+  resolveComponent(component: EnhancedComponent<Container, NodeComp>) {
     if ((component.constructor as any).hasRender) {
       this.addChild(component.node)
     } else {

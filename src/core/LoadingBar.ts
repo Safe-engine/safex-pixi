@@ -48,16 +48,16 @@ export class ProgressTimer extends Container {
     this.spriteComp.mask = this.graphics
     this.addChild(this.graphics)
     this.addChild(this.spriteComp)
-    this.graphics.x = -this.spriteComp.width * this.fillCenter.x
-    this.graphics.y = -this.spriteComp.height * this.fillCenter.y
+    // this.graphics.x = -this.spriteComp.width * this.fillCenter.x
+    // this.graphics.y = -this.spriteComp.height * this.fillCenter.y
   }
 
   set progress(val: number) {
     this.graphics.clear()
-    this.graphics.fill(0xffffff)
     if (this.mode === LoadingBarMode.BAR) {
       this.graphics.rect(0, 0, this.spriteComp.width * val, this.spriteComp.height)
       // console.log('new length', this.width)
+      this.graphics.fill(0xffffff)
     }
   }
 }

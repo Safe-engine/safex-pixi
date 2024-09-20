@@ -1,11 +1,11 @@
 import { ComponentX, NoRenderComponentX } from '@safe-engine/core'
-import { Assets, Point, Text } from 'pixi.js'
+import { Assets, Container, Point, Text } from 'pixi.js'
 
 import { Color4B } from '../core/Color'
-import { LoadingBar, LoadingBarMode } from '../core/LoadingBar'
-import { HtmlTextParser } from '../helper/html-text-parser'
+import { LoadingBar, LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
+import { NodeComp } from './NodeComp'
 
-const _htmlTextParser = new HtmlTextParser()
+// const _htmlTextParser = new HtmlTextParser()
 export const FillType = {
   HORIZONTAL: 0,
   VERTICAL: 1,
@@ -14,7 +14,7 @@ export const FillType = {
 type Keys = keyof typeof FillType
 type Values = (typeof FillType)[Keys]
 
-export class ButtonComp extends NoRenderComponentX {
+export class ButtonComp extends NoRenderComponentX<Container, NodeComp> {
   normalImage: string
   selectedImage: string
   disableImage: string
@@ -30,7 +30,7 @@ export class ButtonComp extends NoRenderComponentX {
   }
 }
 
-export class ProgressBarComp extends NoRenderComponentX {
+export class ProgressBarComp extends NoRenderComponentX<LoadingBar, NodeComp<LoadingBar>> {
   mode = LoadingBarMode.BAR
   private _progress: number
   isReverse: boolean
@@ -41,11 +41,11 @@ export class ProgressBarComp extends NoRenderComponentX {
 
   set progress(val: number) {
     this._progress = val
-    ;(this.node.instance as LoadingBar).progress = val
+    this.node.instance.progress = val
   }
 }
 
-export class LabelComp extends ComponentX {
+export class LabelComp extends ComponentX<Text, NodeComp<Text>> {
   font: string
   string: string
   size = 64
@@ -87,14 +87,14 @@ export class LabelComp extends ComponentX {
   }
 }
 
-export class ScrollView extends ComponentX {
+export class ScrollView extends ComponentX<any, NodeComp> {
   width: number
   height: number
 }
 
-export class BlockInputEventsComp extends NoRenderComponentX { }
+export class BlockInputEventsComp extends NoRenderComponentX<Container, NodeComp> { }
 
-export class ProgressTimerComp extends ComponentX {
+export class ProgressTimerComp extends ComponentX<ProgressTimer, NodeComp<ProgressTimer>> {
   spriteFrame: string
   fillType: Values
   fillRange: number
@@ -102,19 +102,20 @@ export class ProgressTimerComp extends ComponentX {
   isReverse: boolean
 
   getFillRange() {
-    return (this.node.instance as LoadingBar).progress
+    return this.node.instance.progress
   }
 
   setFillStart(val: number) {
-    (this.node.instance as LoadingBar).fillCenter.x = val
+    this.node.instance.fillCenter.x = val
   }
 
   setFillRange(val: number) {
-    (this.node.instance as LoadingBar).progress = val
+    console.log('setFillRange', this.node.instance);
+    this.node.instance.progress = val
   }
 }
 
-export class RichTextComp extends ComponentX {
+export class RichTextComp extends ComponentX<Text, NodeComp<Text>> {
   protected font: string
   protected string: string
   protected size: number
@@ -128,12 +129,12 @@ export class RichTextComp extends ComponentX {
   }
 }
 
-export class LabelOutlineComp extends NoRenderComponentX {
+export class LabelOutlineComp extends NoRenderComponentX<Container, NodeComp> {
   color: typeof Color4B
   width: number
 }
 
-export class LabelShadowComp extends NoRenderComponentX {
+export class LabelShadowComp extends NoRenderComponentX<Container, NodeComp> {
   color: typeof Color4B
   blur: number
   offset: Point
