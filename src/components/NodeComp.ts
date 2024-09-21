@@ -136,7 +136,7 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
     if (this.instance instanceof Sprite)
       return (this.instance as Sprite).anchor.y
     return 0
-  }ß
+  } ß
 
   set anchorY(val: number) {
     if (this.instance instanceof Sprite) this.instance.anchor.y = val
@@ -397,7 +397,7 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
     }
   }
 
-  resolveComponent(component: EnhancedComponent<Container, NodeComp>) {
+  resolveComponent(component: EnhancedComponent<NodeComp>) {
     if ((component.constructor as any).hasRender) {
       this.addChild(component.node)
     } else {

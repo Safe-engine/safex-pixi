@@ -1,15 +1,15 @@
 import { ComponentX } from '@safe-engine/core'
-import { ColorSource, Container, Graphics, Point, Sprite, Texture, TextureSource } from 'pixi.js'
+import { ColorSource, Graphics, Point, Sprite, Texture, TextureSource } from 'pixi.js'
 
 import { LoadingBar, LoadingBarMode } from '../core/LoadingBar'
 import { SpriteTypes } from '../systems/RenderSystem'
 import { NodeComp } from './NodeComp'
 
-export class NodeRender extends ComponentX<Container, NodeComp> {
+export class NodeRender extends ComponentX<NodeComp> {
   nodeName?: string
 }
 
-export class SpriteRender extends ComponentX<Sprite, NodeComp<Sprite>> {
+export class SpriteRender extends ComponentX<NodeComp<Sprite>> {
   public spriteFrame: TextureSource
   public type: SpriteTypes
   public fillType: LoadingBarMode = LoadingBarMode.BAR
@@ -53,13 +53,13 @@ export class SpriteRender extends ComponentX<Sprite, NodeComp<Sprite>> {
   }
 }
 
-export class GraphicsRender extends ComponentX<Graphics, NodeComp<Graphics>> {
+export class GraphicsRender extends ComponentX<NodeComp<Graphics>> {
   lineWidth = 2
   strokeColor: ColorSource
   fillColor: ColorSource
 }
 
-export class MaskRender extends ComponentX<any, NodeComp> {
+export class MaskRender extends ComponentX<NodeComp> {
   type: number
   segments: number
   inverted: boolean

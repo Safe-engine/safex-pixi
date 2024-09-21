@@ -14,7 +14,7 @@ export const FillType = {
 type Keys = keyof typeof FillType
 type Values = (typeof FillType)[Keys]
 
-export class ButtonComp extends NoRenderComponentX<Container, NodeComp> {
+export class ButtonComp extends NoRenderComponentX<NodeComp> {
   normalImage: string
   selectedImage: string
   disableImage: string
@@ -30,7 +30,7 @@ export class ButtonComp extends NoRenderComponentX<Container, NodeComp> {
   }
 }
 
-export class ProgressBarComp extends NoRenderComponentX<LoadingBar, NodeComp<LoadingBar>> {
+export class ProgressBarComp extends NoRenderComponentX<NodeComp<LoadingBar>> {
   mode = LoadingBarMode.BAR
   private _progress: number
   isReverse: boolean
@@ -45,7 +45,7 @@ export class ProgressBarComp extends NoRenderComponentX<LoadingBar, NodeComp<Loa
   }
 }
 
-export class LabelComp extends ComponentX<Text, NodeComp<Text>> {
+export class LabelComp extends ComponentX<NodeComp<Text>> {
   font: string
   string: string
   size = 64
@@ -87,14 +87,14 @@ export class LabelComp extends ComponentX<Text, NodeComp<Text>> {
   }
 }
 
-export class ScrollView extends ComponentX<any, NodeComp> {
+export class ScrollView extends ComponentX<NodeComp<Container>> {
   width: number
   height: number
 }
 
-export class BlockInputEventsComp extends NoRenderComponentX<Container, NodeComp> { }
+export class BlockInputEventsComp extends NoRenderComponentX<NodeComp<Container>> { }
 
-export class ProgressTimerComp extends ComponentX<ProgressTimer, NodeComp<ProgressTimer>> {
+export class ProgressTimerComp extends ComponentX<NodeComp<ProgressTimer>> {
   spriteFrame: string
   fillType: Values
   fillRange: number
@@ -115,7 +115,7 @@ export class ProgressTimerComp extends ComponentX<ProgressTimer, NodeComp<Progre
   }
 }
 
-export class RichTextComp extends ComponentX<Text, NodeComp<Text>> {
+export class RichTextComp extends ComponentX<NodeComp<Text>> {
   protected font: string
   protected string: string
   protected size: number
@@ -129,12 +129,12 @@ export class RichTextComp extends ComponentX<Text, NodeComp<Text>> {
   }
 }
 
-export class LabelOutlineComp extends NoRenderComponentX<Container, NodeComp> {
+export class LabelOutlineComp extends NoRenderComponentX<NodeComp> {
   color: typeof Color4B
   width: number
 }
 
-export class LabelShadowComp extends NoRenderComponentX<Container, NodeComp> {
+export class LabelShadowComp extends NoRenderComponentX<NodeComp> {
   color: typeof Color4B
   blur: number
   offset: Point
