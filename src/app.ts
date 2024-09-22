@@ -18,6 +18,7 @@ export async function addGameCanvasTo(id = 'game') {
   await app.init({
     antialias: true,
     resolution: window.devicePixelRatio,
+    resizeTo: window,
     eventFeatures: {
       move: true,
       /** disables the global move events which can be very expensive in large scenes */

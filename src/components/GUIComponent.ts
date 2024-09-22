@@ -110,7 +110,7 @@ export class ProgressTimerComp extends ComponentX<NodeComp<ProgressTimer>> {
   }
 
   setFillRange(val: number) {
-    console.log('setFillRange', this.node.instance);
+    // console.log('setFillRange', this.node.instance);
     this.node.instance.progress = val
   }
 }

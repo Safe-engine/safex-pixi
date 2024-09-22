@@ -62,7 +62,7 @@ export class GUISystem implements System {
       component.node = entity.assign(new NodeComp(view, entity))
     })
     event_manager.subscribe(EventTypes.ComponentAdded, LabelComp, ({ entity, component }) => {
-      console.log('ComponentAddedEvent LabelComp', component)
+      // console.log('ComponentAddedEvent LabelComp', component)
       const node = new Text()
       // node.texture.rotate = 8
       node.style.fill = '#fff'
