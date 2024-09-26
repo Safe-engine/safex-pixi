@@ -52,9 +52,8 @@ export class RenderSystem implements System {
     event_manager.subscribe(EventTypes.ComponentAdded, GraphicsRender, ({ entity, component }) => {
       const { lineWidth, strokeColor, fillColor } = component
       const node = new Graphics()
-      node.fill(fillColor)
-      node.fillStyle = strokeColor
-      node.width = lineWidth
+      node.beginFill(fillColor)
+      node.lineStyle(lineWidth, strokeColor)
       component.node = entity.assign(new NodeComp(node, entity))
       // node.drawCircle(0, 0, 100)
     })

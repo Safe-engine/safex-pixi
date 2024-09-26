@@ -13,18 +13,18 @@ export class LoadingBar extends Graphics {
     super()
     this.spriteComp = spriteComp
     this.mode = mode || LoadingBarMode.BAR
-    this.fill(0xffffff)
-    this.rect(0, 0, spriteComp.width, spriteComp.height)
+    this.beginFill(0xffffff)
+    this.drawRect(0, 0, spriteComp.width, spriteComp.height)
     spriteComp.mask = this
     spriteComp.addChild(this)
   }
 
   set progress(val: number) {
     this.clear()
-    this.fill(0xffffff)
+    this.beginFill(0xffffff)
     if (this.mode === LoadingBarMode.BAR) {
       const spriteComp = this.spriteComp
-      this.rect(0, 0, spriteComp.width * val, spriteComp.height)
+      this.drawRect(0, 0, spriteComp.width * val, spriteComp.height)
       // console.log('new length', spriteComp.width)
       this.x = -spriteComp.width * 0.5
       this.y = -spriteComp.height * 0.5
@@ -43,8 +43,8 @@ export class ProgressTimer extends Container {
     this.spriteComp = Sprite.from(texture)
     this.graphics = new Graphics()
     this.mode = mode || LoadingBarMode.BAR
-    this.graphics.fill(0xffffff)
-    this.graphics.rect(0, 0, this.spriteComp.width, this.spriteComp.height)
+    this.graphics.beginFill(0xffffff)
+    this.graphics.drawRect(0, 0, this.spriteComp.width, this.spriteComp.height)
     this.spriteComp.mask = this.graphics
     this.addChild(this.graphics)
     this.addChild(this.spriteComp)
@@ -55,9 +55,9 @@ export class ProgressTimer extends Container {
   set progress(val: number) {
     this.graphics.clear()
     if (this.mode === LoadingBarMode.BAR) {
-      this.graphics.rect(0, 0, this.spriteComp.width * val, this.spriteComp.height)
+      this.graphics.beginFill(0xffffff)
+      this.graphics.drawRect(0, 0, this.spriteComp.width * val, this.spriteComp.height)
       // console.log('new length', this.width)
-      this.graphics.fill(0xffffff)
     }
   }
 }

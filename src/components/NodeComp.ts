@@ -295,7 +295,7 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
   // }
 
   getContentSize(): Size {
-    return this.instance.boundsArea
+    return this.instance.getBounds()
   }
 
   // setContentSize(size: cc.Size | number, height?: number) {
