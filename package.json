@@ -1,6 +1,6 @@
 {
   "name": "@safe-engine/pixi",
-  "version": "7.0.2",
+  "version": "7.0.3",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -17,8 +17,8 @@
   "license": "ISC",
   "dependencies": {
     "@pixi/ui": "^1.1.5",
-    "@safe-engine/core": "1.0.1",
-    "entityx-ts": "2.0.2",
+    "@safe-engine/core": "1.0.2",
+    "entityx-ts": "2.0.3",
     "lodash": "^4.17.21",
     "pixi-action-ease": "^1.0.12",
     "pixi.js": "^7.4.2"
