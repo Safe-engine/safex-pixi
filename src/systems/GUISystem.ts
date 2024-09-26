@@ -1,4 +1,5 @@
 import { Button, ScrollBox } from '@pixi/ui'
+import { GameWorld } from '@safe-engine/core'
 import {
   EventManager,
   EventTypes,
@@ -8,11 +9,11 @@ import { Sprite, Text } from 'pixi.js'
 import { CallFunc, EaseBackIn, ScaleTo, Sequence } from 'pixi-action-ease'
 
 import { NodeComp, SpriteRender } from '..'
-import { ButtonComp, LabelComp, ProgressBarComp, ScrollView } from '../components/GUIComponent'
-import { LoadingBar } from '../core/LoadingBar'
+import { ButtonComp, LabelComp, ProgressBarComp, ProgressTimerComp, ScrollView } from '../components/GUIComponent'
+import { LoadingBar, LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
 
 export class GUISystem implements System {
-  configure(event_manager: EventManager) {
+  configure(event_manager: EventManager<GameWorld>) {
     event_manager.subscribe(EventTypes.ComponentAdded, ButtonComp, ({ entity, component }) => {
       const nodeComp = entity.getComponent(NodeComp)
       // const { normalImage, selectedImage, disableImage, texType, zoomScale } = button
@@ -46,13 +47,22 @@ export class GUISystem implements System {
       component.node = entity.assign(new NodeComp(node, entity))
       node.progress = progress
     })
+    event_manager.subscribe(EventTypes.ComponentAdded, ProgressTimerComp, ({ entity, component }) => {
+      // console.log(component, '.progress')
+      const { spriteFrame, fillCenter } = component
+      const node = new ProgressTimer(LoadingBarMode.BAR, spriteFrame)
+      if (fillCenter) {
+        node.fillCenter = fillCenter
+      }
+      component.node = entity.assign(new NodeComp(node, entity))
+    })
     event_manager.subscribe(EventTypes.ComponentAdded, ScrollView, ({ entity, component }) => {
       const { width, height } = component
       const view = new ScrollBox({ width, height })
       component.node = entity.assign(new NodeComp(view, entity))
     })
     event_manager.subscribe(EventTypes.ComponentAdded, LabelComp, ({ entity, component }) => {
-      console.log('ComponentAddedEvent LabelComp', component)
+      // console.log('ComponentAddedEvent LabelComp', component)
       const node = new Text()
       // node.texture.rotate = 8
       node.style.fill = '#fff'
@@ -64,7 +74,7 @@ export class GUISystem implements System {
     })
     // event_manager.subscribe(EventTypes.ComponentAdded, BlockInputEventsComp), this);
   }
-  update() {
-    // throw new Error('Method not implemented.');
-  }
+  // update() {
+  // throw new Error('Method not implemented.');
+  // }
 }

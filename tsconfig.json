@@ -5,7 +5,7 @@
       "dom"
     ],
     "outDir": "dist",
-    "target": "es5",
+    "target": "ES6",
     "declaration": true,
     "declarationMap": true,
     "skipLibCheck": true,
