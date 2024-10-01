@@ -3,7 +3,26 @@ import { Constructor, System } from 'entityx-ts'
 import { Application } from 'pixi.js'
 import { actionManager } from 'pixi-action-ease'
 
+import { NodeComp } from './components/NodeComp'
+
 export const app = new Application()
+
+export async function addGameCanvasTo(id = 'game') {
+  await app.init({
+    antialias: true,
+    resolution: window.devicePixelRatio,
+    resizeTo: window,
+    eventFeatures: {
+      move: true,
+      /** disables the global move events which can be very expensive in large scenes */
+      globalMove: false,
+      click: true,
+      wheel: false,
+    },
+    canvas: document.getElementById(id) as HTMLCanvasElement
+  })
+  GameWorld.Instance.setup(NodeComp, app.stage)
+}
 
 export function setupResolution(designedResolution = { width: 720, height: 1280 }) {
   const { width, height } = designedResolution
