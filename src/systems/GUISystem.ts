@@ -1,16 +1,16 @@
-import { Button, ScrollBox } from '@pixi/ui'
+import { Button, ProgressBar, ScrollBox } from '@pixi/ui'
 import { GameWorld } from '@safe-engine/core'
 import {
   EventManager,
   EventTypes,
   System
 } from 'entityx-ts'
-import { Sprite, Text } from 'pixi.js'
+import { Text } from 'pixi.js'
 import { CallFunc, EaseBackIn, ScaleTo, Sequence } from 'pixi-action-ease'
 
-import { NodeComp, SpriteRender } from '..'
+import { NodeComp } from '..'
 import { ButtonComp, LabelComp, ProgressBarComp, ProgressTimerComp, ScrollView } from '../components/GUIComponent'
-import { LoadingBar, LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
+import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
 
 export class GUISystem implements System {
   configure(event_manager: EventManager<GameWorld>) {
@@ -39,13 +39,9 @@ export class GUISystem implements System {
       })
     })
     event_manager.subscribe(EventTypes.ComponentAdded, ProgressBarComp, ({ entity, component }) => {
-      const spriteComp = entity.getComponent(SpriteRender)
-      if (!spriteComp) throw Error('ProgressBarComp need SpriteRender')
-      const { progress, mode } = component
-      const node = new LoadingBar(mode, spriteComp.node.instance as Sprite)
-      spriteComp.node.instance.mask = node
+      const { progress = 1, bg, fill } = component
+      const node = new ProgressBar({ bg, fill, progress })
       component.node = entity.assign(new NodeComp(node, entity))
-      node.progress = progress
     })
     event_manager.subscribe(EventTypes.ComponentAdded, ProgressTimerComp, ({ entity, component }) => {
       // console.log(component, '.progress')
