@@ -7,13 +7,6 @@ import { NodeComp } from './components/NodeComp'
 
 export const app = new Application()
 
-export function setupResolution(designedResolution = { width: 720, height: 1280 }) {
-  const { width, height } = designedResolution
-  app.renderer.resize(width, height)
-  // app.stage.position.y = app.renderer.height / app.renderer.resolution
-  // app.stage.scale.y = -1
-}
-
 export async function addGameCanvasTo(id = 'game') {
   await app.init({
     antialias: true,
@@ -26,16 +19,16 @@ export async function addGameCanvasTo(id = 'game') {
       click: true,
       wheel: false,
     },
+    canvas: document.getElementById(id) as HTMLCanvasElement
   })
-  Object.assign(app.canvas.style, {
-    width: `${window.innerWidth}px`,
-    // height: `${window.innerHeight}px`,
-    overflow: 'hidden',
-  })
-
-  const gameDiv = document.getElementById(id)
-  gameDiv.appendChild(app.canvas)
   GameWorld.Instance.setup(NodeComp, app.stage)
+}
+
+export function setupResolution(designedResolution = { width: 720, height: 1280 }) {
+  const { width, height } = designedResolution
+  app.renderer.resize(width, height)
+  // app.stage.position.y = app.renderer.height / app.renderer.resolution
+  // app.stage.scale.y = -1
 }
 
 function startGameLoop(world: GameWorld) {

@@ -1,8 +1,9 @@
+import {ProgressBar } from '@pixi/ui'
 import { ComponentX, NoRenderComponentX } from '@safe-engine/core'
 import { Assets, Container, Point, Text } from 'pixi.js'
 
 import { Color4B } from '../core/Color'
-import { LoadingBar, LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
+import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
 import { NodeComp } from './NodeComp'
 
 // const _htmlTextParser = new HtmlTextParser()
@@ -30,17 +31,17 @@ export class ButtonComp extends NoRenderComponentX<NodeComp> {
   }
 }
 
-export class ProgressBarComp extends NoRenderComponentX<NodeComp<LoadingBar>> {
+export class ProgressBarComp extends NoRenderComponentX<NodeComp<ProgressBar>> {
   mode = LoadingBarMode.BAR
-  private _progress: number
   isReverse: boolean
+  bg: string
+  fill: string
 
   get progress() {
-    return this._progress
+    return this.node.instance.progress
   }
 
   set progress(val: number) {
-    this._progress = val
     this.node.instance.progress = val
   }
 }
