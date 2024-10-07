@@ -1,6 +1,6 @@
-import {ProgressBar } from '@pixi/ui'
+import { Input, ProgressBar } from '@pixi/ui'
 import { ComponentX, NoRenderComponentX } from '@safe-engine/core'
-import { Assets, Container, Point, Text } from 'pixi.js'
+import { Assets, Container, FillInput, Point, Text } from 'pixi.js'
 
 import { Color4B } from '../core/Color'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
@@ -139,4 +139,12 @@ export class LabelShadowComp extends NoRenderComponentX<NodeComp> {
   color: typeof Color4B
   blur: number
   offset: Point
+}
+
+export class InputComp extends ComponentX<NodeComp<Input>> {
+  bg: string
+  fill: FillInput
+  font: string
+  string: string
+  size = 64
 }
