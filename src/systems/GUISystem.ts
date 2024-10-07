@@ -1,4 +1,4 @@
-import { Button, ProgressBar, ScrollBox } from '@pixi/ui'
+import { Button, Input, ProgressBar, ScrollBox } from '@pixi/ui'
 import { GameWorld } from '@safe-engine/core'
 import {
   EventManager,
@@ -9,7 +9,7 @@ import { Text } from 'pixi.js'
 import { CallFunc, EaseBackIn, ScaleTo, Sequence } from 'pixi-action-ease'
 
 import { NodeComp } from '..'
-import { ButtonComp, LabelComp, ProgressBarComp, ProgressTimerComp, ScrollView } from '../components/GUIComponent'
+import { ButtonComp, InputComp, LabelComp, ProgressBarComp, ProgressTimerComp, ScrollView } from '../components/GUIComponent'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
 
 export class GUISystem implements System {
@@ -55,6 +55,11 @@ export class GUISystem implements System {
     event_manager.subscribe(EventTypes.ComponentAdded, ScrollView, ({ entity, component }) => {
       const { width, height } = component
       const view = new ScrollBox({ width, height })
+      component.node = entity.assign(new NodeComp(view, entity))
+    })
+    event_manager.subscribe(EventTypes.ComponentAdded, InputComp, ({ entity, component }) => {
+      const { bg, size = 48, fill } = component
+      const view = new Input({ bg, textStyle: { fontSize: size, fill } })
       component.node = entity.assign(new NodeComp(view, entity))
     })
     event_manager.subscribe(EventTypes.ComponentAdded, LabelComp, ({ entity, component }) => {
