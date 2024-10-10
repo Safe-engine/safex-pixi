@@ -1,4 +1,4 @@
-import { Input, ProgressBar } from '@pixi/ui'
+import { CheckBox, CheckBoxOptions, Input, List, ProgressBar, RadioGroup, Slider, SliderOptions } from '@pixi/ui'
 import { ComponentX, NoRenderComponentX } from '@safe-engine/core'
 import { Assets, Container, FillInput, Point, Text } from 'pixi.js'
 
@@ -147,4 +147,17 @@ export class InputComp extends ComponentX<NodeComp<Input>> {
   font: string
   string: string
   size = 64
+}
+
+export class ListComp extends ComponentX<NodeComp<List>> {
+}
+export class SliderComp extends ComponentX<NodeComp<Slider>> {
+  bg: string
+  fill: SliderOptions['fill']
+  slider: Container
+}
+export class RadioGroupComp extends ComponentX<NodeComp<RadioGroup>> {
+}
+export class CheckBoxComp extends ComponentX<NodeComp<CheckBox>> {
+  style: CheckBoxOptions['style'];
 }
