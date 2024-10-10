@@ -1,4 +1,4 @@
-import { Button, Input, ProgressBar, ScrollBox } from '@pixi/ui'
+import { Button, CheckBox, Input, List, ProgressBar, RadioGroup, ScrollBox, Slider } from '@pixi/ui'
 import { GameWorld } from '@safe-engine/core'
 import {
   EventManager,
@@ -9,7 +9,7 @@ import { Text } from 'pixi.js'
 import { CallFunc, EaseBackIn, ScaleTo, Sequence } from 'pixi-action-ease'
 
 import { NodeComp } from '..'
-import { ButtonComp, InputComp, LabelComp, ProgressBarComp, ProgressTimerComp, ScrollView } from '../components/GUIComponent'
+import { ButtonComp, CheckBoxComp, InputComp, LabelComp, ListComp, ProgressBarComp, ProgressTimerComp, RadioGroupComp, ScrollView, SliderComp } from '../components/GUIComponent'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
 
 export class GUISystem implements System {
@@ -55,6 +55,24 @@ export class GUISystem implements System {
     event_manager.subscribe(EventTypes.ComponentAdded, ScrollView, ({ entity, component }) => {
       const { width, height } = component
       const view = new ScrollBox({ width, height })
+      component.node = entity.assign(new NodeComp(view, entity))
+    })
+    event_manager.subscribe(EventTypes.ComponentAdded, ListComp, ({ entity, component }) => {
+      const view = new List()
+      component.node = entity.assign(new NodeComp(view, entity))
+    })
+    event_manager.subscribe(EventTypes.ComponentAdded, SliderComp, ({ entity, component }) => {
+      const { bg, slider, fill } = component
+      const view = new Slider({ bg, fill, slider })
+      component.node = entity.assign(new NodeComp(view, entity))
+    })
+    event_manager.subscribe(EventTypes.ComponentAdded, RadioGroupComp, ({ entity, component }) => {
+      const view = new RadioGroup()
+      component.node = entity.assign(new NodeComp(view, entity))
+    })
+    event_manager.subscribe(EventTypes.ComponentAdded, CheckBoxComp, ({ entity, component }) => {
+      const { style } = component
+      const view = new CheckBox({ style })
       component.node = entity.assign(new NodeComp(view, entity))
     })
     event_manager.subscribe(EventTypes.ComponentAdded, InputComp, ({ entity, component }) => {
