@@ -226,8 +226,8 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
     return this.entity.assign(instance)
   }
 
-  getComponent<T extends ComponentType>(component: Constructor<T>): T {
-    return this.entity.getComponent(component)
+  getComponent<T extends Constructor<ComponentType>>(component: T): InstanceType<T> {
+    return this.entity.getComponent(component) as any
   }
 
   getComponentsInChildren<T extends ComponentType>(component: Constructor<T>): T[] {
