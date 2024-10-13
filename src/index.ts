@@ -1,4 +1,5 @@
 export * from './app'
+export * from './components/BaseComponent'
 export * from './components/GUIComponent'
 export * from './components/NodeComp'
 export * from './components/RenderComponent'

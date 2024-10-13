@@ -398,6 +398,7 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
   }
 
   resolveComponent(component: EnhancedComponent<NodeComp>) {
+    // console.log(component.constructor.name, (component.constructor as any).hasRender)
     if ((component.constructor as any).hasRender) {
       this.addChild(component.node)
     } else {
