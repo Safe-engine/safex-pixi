@@ -24,7 +24,7 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
   actionsList: Animation[] = []
   // offset: cc.Point = cc.v2(0, 0);
   name: string
-  private lastMove: { x: number; y: number }
+  // private lastMove: { x: number; y: number }
   private _group = 0
 
   onTouchStart?: TouchEVentCallback
@@ -136,7 +136,7 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
     if (this.instance instanceof Sprite)
       return (this.instance as Sprite).anchor.y
     return 0
-  } ß
+  }
 
   set anchorY(val: number) {
     if (this.instance instanceof Sprite) this.instance.anchor.y = val
