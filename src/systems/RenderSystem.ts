@@ -39,8 +39,8 @@ export class RenderSystem implements System {
       }
       // node.texture.rotate = 8
       component.node = entity.assign(new NodeComp(node, entity))
-      // component.node.anchorX = 0.5
-      // component.node.anchorY = 0.5
+      component.node.anchorX = 0.5
+      component.node.anchorY = 0.5
     })
     event_manager.subscribe(EventTypes.ComponentAdded, MaskRender, ({ component }) => {
       console.log('MaskRender', component);
