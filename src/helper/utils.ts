@@ -8,6 +8,12 @@ export function v2(x = 0, y = 0) {
   return new Point(x, y)
 }
 
+export function getDistance(point1: Point, point2: Point) {
+  const dx = point2.x - point1.x;
+  const dy = point2.y - point1.y;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
 export function registerSystem<T extends EnhancedComponent<any>>(component: Constructor<T>) {
   if (GameWorld.Instance.systems.isRegistered(`${component.name}System`)) {
     return
