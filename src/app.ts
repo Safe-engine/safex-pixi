@@ -3,8 +3,6 @@ import { Constructor, System } from 'entityx-ts'
 import { Application } from 'pixi.js'
 import { actionManager } from 'pixi-action-ease'
 
-import { NodeComp } from './components/NodeComp'
-
 export const app = new Application()
 
 export async function addGameCanvasTo(id = 'game') {
@@ -21,7 +19,7 @@ export async function addGameCanvasTo(id = 'game') {
     },
     canvas: document.getElementById(id) as HTMLCanvasElement
   })
-  GameWorld.Instance.setup(NodeComp, app.stage)
+  // GameWorld.Instance.setup(NodeComp, app.stage)
 }
 
 export function setupResolution(designedResolution = { width: 720, height: 1280 }) {
