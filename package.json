@@ -17,10 +17,10 @@
   "license": "ISC",
   "dependencies": {
     "@pixi/ui": "^2.1.5",
-    "entityx-ts": "^2.1.2",
-    "@safe-engine/core": "2.1.2",
+    "entityx-ts": "latest",
+    "@safe-engine/core": "latest",
     "lodash": "^4.17.21",
-    "pixi-action-ease": "^1.0.12",
+    "pixi-action-ease": "latest",
     "pixi.js": "^8.4.0"
   },
   "devDependencies": {
