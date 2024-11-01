@@ -1,10 +1,9 @@
 import { CheckBox, CheckBoxOptions, Input, List, ProgressBar, RadioGroup, Slider, SliderOptions } from '@pixi/ui'
-import { ComponentX, NoRenderComponentX } from '@safe-engine/core'
 import { Assets, Container, FillInput, Point, Text } from 'pixi.js'
 
 import { Color4B } from '../core/Color'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
-import { NodeComp } from './NodeComp'
+import { ComponentX, NoRenderComponentX } from './BaseComponent'
 
 // const _htmlTextParser = new HtmlTextParser()
 export const FillType = {
@@ -15,7 +14,7 @@ export const FillType = {
 type Keys = keyof typeof FillType
 type Values = (typeof FillType)[Keys]
 
-export class ButtonComp extends NoRenderComponentX<NodeComp> {
+export class ButtonComp extends NoRenderComponentX {
   normalImage: string
   selectedImage: string
   disableImage: string
@@ -31,7 +30,7 @@ export class ButtonComp extends NoRenderComponentX<NodeComp> {
   }
 }
 
-export class ProgressBarComp extends NoRenderComponentX<NodeComp<ProgressBar>> {
+export class ProgressBarComp extends ComponentX<ProgressBar> {
   mode = LoadingBarMode.BAR
   isReverse: boolean
   bg: string
@@ -46,7 +45,7 @@ export class ProgressBarComp extends NoRenderComponentX<NodeComp<ProgressBar>> {
   }
 }
 
-export class LabelComp extends ComponentX<NodeComp<Text>> {
+export class LabelComp extends ComponentX<Text> {
   font: string
   string: string
   size = 64
@@ -88,14 +87,14 @@ export class LabelComp extends ComponentX<NodeComp<Text>> {
   }
 }
 
-export class ScrollView extends ComponentX<NodeComp<Container>> {
+export class ScrollView extends NoRenderComponentX {
   width: number
   height: number
 }
 
-export class BlockInputEventsComp extends NoRenderComponentX<NodeComp<Container>> { }
+export class BlockInputEventsComp extends NoRenderComponentX { }
 
-export class ProgressTimerComp extends ComponentX<NodeComp<ProgressTimer>> {
+export class ProgressTimerComp extends ComponentX<ProgressTimer> {
   spriteFrame: string
   fillType: Values
   fillRange: number
@@ -116,7 +115,7 @@ export class ProgressTimerComp extends ComponentX<NodeComp<ProgressTimer>> {
   }
 }
 
-export class RichTextComp extends ComponentX<NodeComp<Text>> {
+export class RichTextComp extends ComponentX<Text> {
   protected font: string
   protected string: string
   protected size: number
@@ -130,18 +129,18 @@ export class RichTextComp extends ComponentX<NodeComp<Text>> {
   }
 }
 
-export class LabelOutlineComp extends NoRenderComponentX<NodeComp> {
+export class LabelOutlineComp extends NoRenderComponentX {
   color: typeof Color4B
   width: number
 }
 
-export class LabelShadowComp extends NoRenderComponentX<NodeComp> {
+export class LabelShadowComp extends NoRenderComponentX {
   color: typeof Color4B
   blur: number
   offset: Point
 }
 
-export class InputComp extends ComponentX<NodeComp<Input>> {
+export class InputComp extends ComponentX<Input> {
   bg: string
   fill: FillInput
   font: string
@@ -149,15 +148,15 @@ export class InputComp extends ComponentX<NodeComp<Input>> {
   size = 64
 }
 
-export class ListComp extends ComponentX<NodeComp<List>> {
+export class ListComp extends ComponentX<List> {
 }
-export class SliderComp extends ComponentX<NodeComp<Slider>> {
+export class SliderComp extends ComponentX<Slider> {
   bg: string
   fill: SliderOptions['fill']
   slider: Container
 }
-export class RadioGroupComp extends ComponentX<NodeComp<RadioGroup>> {
+export class RadioGroupComp extends ComponentX<RadioGroup> {
 }
-export class CheckBoxComp extends ComponentX<NodeComp<CheckBox>> {
+export class CheckBoxComp extends ComponentX<CheckBox> {
   style: CheckBoxOptions['style'];
 }

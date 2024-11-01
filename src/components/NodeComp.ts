@@ -24,7 +24,7 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
   actionsList: Animation[] = []
   // offset: cc.Point = cc.v2(0, 0);
   name: string
-  private lastMove: { x: number; y: number }
+  // private lastMove: { x: number; y: number }
   private _group = 0
 
   onTouchStart?: TouchEVentCallback
@@ -136,7 +136,7 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
     if (this.instance instanceof Sprite)
       return (this.instance as Sprite).anchor.y
     return 0
-  } ß
+  }
 
   set anchorY(val: number) {
     if (this.instance instanceof Sprite) this.instance.anchor.y = val
@@ -226,8 +226,8 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
     return this.entity.assign(instance)
   }
 
-  getComponent<T extends ComponentType>(component: Constructor<T>): T {
-    return this.entity.getComponent(component)
+  getComponent<T extends Constructor<ComponentType>>(component: T): InstanceType<T> {
+    return this.entity.getComponent(component) as any
   }
 
   getComponentsInChildren<T extends ComponentType>(component: Constructor<T>): T[] {
@@ -398,6 +398,7 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
   }
 
   resolveComponent(component: EnhancedComponent<NodeComp>) {
+    // console.log(component.constructor.name, (component.constructor as any).hasRender)
     if ((component.constructor as any).hasRender) {
       this.addChild(component.node)
     } else {

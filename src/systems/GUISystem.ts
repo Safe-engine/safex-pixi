@@ -23,8 +23,8 @@ export class GUISystem implements System {
       // component.node = entity.assign(new NodeComp(node, entity))
       node.onPress.connect(() => {
         // console.log('onPress.connect')
-        const scale = ScaleTo.create(0.12, 1.2)
-        const scaleDown = ScaleTo.create(0.12, 1)
+        const scale = ScaleTo.create(0.5, 1.2)
+        const scaleDown = ScaleTo.create(0.5, 1)
         const seq = Sequence.create(
           scale,
           CallFunc.create(() => {
