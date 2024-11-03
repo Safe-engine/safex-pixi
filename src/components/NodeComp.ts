@@ -115,11 +115,11 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
   }
 
   get scaleY() {
-    return this.instance.y
+    return this.instance.scale.y
   }
 
   set scaleY(val: number) {
-    this.instance.y = val
+    this.instance.scale.y = val
   }
 
   get anchorX() {
