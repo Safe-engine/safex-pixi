@@ -4,6 +4,7 @@ import { GameWorld } from './base'
 import { CollideSystem } from './collider'
 import { SpineSystem } from './spine'
 import { GUISystem } from './systems/GUISystem'
+import { NoRenderSystem } from './systems/NoRenderSystem'
 import { RenderSystem } from './systems/RenderSystem'
 
 export const app = new Application()
@@ -42,7 +43,7 @@ function startGameLoop(world: GameWorld) {
   // app.ticker.speed = 0.5
 }
 
-const systemsList = [RenderSystem, GUISystem, SpineSystem, CollideSystem]
+const systemsList = [RenderSystem, GUISystem, SpineSystem, CollideSystem, NoRenderSystem]
 export function startGameSystems() {
   const world = GameWorld.Instance
   systemsList.forEach(system => {
