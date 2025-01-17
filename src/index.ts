@@ -1,6 +1,5 @@
 export * from '@safe-engine/core'
 export * from 'pixi-action-ease'
-export * from 'pixi.js'
 export * from './app'
 export * from './components/BaseComponent'
 export * from './components/GUIComponent'
