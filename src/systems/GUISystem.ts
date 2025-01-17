@@ -5,8 +5,8 @@ import {
   EventTypes,
   System
 } from 'entityx-ts'
+import { callFunc, easeBackIn, scaleTo, sequence } from 'pixi-action-ease'
 import { Text } from 'pixi.js'
-import { CallFunc, EaseBackIn, ScaleTo, Sequence } from 'pixi-action-ease'
 
 import { NodeComp } from '..'
 import { ButtonComp, CheckBoxComp, InputComp, LabelComp, ListComp, ProgressBarComp, ProgressTimerComp, RadioGroupComp, ScrollView, SliderComp } from '../components/GUIComponent'
@@ -23,18 +23,18 @@ export class GUISystem implements System {
       // component.node = entity.assign(new NodeComp(node, entity))
       node.onPress.connect(() => {
         // console.log('onPress.connect')
-        const scale = ScaleTo.create(0.5, 1.2)
-        const scaleDown = ScaleTo.create(0.5, 1)
-        const seq = Sequence.create(
+        const scale = scaleTo(0.5, 1.2)
+        const scaleDown = scaleTo(0.5, 1)
+        const seq = sequence(
           scale,
-          CallFunc.create(() => {
+          callFunc(() => {
             if (Object.prototype.hasOwnProperty.call(component, 'onPress')) {
               component.onPress(component)
             }
           }),
           scaleDown,
         )
-        const ease = EaseBackIn.create(seq)
+        const ease = easeBackIn(seq)
         component.node.runAction(ease)
       })
     })
