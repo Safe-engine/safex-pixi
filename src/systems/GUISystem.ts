@@ -17,11 +17,12 @@ export class GUISystem implements System {
     event_manager.subscribe(EventTypes.ComponentAdded, ButtonComp, ({ entity, component }) => {
       const nodeComp = entity.getComponent(NodeComp)
       // const { normalImage, selectedImage, disableImage, texType, zoomScale } = button
-      const node = new Button(nodeComp.instance)
+      // console.log('onPress.ButtonComp', component)
+      const button = new Button(nodeComp.instance)
       // node.setZoomScale(zoomScale - 1)
       component.node = nodeComp
       // component.node = entity.assign(new NodeComp(node, entity))
-      node.onPress.connect(() => {
+      button.onPress.connect(() => {
         // console.log('onPress.connect')
         const scale = scaleTo(0.5, 1.2)
         const scaleDown = scaleTo(0.5, 1)

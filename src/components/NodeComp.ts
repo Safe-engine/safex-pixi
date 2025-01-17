@@ -418,6 +418,7 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
 
   setData<T>(key: string, value: T) {
     const data = this.getComponent(ExtraDataComp)
+    console.log('setData', key, value, data)
     if (!data) {
       this.addComponent(ExtraDataComp.create({ key, value }))
     } else {
