@@ -1,5 +1,5 @@
-import { EnhancedComponent, GameWorld } from '@safe-engine/core'
 import { Container } from 'pixi.js'
+import { EnhancedComponent, GameWorld } from '../base'
 
 import { NodeComp } from './NodeComp'
 

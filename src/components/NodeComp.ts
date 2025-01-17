@@ -1,11 +1,12 @@
-import { BaseNode, ComponentType, EnhancedComponent } from '@safe-engine/core'
 import { Constructor, Entity } from 'entityx-ts'
 import remove from 'lodash/remove'
-import { Color, ColorSource, Container, Point, Sprite } from 'pixi.js'
 import { Action, actionManager, Animation } from 'pixi-action-ease'
+import { Color, ColorSource, Container, Point, Sprite } from 'pixi.js'
+import { BaseNode, ComponentType, EnhancedComponent } from '../base'
 
 import { Size } from '../core/Size'
 import { ProgressBarComp } from './GUIComponent'
+import { ExtraDataComp } from './NoRenderComponent'
 
 export type EventCallbackType = (...args) => void
 export interface EventMap {
@@ -408,10 +409,19 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
       }
     }
   }
+
   getData<T>(key: string): T {
-    return this.data[key]
+    const data = this.getComponent(ExtraDataComp)
+    if (!data) throw Error('need add ExtraDataComp to Node')
+    return data.getData(key)
   }
-  setData<T>(key: string, val: T) {
-    this.data[key] = val
+
+  setData<T>(key: string, value: T) {
+    const data = this.getComponent(ExtraDataComp)
+    if (!data) {
+      this.addComponent(ExtraDataComp.create({ key, value }))
+    } else {
+      data.setData(key, value)
+    }
   }
 }

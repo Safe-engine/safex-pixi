@@ -1,6 +1,6 @@
-import { EnhancedComponent, GameWorld } from '@safe-engine/core';
 import { Constructor, EntityManager, EventManager, EventReceive, EventTypes, System } from 'entityx-ts';
 import { Point } from 'pixi.js';
+import { EnhancedComponent, GameWorld } from '../base';
 
 import { NodeComp } from '../components/NodeComp';
 

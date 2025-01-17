@@ -1,4 +1,4 @@
-import { EnhancedComponent, GameWorld } from '@safe-engine/core'
+import { EnhancedComponent, GameWorld } from '../base'
 
 import { app } from '../app'
 import { NodeComp } from './NodeComp'
