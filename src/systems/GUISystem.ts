@@ -1,5 +1,4 @@
 import { Button, CheckBox, Input, List, ProgressBar, RadioGroup, ScrollBox, Slider } from '@pixi/ui'
-import { GameWorld } from '@safe-engine/core'
 import {
   EventManager,
   EventTypes,
@@ -7,6 +6,7 @@ import {
 } from 'entityx-ts'
 import { callFunc, easeBackIn, scaleTo, sequence } from 'pixi-action-ease'
 import { Text } from 'pixi.js'
+import { GameWorld } from '../base'
 
 import { NodeComp } from '..'
 import { ButtonComp, CheckBoxComp, InputComp, LabelComp, ListComp, ProgressBarComp, ProgressTimerComp, RadioGroupComp, ScrollView, SliderComp } from '../components/GUIComponent'

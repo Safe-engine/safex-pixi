@@ -16,8 +16,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@esotericsoftware/spine-pixi-v8": "^4.2.70",
     "@pixi/ui": "^2.2.0",
-    "@safe-engine/core": "workspace:*",
     "entityx-ts": "^2.1.2",
     "lodash": "^4.17.21",
     "pixi-action-ease": "^3.0.6",
