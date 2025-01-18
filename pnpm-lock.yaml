@@ -11,9 +11,9 @@ importers:
       '@pixi/ui':
         specifier: ^2.2.0
         version: 2.2.0(pixi.js@8.6.6)
-      '@safe-engine/core':
-        specifier: ^2.1.3
-        version: 2.1.3
+      dragonbones-pixijs:
+        specifier: ^1.0.3
+        version: 1.0.3
       entityx-ts:
         specifier: ^2.1.2
         version: 2.1.2
@@ -44,9 +44,6 @@ packages:
     peerDependencies:
       pixi.js: ^8.6.2
 
-  '@safe-engine/core@2.1.3':
-    resolution: {integrity: sha512-wBMu0Tf4JyX8fC/T8RDxsC4XdVZX6CFPCVGLxKRWq7url8CT3uiWOieeAZta4lKb0afk6tXepYMJVh6+hK99kw==}
-
   '@types/css-font-loading-module@0.0.12':
     resolution: {integrity: sha512-x2tZZYkSxXqWvTDgveSynfjq/T2HyiZHXb00j/+gy19yp70PHCizM48XFdjBCWH7eHBD0R5i/pw9yMBP/BH5uA==}
 
@@ -62,6 +59,9 @@ packages:
   '@xmldom/xmldom@0.8.10':
     resolution: {integrity: sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==}
     engines: {node: '>=10.0.0'}
+
+  dragonbones-pixijs@1.0.3:
+    resolution: {integrity: sha512-KIMcHGr8U59929yNo2Ssn4EvoMtKVSpZKQt5zBaAS2Vo4kbQ4r2cg/OPIziUq+Es3b3rxk0Csqlppdzd/gc6GQ==}
 
   earcut@2.2.4:
     resolution: {integrity: sha512-/pjZsA1b4RPHbeWZQn66SWS8nZZWLQQ23oE3Eam7aroEFGEvwKAsJfZ9ytiEMycfzXWpca4FA9QIOehf7PocBQ==}
@@ -108,10 +108,6 @@ snapshots:
       tweedle.js: 2.1.0
       typed-signals: 2.5.0
 
-  '@safe-engine/core@2.1.3':
-    dependencies:
-      entityx-ts: 2.1.2
-
   '@types/css-font-loading-module@0.0.12': {}
 
   '@types/earcut@2.1.4': {}
@@ -121,6 +117,10 @@ snapshots:
   '@webgpu/types@0.1.53': {}
 
   '@xmldom/xmldom@0.8.10': {}
+
+  dragonbones-pixijs@1.0.3:
+    dependencies:
+      pixi.js: 8.6.6
 
   earcut@2.2.4: {}
 
