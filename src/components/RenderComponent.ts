@@ -1,5 +1,6 @@
-import { ColorSource, Graphics, Point, Sprite, Texture, TextureSource } from 'pixi.js'
+import { ColorSource, Graphics, Point, Sprite, Texture } from 'pixi.js'
 
+import { GraphicsRenderProps, MaskRenderProps, SpriteRenderProps } from '../../@types/safex'
 import { LoadingBar, LoadingBarMode } from '../core/LoadingBar'
 import { SpriteTypes } from '../systems/RenderSystem'
 import { ComponentX } from './BaseComponent'
@@ -9,12 +10,15 @@ export class NodeRender extends ComponentX {
 }
 
 export class SpriteRender extends ComponentX<Sprite> {
-  public spriteFrame: TextureSource
+  public spriteFrame: string
   public type: SpriteTypes
   public fillType: LoadingBarMode = LoadingBarMode.BAR
   public fillRange = 1
   public fillCenter: Point
   loadingBar: LoadingBar
+  constructor(props: SpriteRenderProps ) {
+    super(props)
+  }
 
   // set fillStart(val: number) {
   //   if (this.node.instance instanceof cc.ProgressTimer) {
@@ -56,10 +60,16 @@ export class GraphicsRender extends ComponentX<Graphics> {
   lineWidth = 2
   strokeColor: ColorSource
   fillColor: ColorSource
+  constructor(props: GraphicsRenderProps ) {
+    super(props)
+  }
 }
 
 export class MaskRender extends ComponentX {
   type: number
   segments: number
   inverted: boolean
+  constructor(props: MaskRenderProps ) {
+    super(props)
+  }
 }

@@ -1,4 +1,5 @@
 import { Constructor, Entity } from 'entityx-ts'
+import { BaseComponentProps } from '../../@types/safex'
 
 export interface BaseNode<C> {
   active: boolean
@@ -12,7 +13,7 @@ export interface BaseNode<C> {
 }
 
 export class EnhancedComponent<N extends BaseNode<any> = BaseNode<any>> {
-  constructor(data?: object) {
+  constructor(data?: BaseComponentProps) {
     if (data) {
       // console.log('constructor', this.constructor.name, data)
       Object.keys(data).forEach((key) => {
