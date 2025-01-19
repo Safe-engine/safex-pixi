@@ -1,7 +1,7 @@
 import { CheckBox, CheckBoxOptions, Input, List, ProgressBar, RadioGroup, Slider, SliderOptions } from '@pixi/ui'
 import { Assets, Container, FillInput, Point, Text } from 'pixi.js'
 
-import { Color4B } from '../core/Color'
+import { ColorSource, LabelCompProps, LabelOutlineCompProps, ProgressTimerProps, ScrollViewProps } from '../../@types/safex'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
 import { ComponentX, NoRenderComponentX } from './BaseComponent'
 
@@ -49,6 +49,9 @@ export class LabelComp extends ComponentX<Text> {
   font: string
   string: string
   size = 64
+  constructor(props: LabelCompProps) {
+    super(props)
+  }
 
   getString() {
     if (this.node.instance instanceof Text) {
@@ -90,6 +93,9 @@ export class LabelComp extends ComponentX<Text> {
 export class ScrollView extends NoRenderComponentX {
   width: number
   height: number
+  constructor(props: ScrollViewProps) {
+    super(props)
+  }
 }
 
 export class BlockInputEventsComp extends NoRenderComponentX { }
@@ -100,6 +106,10 @@ export class ProgressTimerComp extends ComponentX<ProgressTimer> {
   fillRange: number
   fillCenter: Point
   isReverse: boolean
+
+  constructor(props: ProgressTimerProps) {
+    super(props)
+  }
 
   getFillRange() {
     return this.node.instance.progress
@@ -130,12 +140,15 @@ export class RichTextComp extends ComponentX<Text> {
 }
 
 export class LabelOutlineComp extends NoRenderComponentX {
-  color: typeof Color4B
+  color: ColorSource
   width: number
+  constructor(props: LabelOutlineCompProps) {
+    super()
+  }
 }
 
 export class LabelShadowComp extends NoRenderComponentX {
-  color: typeof Color4B
+  color: ColorSource
   blur: number
   offset: Point
 }

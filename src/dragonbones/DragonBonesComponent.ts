@@ -1,3 +1,4 @@
+import { DragonBonesProps } from "../../@types/safex"
 import { ComponentX } from "../components/BaseComponent"
 
 export type DragonBonesData = {
@@ -11,6 +12,9 @@ export class DragonBones extends ComponentX {
   animation: string
   playTimes = 0
   timeScale: number
+  constructor(data: DragonBonesProps) {
+    super(data)
+  }
 
   setAnimation(name: string, playTimes = 0) {
     const skel: any = this.node.instance

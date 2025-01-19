@@ -4,6 +4,7 @@ import max from 'lodash/max'
 import min from 'lodash/min'
 import { Graphics, Point, Rectangle, Size } from 'pixi.js'
 
+import { BoxColliderProps, CircleColliderProps, PolygonColliderProps } from '../../@types/safex'
 import { app } from '../app'
 import { NoRenderComponentX } from '../components/BaseComponent'
 import { NodeComp } from '../components/NodeComp'
@@ -62,6 +63,10 @@ export class Collider extends NoRenderComponentX {
 export class BoxCollider extends Collider {
   width: number
   height: number
+  constructor(props: BoxColliderProps) {
+    super(props)
+
+  }
   get size(): Size {
     return this
   }
@@ -102,6 +107,9 @@ export class BoxCollider extends Collider {
 
 export class CircleCollider extends Collider {
   radius: number
+  constructor(props: CircleColliderProps) {
+    super(props)
+  }
   update(dt, draw: Graphics) {
     if (!this.node) {
       return
@@ -129,6 +137,11 @@ export class CircleCollider extends Collider {
 
 export class PolygonCollider extends Collider {
   _points: number[]
+
+  constructor(props: PolygonColliderProps) {
+    super(props)
+    this._points = props.points || []
+  }
 
   get points(): Point[] {
     const { x, y } = this.offset
