@@ -1,7 +1,7 @@
 import { CheckBox, CheckBoxOptions, Input, List, ProgressBar, RadioGroup, Slider, SliderOptions } from '@pixi/ui'
 import { Assets, Container, FillInput, Point, Text } from 'pixi.js'
 
-import { ColorSource, LabelCompProps, LabelOutlineCompProps, ProgressTimerProps, ScrollViewProps } from '../../@types/safex'
+import { ButtonCompProps, ColorSource, LabelCompProps, LabelOutlineCompProps, LabelShadowCompProps, ProgressTimerProps, ScrollViewProps } from '../../@types/safex'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
 import { ComponentX, NoRenderComponentX } from './BaseComponent'
 
@@ -20,6 +20,9 @@ export class ButtonComp extends NoRenderComponentX {
   disableImage: string
   zoomScale: number
   onPress: (target: ButtonComp) => void
+  constructor(props: ButtonCompProps) {
+    super(props)
+  }
 
   setOnPress(cb: (target: ButtonComp) => void) {
     this.onPress = cb
@@ -107,7 +110,7 @@ export class ProgressTimerComp extends ComponentX<ProgressTimer> {
   fillCenter?: Point
   isReverse?: boolean
 
-  constructor(props: ProgressTimerProps) {
+  constructor(props: ProgressTimerProps & { $ref?: ProgressTimerComp }) {
     super(props)
   }
 
@@ -129,7 +132,9 @@ export class RichTextComp extends ComponentX<Text> {
   protected font: string
   protected string: string
   protected size: number
-
+  constructor(props: LabelCompProps) {
+    super(props)
+  }
   getString() {
     return this.string
   }
@@ -143,7 +148,7 @@ export class LabelOutlineComp extends NoRenderComponentX {
   color: ColorSource
   width: number
   constructor(props: LabelOutlineCompProps) {
-    super()
+    super(props)
   }
 }
 
@@ -151,6 +156,9 @@ export class LabelShadowComp extends NoRenderComponentX {
   color: ColorSource
   blur: number
   offset: Point
+  constructor(props: LabelShadowCompProps) {
+    super(props)
+  }
 }
 
 export class InputComp extends ComponentX<Input> {

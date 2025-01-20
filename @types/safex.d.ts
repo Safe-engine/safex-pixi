@@ -4,9 +4,10 @@ import { Color4B } from "../src/core/Color";
 type ColorSource = ReturnType<typeof Color4B>
 
 interface BaseComponentProps {
-  $ref?: string;
+  $ref?: object;
+  $push?: object[];
   node?: Partial<NodeComp>;
-  [$key: `$${string}`]: string
+  // [$key: `$${string}`]: string
 }
 
 interface NodeCompProps extends BaseComponentProps {
@@ -115,4 +116,12 @@ interface DragonBonesProps extends BaseComponentProps {
 interface ExtraDataProps extends BaseComponentProps {
   key: string
   value: any
+}
+
+interface ButtonCompProps extends BaseComponentProps {
+  normalImage?: string
+  selectedImage?: string
+  disableImage?: string
+  zoomScale?: number
+  onPress: (target: ButtonComp) => void
 }
