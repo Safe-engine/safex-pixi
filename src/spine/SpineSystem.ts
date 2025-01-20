@@ -1,5 +1,5 @@
-import { Spine } from '@esotericsoftware/spine-pixi-v8'
 import { EventManager, EventTypes, System } from 'entityx-ts'
+import { Spine } from './lib'
 
 import { NodeComp } from '../components/NodeComp'
 import { SpineSkeleton } from './SpineComponent'

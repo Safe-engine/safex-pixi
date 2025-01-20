@@ -1,4 +1,5 @@
 export * from 'pixi-action-ease'
+export * from 'pixi.js'
 export * from './app'
 export * from './base'
 export * from './collider'

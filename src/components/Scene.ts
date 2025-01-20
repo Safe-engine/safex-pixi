@@ -1,10 +1,14 @@
+import { BaseComponentProps } from '../../@types/safex'
+import { app } from '../app'
 import { EnhancedComponent, GameWorld } from '../base'
 
-import { app } from '../app'
 import { NodeComp } from './NodeComp'
 
 export class SceneComponent extends EnhancedComponent<NodeComp> {
-  static boot: () => void
+  // static boot: () => void
+  constructor(prop?: BaseComponentProps) {
+    super(prop)
+  }
   static create() {
     const world = GameWorld.Instance
     world.entities.reset()
@@ -14,4 +18,7 @@ export class SceneComponent extends EnhancedComponent<NodeComp> {
     sceneComponent.node = node
     return sceneComponent
   }
+  // static create(data?: any) {
+  //   return new this(data)
+  // }
 }

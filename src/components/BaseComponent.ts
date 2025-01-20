@@ -11,7 +11,10 @@ export class NoRenderComponentX<C extends Container = Container> extends Enhance
 
 export class ComponentX<C extends Container = Container> extends EnhancedComponent<NodeComp<C>> {
   static hasRender = true
+  render?(data?: any): any
   static create(data?: any) {
+    // console.log('create', this, this.prototype['render'])
+    if (this.prototype.render) return this.prototype.render(data)
     const world = GameWorld.Instance
     const root = world.entities.create()
     const comp = root.assign(new this(data))

@@ -102,10 +102,10 @@ export class BlockInputEventsComp extends NoRenderComponentX { }
 
 export class ProgressTimerComp extends ComponentX<ProgressTimer> {
   spriteFrame: string
-  fillType: Values
-  fillRange: number
-  fillCenter: Point
-  isReverse: boolean
+  fillType?: Values
+  fillRange?: number
+  fillCenter?: Point
+  isReverse?: boolean
 
   constructor(props: ProgressTimerProps) {
     super(props)

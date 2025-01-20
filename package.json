@@ -16,7 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@esotericsoftware/spine-pixi-v8": "^4.2.70",
+    "@esotericsoftware/spine-core": "^4.2.70",
     "@pixi/ui": "^2.2.0",
     "dragonbones-pixijs": "^1.0.3",
     "entityx-ts": "^2.1.2",

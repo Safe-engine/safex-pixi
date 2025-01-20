@@ -49,11 +49,9 @@ export function startGameSystems() {
   const world = GameWorld.Instance
   systemsList.forEach(system => {
     world.systems.add(system)
-    const sys = world.systemsMap[system.name]
-    if (sys.update) {
-      world.listUpdate.push(system)
-    }
+    world.systems.configureOnce(system)
   })
-  world.systems.configure()
+  world.listUpdate.push(CollideSystem)
   startGameLoop(world)
+  // console.log('startGameLoop', world.listUpdate)
 }

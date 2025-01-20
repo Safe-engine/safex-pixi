@@ -1,5 +1,6 @@
 // import { Touch } from '../../polyfills'
 import { FederatedPointerEvent } from 'pixi.js'
+import { ExtraDataProps } from '../../@types/safex'
 import { NoRenderComponentX } from './BaseComponent'
 import { EventCallbackType, EventMap, NodeComp } from './NodeComp'
 
@@ -58,6 +59,9 @@ export class ExtraDataComp extends NoRenderComponentX {
   key: string
   value: any
   data: { [key: string]: any } = {}
+  constructor(props: ExtraDataProps) {
+    super(props)
+  }
   getData<T>(key: string): T {
     return this.data[key]
   }
