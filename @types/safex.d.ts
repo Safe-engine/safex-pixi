@@ -31,10 +31,10 @@ interface MaskRenderProps extends BaseComponentProps {
 
 interface ProgressTimerProps extends BaseComponentProps {
   spriteFrame: string
-  fillType: LoadingBarMode
-  fillRange: number
-  fillCenter: Point
-  isReverse: boolean
+  fillType?: LoadingBarMode
+  fillRange?: number
+  fillCenter?: Point
+  isReverse?: boolean
 }
 
 interface LoadingBarProps extends BaseComponentProps {
@@ -110,5 +110,9 @@ interface DragonBonesProps extends BaseComponentProps {
   onAnimationStart?: (event: { name: string }) => void
   onAnimationEnd?: (event: { name: string }) => void
   onAnimationComplete?: (event: { name: string }) => void
+}
 
+interface ExtraDataProps extends BaseComponentProps {
+  key: string
+  value: any
 }
