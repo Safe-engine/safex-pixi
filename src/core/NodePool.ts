@@ -1,4 +1,4 @@
-import { NodeComp } from "safex"
+import { NodeComp } from "../components/NodeComp"
 
 export class NodePool {
   items: NodeComp[] = []
