@@ -3,6 +3,7 @@ import { Application } from 'pixi.js'
 import { GameWorld } from './base'
 import { CollideSystem } from './collider'
 import { DragonBonesSystem } from './dragonbones'
+import { PhysicsSystem } from './planck'
 import { SpineSystem } from './spine'
 import { GUISystem } from './systems/GUISystem'
 import { NoRenderSystem } from './systems/NoRenderSystem'
@@ -44,7 +45,7 @@ function startGameLoop(world: GameWorld) {
   // app.ticker.speed = 0.5
 }
 
-const systemsList = [RenderSystem, GUISystem, SpineSystem, DragonBonesSystem, CollideSystem, NoRenderSystem]
+const systemsList = [RenderSystem, GUISystem, SpineSystem, DragonBonesSystem, CollideSystem, PhysicsSystem, NoRenderSystem]
 export function startGameSystems() {
   const world = GameWorld.Instance
   systemsList.forEach(system => {
