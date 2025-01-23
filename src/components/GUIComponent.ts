@@ -1,6 +1,7 @@
 import { CheckBox, CheckBoxOptions, Input, List, ProgressBar, RadioGroup, Slider, SliderOptions } from '@pixi/ui'
 import { Assets, Container, FillInput, Point, Text } from 'pixi.js'
 
+import TaggedText from 'pixi-tagged-text-plus'
 import { ButtonCompProps, ColorSource, LabelCompProps, LabelOutlineCompProps, LabelShadowCompProps, ProgressTimerProps, ScrollViewProps } from '../../@types/safex'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
 import { ComponentX, NoRenderComponentX } from './BaseComponent'
@@ -115,10 +116,10 @@ export class ProgressTimerComp extends ComponentX<ProgressTimerProps & { $ref?: 
   }
 }
 
-export class RichTextComp extends ComponentX<LabelCompProps, Text> {
-  protected font: string
-  protected string: string
-  protected size: number
+export class RichTextComp extends ComponentX<LabelCompProps, TaggedText> {
+  font: string
+  string: string
+  size: number
 
   getString() {
     return this.string

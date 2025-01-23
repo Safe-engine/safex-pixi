@@ -8,8 +8,9 @@ import { callFunc, easeBackIn, scaleTo, sequence } from 'pixi-action-ease'
 import { Text } from 'pixi.js'
 import { GameWorld } from '../base'
 
+import TaggedText from 'pixi-tagged-text-plus'
 import { NodeComp } from '..'
-import { ButtonComp, CheckBoxComp, InputComp, LabelComp, ListComp, ProgressBarComp, ProgressTimerComp, RadioGroupComp, ScrollView, SliderComp } from '../components/GUIComponent'
+import { ButtonComp, CheckBoxComp, InputComp, LabelComp, ListComp, ProgressBarComp, ProgressTimerComp, RadioGroupComp, RichTextComp, ScrollView, SliderComp } from '../components/GUIComponent'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
 
 export class GUISystem implements System {
@@ -91,6 +92,22 @@ export class GUISystem implements System {
       if (font) component.setFont(font)
       component.setSize(size)
       component.setString(string)
+    })
+    event_manager.subscribe(EventTypes.ComponentAdded, RichTextComp, ({ entity, component }) => {
+      // console.log('ComponentAddedEvent LabelComp', component)
+      const { string = '', font = '', size } = component
+      const node = new TaggedText(`<size>${string}</size>`, {
+        pink: { color: 'red' },
+        green: { color: 'green' },
+        size: { fontSize: size },
+        font: { fontFamily: font }
+      }, {});
+      // node.texture.rotate = 8
+      // node.style.fill = '#fff'
+      component.node = entity.assign(new NodeComp(node, entity))
+      // if (font) component.setFont(font)
+      // component.setSize(size)
+      // component.setString(string)
     })
     // event_manager.subscribe(EventTypes.ComponentAdded, BlockInputEventsComp), this);
   }
