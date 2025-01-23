@@ -3,15 +3,15 @@ import { EnhancedComponent, GameWorld } from '../base'
 
 import { NodeComp } from './NodeComp'
 
-export class NoRenderComponentX<C extends Container = Container> extends EnhancedComponent<NodeComp<C>> {
+export class NoRenderComponentX<Props = Object, C extends Container = Container> extends EnhancedComponent<Props, NodeComp<C>> {
   static create(data?: any) {
     return new this(data)
   }
 }
 
-export class ComponentX<C extends Container = Container> extends EnhancedComponent<NodeComp<C>> {
+export class ComponentX<Props = Object, C extends Container = Container> extends EnhancedComponent<Props, NodeComp<C>> {
   static hasRender = true
-  render?(data?: any): any
+  render?(data?: Props): any
   static create(data?: any) {
     // console.log('create', this, this.prototype['render'])
     if (this.prototype.render) return this.prototype.render(data)

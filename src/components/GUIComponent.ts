@@ -14,15 +14,12 @@ export const FillType = {
 type Keys = keyof typeof FillType
 type Values = (typeof FillType)[Keys]
 
-export class ButtonComp extends NoRenderComponentX {
+export class ButtonComp extends NoRenderComponentX<ButtonCompProps> {
   normalImage: string
   selectedImage: string
   disableImage: string
   zoomScale: number
   onPress: (target: ButtonComp) => void
-  constructor(props: ButtonCompProps) {
-    super(props)
-  }
 
   setOnPress(cb: (target: ButtonComp) => void) {
     this.onPress = cb
@@ -33,7 +30,7 @@ export class ButtonComp extends NoRenderComponentX {
   }
 }
 
-export class ProgressBarComp extends ComponentX<ProgressBar> {
+export class ProgressBarComp extends ComponentX<{}, ProgressBar> {
   mode = LoadingBarMode.BAR
   isReverse: boolean
   bg: string
@@ -48,13 +45,10 @@ export class ProgressBarComp extends ComponentX<ProgressBar> {
   }
 }
 
-export class LabelComp extends ComponentX<Text> {
+export class LabelComp extends ComponentX<LabelCompProps, Text> {
   font: string
   string: string
   size = 64
-  constructor(props: LabelCompProps) {
-    super(props)
-  }
 
   getString() {
     if (this.node.instance instanceof Text) {
@@ -93,26 +87,19 @@ export class LabelComp extends ComponentX<Text> {
   }
 }
 
-export class ScrollView extends NoRenderComponentX {
+export class ScrollView extends NoRenderComponentX<ScrollViewProps> {
   width: number
   height: number
-  constructor(props: ScrollViewProps) {
-    super(props)
-  }
 }
 
 export class BlockInputEventsComp extends NoRenderComponentX { }
 
-export class ProgressTimerComp extends ComponentX<ProgressTimer> {
+export class ProgressTimerComp extends ComponentX<ProgressTimerProps & { $ref?: ProgressTimerComp }, ProgressTimer> {
   spriteFrame: string
   fillType?: Values
   fillRange?: number
   fillCenter?: Point
   isReverse?: boolean
-
-  constructor(props: ProgressTimerProps & { $ref?: ProgressTimerComp }) {
-    super(props)
-  }
 
   getFillRange() {
     return this.node.instance.progress
@@ -128,13 +115,11 @@ export class ProgressTimerComp extends ComponentX<ProgressTimer> {
   }
 }
 
-export class RichTextComp extends ComponentX<Text> {
+export class RichTextComp extends ComponentX<LabelCompProps, Text> {
   protected font: string
   protected string: string
   protected size: number
-  constructor(props: LabelCompProps) {
-    super(props)
-  }
+
   getString() {
     return this.string
   }
@@ -144,24 +129,18 @@ export class RichTextComp extends ComponentX<Text> {
   }
 }
 
-export class LabelOutlineComp extends NoRenderComponentX {
+export class LabelOutlineComp extends NoRenderComponentX<LabelOutlineCompProps> {
   color: ColorSource
   width: number
-  constructor(props: LabelOutlineCompProps) {
-    super(props)
-  }
 }
 
-export class LabelShadowComp extends NoRenderComponentX {
+export class LabelShadowComp extends NoRenderComponentX<LabelShadowCompProps> {
   color: ColorSource
   blur: number
   offset: Point
-  constructor(props: LabelShadowCompProps) {
-    super(props)
-  }
 }
 
-export class InputComp extends ComponentX<Input> {
+export class InputComp extends ComponentX<{}, Input> {
   bg: string
   fill: FillInput
   font: string
@@ -169,15 +148,15 @@ export class InputComp extends ComponentX<Input> {
   size = 64
 }
 
-export class ListComp extends ComponentX<List> {
+export class ListComp extends ComponentX<{}, List> {
 }
-export class SliderComp extends ComponentX<Slider> {
+export class SliderComp extends ComponentX<{}, Slider> {
   bg: string
   fill: SliderOptions['fill']
   slider: Container
 }
-export class RadioGroupComp extends ComponentX<RadioGroup> {
+export class RadioGroupComp extends ComponentX<{}, RadioGroup> {
 }
-export class CheckBoxComp extends ComponentX<CheckBox> {
+export class CheckBoxComp extends ComponentX<{}, CheckBox> {
   style: CheckBoxOptions['style'];
 }

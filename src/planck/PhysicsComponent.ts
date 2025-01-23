@@ -1,5 +1,6 @@
 import { Body, Vec2 } from 'planck'
 
+import { BoxColliderPhysicsProps, CircleColliderPhysicsProps, PhysicsMaterialProps, PolygonColliderPhysicsProps } from '../../@types/safex'
 import { NoRenderComponentX } from '../components/BaseComponent'
 import { PhysicsSprite } from './PhysicsSprite'
 
@@ -32,13 +33,13 @@ export class RigidBody extends NoRenderComponentX {
   // }
 }
 
-export class PhysicsMaterial extends NoRenderComponentX {
+export class PhysicsMaterial extends NoRenderComponentX<PhysicsMaterialProps> {
   density = 1
   restitution = 0
   friction = 0
 }
 
-export class ColliderPhysics extends NoRenderComponentX {
+export class ColliderPhysics<T = {}> extends NoRenderComponentX<T> {
   tag = 0
   group = 0
   offset: Vec2 = Vec2.zero()
@@ -47,7 +48,7 @@ export class ColliderPhysics extends NoRenderComponentX {
   instance: PhysicsSprite
 }
 
-export class BoxColliderPhysics extends ColliderPhysics {
+export class BoxColliderPhysics extends ColliderPhysics<BoxColliderPhysicsProps> {
   width: number
   height: number
 
@@ -62,10 +63,10 @@ export class BoxColliderPhysics extends ColliderPhysics {
   }
 }
 
-export class CircleColliderPhysics extends ColliderPhysics {
+export class CircleColliderPhysics extends ColliderPhysics<CircleColliderPhysicsProps> {
   radius: number
 }
 
-export class PolygonColliderPhysics extends ColliderPhysics {
+export class PolygonColliderPhysics extends ColliderPhysics<PolygonColliderPhysicsProps> {
   points: number[]
 }
