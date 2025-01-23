@@ -6,15 +6,12 @@ export type DragonBonesData = {
   atlas,
   texture: string
 }
-export class DragonBones extends ComponentX {
+export class DragonBones extends ComponentX<DragonBonesProps> {
   data: DragonBonesData
   skin: string
   animation: string
   playTimes = 0
   timeScale: number
-  constructor(data: DragonBonesProps) {
-    super(data)
-  }
 
   setAnimation(name: string, playTimes = 0) {
     const skel: any = this.node.instance

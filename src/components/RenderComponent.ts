@@ -9,16 +9,13 @@ export class NodeRender extends ComponentX {
   nodeName?: string
 }
 
-export class SpriteRender extends ComponentX<Sprite> {
+export class SpriteRender extends ComponentX<SpriteRenderProps, Sprite> {
   public spriteFrame: string
   public type: SpriteTypes
   public fillType: LoadingBarMode = LoadingBarMode.BAR
   public fillRange = 1
   public fillCenter: Point
   loadingBar: LoadingBar
-  constructor(props: SpriteRenderProps ) {
-    super(props)
-  }
 
   // set fillStart(val: number) {
   //   if (this.node.instance instanceof cc.ProgressTimer) {
@@ -56,20 +53,14 @@ export class SpriteRender extends ComponentX<Sprite> {
   }
 }
 
-export class GraphicsRender extends ComponentX<Graphics> {
+export class GraphicsRender extends ComponentX<GraphicsRenderProps, Graphics> {
   lineWidth = 2
   strokeColor: ColorSource
   fillColor: ColorSource
-  constructor(props: GraphicsRenderProps ) {
-    super(props)
-  }
 }
 
-export class MaskRender extends ComponentX {
+export class MaskRender extends ComponentX<MaskRenderProps> {
   type: number
   segments: number
   inverted: boolean
-  constructor(props: MaskRenderProps ) {
-    super(props)
-  }
 }

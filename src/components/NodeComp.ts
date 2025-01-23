@@ -13,7 +13,7 @@ export interface EventMap {
   [key: string]: [EventCallbackType]
 }
 
-type TouchEVentCallback = (target: { location: Point }) => void
+type TouchEventCallback = (target: { location: Point }) => void
 
 export class NodeComp<C extends Container = Container> implements BaseNode<C> {
   entity: Entity
@@ -28,12 +28,12 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
   // private lastMove: { x: number; y: number }
   private _group = 0
 
-  onTouchStart?: TouchEVentCallback
-  onTouchMove?: TouchEVentCallback
-  onTouchEnd?: TouchEVentCallback
-  onTouchCancel?: TouchEVentCallback
+  onTouchStart?: TouchEventCallback
+  onTouchMove?: TouchEventCallback
+  onTouchEnd?: TouchEventCallback
+  onTouchCancel?: TouchEventCallback
 
-  setOnTouchStart(cb: TouchEVentCallback) {
+  setOnTouchStart(cb: TouchEventCallback) {
     this.onTouchStart = cb
     this.instance.on('touchstart', (event) => {
       const { global } = event
@@ -41,7 +41,7 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
     })
   }
 
-  setOnTouchMove(cb: TouchEVentCallback) {
+  setOnTouchMove(cb: TouchEventCallback) {
     this.onTouchMove = cb
     this.instance.on('touchmove', (event) => {
       const { global } = event
@@ -49,7 +49,7 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
     })
   }
 
-  setOnTouchEnd(cb: TouchEVentCallback) {
+  setOnTouchEnd(cb: TouchEventCallback) {
     this.onTouchEnd = cb
     this.instance.on('touchend', (event) => {
       const { global } = event
@@ -57,7 +57,7 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
     })
   }
 
-  setOnTouchCancel(cb: TouchEVentCallback) {
+  setOnTouchCancel(cb: TouchEventCallback) {
     this.onTouchCancel = cb
     this.instance.on('touchcancel', (event) => {
       const { global } = event
@@ -398,7 +398,7 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
     }
   }
 
-  resolveComponent(component: EnhancedComponent<NodeComp>) {
+  resolveComponent(component: EnhancedComponent<{}, NodeComp>) {
     // console.log(component.constructor.name, (component.constructor as any).hasRender)
     if ((component.constructor as any).hasRender) {
       this.addChild(component.node)

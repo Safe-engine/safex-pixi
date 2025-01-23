@@ -1,10 +1,10 @@
 // import { Touch } from '../../polyfills'
 import { FederatedPointerEvent } from 'pixi.js'
-import { ExtraDataProps } from '../../@types/safex'
+import { ExtraDataProps, TouchEventProps } from '../../@types/safex'
 import { NoRenderComponentX } from './BaseComponent'
 import { EventCallbackType, EventMap, NodeComp } from './NodeComp'
 
-type TouchEVentCallback = (touch?: FederatedPointerEvent, node?: NodeComp) => void
+export type TouchEventCallback = (touch?: FederatedPointerEvent, node?: NodeComp) => void
 
 export class EventRegister extends NoRenderComponentX {
   events: EventMap = {}
@@ -30,38 +30,36 @@ export class EventRegister extends NoRenderComponentX {
   }
 }
 
-export class TouchEventRegister extends NoRenderComponentX {
-  onTouchStart?: TouchEVentCallback
-  onTouchMove?: TouchEVentCallback
-  onTouchEnd?: TouchEVentCallback
-  onTouchCancel?: TouchEVentCallback
+export class TouchEventRegister extends NoRenderComponentX<TouchEventProps> {
+  onTouchStart?: TouchEventCallback
+  onTouchMove?: TouchEventCallback
+  onTouchEnd?: TouchEventCallback
+  onTouchCancel?: TouchEventCallback
   listener: EventListener
   touch: Touch
 
-  setOnTouchStart(cb: TouchEVentCallback) {
+  setOnTouchStart(cb: TouchEventCallback) {
     this.onTouchStart = cb
   }
 
-  setOnTouchMove(cb: TouchEVentCallback) {
+  setOnTouchMove(cb: TouchEventCallback) {
     this.onTouchMove = cb
   }
 
-  setOnTouchEnd(cb: TouchEVentCallback) {
+  setOnTouchEnd(cb: TouchEventCallback) {
     this.onTouchEnd = cb
   }
 
-  setOnTouchCancel(cb: TouchEVentCallback) {
+  setOnTouchCancel(cb: TouchEventCallback) {
     this.onTouchCancel = cb
   }
 }
 
-export class ExtraDataComp extends NoRenderComponentX {
+export class ExtraDataComp extends NoRenderComponentX<ExtraDataProps> {
   key: string
   value: any
   data: { [key: string]: any } = {}
-  constructor(props: ExtraDataProps) {
-    super(props)
-  }
+
   getData<T>(key: string): T {
     return this.data[key]
   }
