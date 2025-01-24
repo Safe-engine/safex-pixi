@@ -1,364 +1,87 @@
-/* eslint-disable no-var */
-/* eslint-disable quotes */
-/* eslint-disable no-useless-escape */
-/****************************************************************************
- Copyright (c) 2013-2016 Chukong Technologies Inc.
- Copyright (c) 2017-2018 Xiamen Yaji Software Co., Ltd.
-
- https://www.cocos.com/
-
- Permission is hereby granted, free of charge, to any person obtaining a copy
- of this software and associated engine source code (the "Software"), a limited,
- worldwide, royalty-free, non-assignable, revocable and non-exclusive license
- to use Cocos Creator solely to develop games on your target platforms. You shall
- not use Cocos Creator software for developing other software or tools that's
- used for developing games. You are not granted to publish, distribute,
- sublicense, and/or sell copies of Cocos Creator.
-
- The software or tools in this License Agreement are licensed, not sold.
- Xiamen Yaji Software Co., Ltd. reserves all rights not expressly granted to you.
-
- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
- THE SOFTWARE.
- ****************************************************************************/
-
-const eventRegx = /^(click)(\s)*=|(param)(\s)*=/
-const imageAttrReg =
-  /(\s)*src(\s)*=|(\s)*height(\s)*=|(\s)*width(\s)*=|(\s)*align(\s)*=|(\s)*offset(\s)*=|(\s)*click(\s)*=|(\s)*param(\s)*=/
-/**
- * A utils class for parsing HTML texts. The parsed results will be an object array.
- */
-export const HtmlTextParser = function () {
-  this._parsedObject = {}
-  this._specialSymbolArray = []
-  this._specialSymbolArray.push([/&lt;/g, '<'])
-  this._specialSymbolArray.push([/&gt;/g, '>'])
-  this._specialSymbolArray.push([/&amp;/g, '&'])
-  this._specialSymbolArray.push([/&quot;/g, '"'])
-  this._specialSymbolArray.push([/&apos;/g, "'"])
-  this._specialSymbolArray.push([/&nbsp;/g, ' '])
+interface FontTag {
+  color?: string;
+  size?: number;
+  text: string;
 }
 
-HtmlTextParser.prototype = {
-  constructor: HtmlTextParser,
-  parse: function (htmlString) {
-    this._resultObjectArray = []
-    if (!htmlString) {
-      return this._resultObjectArray
-    }
-    this._stack = []
+type ParsedResult = FontTag[];
 
-    let startIndex = 0
-    const length = htmlString.length
-    while (startIndex < length) {
-      let tagEndIndex = htmlString.indexOf('>', startIndex)
-      let tagBeginIndex = -1
-      if (tagEndIndex >= 0) {
-        tagBeginIndex = htmlString.lastIndexOf('<', tagEndIndex)
-        const noTagBegin = tagBeginIndex < startIndex - 1
+type StyledElement = {
+  tag?: string;
+  style?: { color?: string; size?: number };
+  text: string;
+};
 
-        if (noTagBegin) {
-          tagBeginIndex = htmlString.indexOf('<', tagEndIndex + 1)
-          tagEndIndex = htmlString.indexOf('>', tagBeginIndex + 1)
-        }
-      }
+export function parseFontString(input: string): ParsedResult {
+  const regex = /<font\s+color=['"](#?[0-9a-fA-F]{6})['"](?:\s+size=(\d+))?>(.*?)<\/font>/gi;
+  const results: ParsedResult = [];
+  let lastIndex = 0;
 
-      if (tagBeginIndex < 0) {
-        this._stack.pop()
-        this._processResult(htmlString.substring(startIndex))
-        startIndex = length
-      } else {
-        let newStr = htmlString.substring(startIndex, tagBeginIndex)
-        const tagStr = htmlString.substring(tagBeginIndex + 1, tagEndIndex)
-        if (tagStr === '') newStr = htmlString.substring(startIndex, tagEndIndex + 1)
-        this._processResult(newStr)
-        if (tagEndIndex === -1) {
-          // cc.error('The HTML tag is invalid!');
-          tagEndIndex = tagBeginIndex
-        } else if (htmlString.charAt(tagBeginIndex + 1) === '/') {
-          this._stack.pop()
-        } else {
-          this._addToStack(tagStr)
-        }
-        startIndex = tagEndIndex + 1
+  let match: RegExpExecArray | null;
+  while ((match = regex.exec(input)) !== null) {
+    // Add plain text before the match if it exists
+    if (match.index > lastIndex) {
+      const plainText = input.slice(lastIndex, match.index)
+      if (plainText) {
+        results.push({ text: plainText });
       }
     }
 
-    return this._resultObjectArray
-  },
+    const color = match[1];
+    const size = match[2] ? parseInt(match[2], 10) : undefined;
+    const text = match[3];
 
-  _attributeToObject: function (attribute) {
-    attribute = attribute.trim()
+    results.push({ color, size, text });
 
-    const obj: any = {}
-    let header = attribute.match(/^(color|size)(\s)*=/)
-    let tagName
-    let nextSpace
-    let eventObj
-    let eventHanlderString
-    if (header) {
-      tagName = header[0]
-      attribute = attribute.substring(tagName.length).trim()
-      if (attribute === '') return obj
+    lastIndex = regex.lastIndex;
+  }
 
-      //parse color
-      nextSpace = attribute.indexOf(' ')
-      switch (tagName[0]) {
-        case 'c':
-          if (nextSpace > -1) {
-            obj.color = attribute.substring(0, nextSpace).trim()
-          } else {
-            obj.color = attribute
-          }
-          break
-        case 's':
-          obj.size = parseInt(attribute)
-          break
-      }
-
-      //tag has event arguments
-      if (nextSpace > -1) {
-        eventHanlderString = attribute.substring(nextSpace + 1).trim()
-        eventObj = this._processEventHandler(eventHanlderString)
-        obj.event = eventObj
-      }
-      return obj
+  // Add remaining plain text after the last match
+  if (lastIndex < input.length) {
+    const plainText = input.slice(lastIndex);
+    if (plainText) {
+      results.push({ text: plainText });
     }
+  }
 
-    header = attribute.match(/^(br(\s)*\/)/)
-    if (header && header[0].length > 0) {
-      tagName = header[0].trim()
-      if (tagName.startsWith('br') && tagName[tagName.length - 1] === '/') {
-        obj.isNewLine = true
-        this._resultObjectArray.push({ text: '', style: { newline: true } })
-        return obj
-      }
+  return results;
+}
+
+export function transformToStyledElements(parsed: ParsedResult): StyledElement[] {
+  return parsed.map((item, index) => {
+    if (item.color || item.size) {
+      return {
+        tag: `b${index + 1}`,
+        style: { color: item.color, size: item.size },
+        text: item.text,
+      };
     }
+    return {
+      text: item.text,
+    };
+  });
+}
 
-    header = attribute.match(/^(img(\s)*src(\s)*=[^>]+\/)/)
-    if (header && header[0].length > 0) {
-      tagName = header[0].trim()
-      if (tagName.startsWith('img') && tagName[tagName.length - 1] === '/') {
-        header = attribute.match(imageAttrReg)
-        var tagValue
-        var remainingArgument
-        let isValidImageTag = false
-        while (header) {
-          //skip the invalid tags at first
-          attribute = attribute.substring(attribute.indexOf(header[0]))
-          tagName = attribute.substr(0, header[0].length)
-          //remove space and = character
-          remainingArgument = attribute.substring(tagName.length).trim()
-          nextSpace = remainingArgument.indexOf(' ')
-
-          tagValue = nextSpace > -1 ? remainingArgument.substr(0, nextSpace) : remainingArgument
-          tagName = tagName.replace(/[^a-zA-Z]/g, '').trim()
-          tagName = tagName.toLocaleLowerCase()
-
-          attribute = remainingArgument.substring(nextSpace).trim()
-          if (tagValue.endsWith('/')) tagValue = tagValue.slice(0, -1)
-          if (tagName === 'src') {
-            switch (tagValue.charCodeAt(0)) {
-              case 34: // "
-              case 39: // '
-                isValidImageTag = true
-                tagValue = tagValue.slice(1, -1)
-                break
-            }
-            obj.isImage = true
-            obj.src = tagValue
-          } else if (tagName === 'height') {
-            obj.imageHeight = parseInt(tagValue)
-          } else if (tagName === 'width') {
-            obj.imageWidth = parseInt(tagValue)
-          } else if (tagName === 'align') {
-            switch (tagValue.charCodeAt(0)) {
-              case 34: // "
-              case 39: // '
-                tagValue = tagValue.slice(1, -1)
-                break
-            }
-            obj.imageAlign = tagValue.toLocaleLowerCase()
-          } else if (tagName === 'offset') {
-            obj.imageOffset = tagValue
-          } else if (tagName === 'click') {
-            obj.event = this._processEventHandler(`${tagName}=${tagValue}`)
-          }
-
-          if (obj.event && tagName === 'param') {
-            obj.event.param = tagValue.replace(/^\"|\"$/g, '')
-          }
-
-          header = attribute.match(imageAttrReg)
-        }
-
-        if (isValidImageTag && obj.isImage) {
-          this._resultObjectArray.push({ text: '', style: obj })
-        }
-
-        return {}
+export function generateStringFromStyledElements(elements: StyledElement[]): string {
+  return elements
+    .map((element) => {
+      if (!element.tag) {
+        return element.text;
       }
-    }
+      return `<${element.tag}>${element.text}</${element.tag}>`;
+    })
+    .join('');
+}
 
-    header = attribute.match(/^(outline(\s)*[^>]*)/)
-    if (header) {
-      attribute = header[0].substring('outline'.length).trim()
-      const defaultOutlineObject = { color: '#ffffff', width: 1 }
-      if (attribute) {
-        const outlineAttrReg = /(\s)*color(\s)*=|(\s)*width(\s)*=|(\s)*click(\s)*=|(\s)*param(\s)*=/
-        header = attribute.match(outlineAttrReg)
-        var tagValue
-        while (header) {
-          //skip the invalid tags at first
-          attribute = attribute.substring(attribute.indexOf(header[0]))
-          tagName = attribute.substr(0, header[0].length)
-          //remove space and = character
-          remainingArgument = attribute.substring(tagName.length).trim()
-          nextSpace = remainingArgument.indexOf(' ')
-          if (nextSpace > -1) {
-            tagValue = remainingArgument.substr(0, nextSpace)
-          } else {
-            tagValue = remainingArgument
-          }
-          tagName = tagName.replace(/[^a-zA-Z]/g, '').trim()
-          tagName = tagName.toLocaleLowerCase()
-
-          attribute = remainingArgument.substring(nextSpace).trim()
-          if (tagName === 'click') {
-            obj.event = this._processEventHandler(`${tagName}=${tagValue}`)
-          } else if (tagName === 'color') {
-            defaultOutlineObject.color = tagValue
-          } else if (tagName === 'width') {
-            defaultOutlineObject.width = parseInt(tagValue)
-          }
-
-          if (obj.event && tagName === 'param') {
-            obj.event.param = tagValue.replace(/^\"|\"$/g, '')
-          }
-
-          header = attribute.match(outlineAttrReg)
-        }
+export function generateStylesFromStyledElements(elements: StyledElement[]) {
+  const styles = {};
+  elements
+    .forEach((element) => {
+      const { tag, style } = element
+      if (!tag) {
+        return;
       }
-      obj.outline = defaultOutlineObject
-    }
-
-    header = attribute.match(/^(on|u|b|i)(\s)*/)
-    if (header && header[0].length > 0) {
-      tagName = header[0]
-      attribute = attribute.substring(tagName.length).trim()
-      switch (tagName[0]) {
-        case 'u':
-          obj.underline = true
-          break
-        case 'i':
-          obj.italic = true
-          break
-        case 'b':
-          obj.bold = true
-          break
-      }
-      if (attribute === '') {
-        return obj
-      }
-      eventObj = this._processEventHandler(attribute)
-      obj.event = eventObj
-    }
-
-    return obj
-  },
-
-  _processEventHandler: function (eventString) {
-    let index = 0
-    const obj = {}
-    let eventNames = eventString.match(eventRegx)
-    let isValidTag = false
-    while (eventNames) {
-      let eventName = eventNames[0]
-      let eventValue = ''
-      isValidTag = false
-      eventString = eventString.substring(eventName.length).trim()
-      if (eventString.charAt(0) === '"') {
-        index = eventString.indexOf('"', 1)
-        if (index > -1) {
-          eventValue = eventString.substring(1, index).trim()
-          isValidTag = true
-        }
-        index++
-      } else if (eventString.charAt(0) === '\'') {
-        index = eventString.indexOf('\'', 1)
-        if (index > -1) {
-          eventValue = eventString.substring(1, index).trim()
-          isValidTag = true
-        }
-        index++
-      } else {
-        //skip the invalid attribute value
-        const match = eventString.match(/(\S)+/)
-        if (match) {
-          eventValue = match[0]
-        } else {
-          eventValue = ''
-        }
-        index = eventValue.length
-      }
-
-      if (isValidTag) {
-        eventName = eventName.substring(0, eventName.length - 1).trim()
-        obj[eventName] = eventValue
-      }
-
-      eventString = eventString.substring(index).trim()
-      eventNames = eventString.match(eventRegx)
-    }
-
-    return obj
-  },
-
-  _addToStack: function (attribute) {
-    const obj = this._attributeToObject(attribute)
-
-    if (this._stack.length === 0) {
-      this._stack.push(obj)
-    } else {
-      if (obj.isNewLine || obj.isImage) {
-        return
-      }
-      //for nested tags
-      const previousTagObj = this._stack[this._stack.length - 1]
-      for (const key in previousTagObj) {
-        if (!obj[key]) {
-          obj[key] = previousTagObj[key]
-        }
-      }
-      this._stack.push(obj)
-    }
-  },
-
-  _processResult: function (value) {
-    if (value === '') {
-      return
-    }
-
-    value = this._escapeSpecialSymbol(value)
-    if (this._stack.length > 0) {
-      this._resultObjectArray.push({ text: value, style: this._stack[this._stack.length - 1] })
-    } else {
-      this._resultObjectArray.push({ text: value })
-    }
-  },
-
-  _escapeSpecialSymbol: function (str) {
-    for (let i = 0; i < this._specialSymbolArray.length; ++i) {
-      const key = this._specialSymbolArray[i][0]
-      const value = this._specialSymbolArray[i][1]
-
-      str = str.replace(key, value)
-    }
-    return str
-  },
+      styles[element.tag] = style
+    })
+  return styles
 }

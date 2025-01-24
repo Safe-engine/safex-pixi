@@ -95,19 +95,13 @@ export class GUISystem implements System {
     })
     event_manager.subscribe(EventTypes.ComponentAdded, RichTextComp, ({ entity, component }) => {
       // console.log('ComponentAddedEvent LabelComp', component)
-      const { string = '', font = '', size } = component
-      const node = new TaggedText(`<size>${string}</size>`, {
-        pink: { color: 'red' },
-        green: { color: 'green' },
-        size: { fontSize: size },
-        font: { fontFamily: font }
-      }, {});
-      // node.texture.rotate = 8
-      // node.style.fill = '#fff'
+      const { string = '', font, size } = component
+      const node = new TaggedText(string);
+      // node.defaultStyle = { }
       component.node = entity.assign(new NodeComp(node, entity))
-      // if (font) component.setFont(font)
-      // component.setSize(size)
-      // component.setString(string)
+      component.setString(string)
+      if (font) component.setFont(font)
+      if (size) component.setSize(size)
     })
     // event_manager.subscribe(EventTypes.ComponentAdded, BlockInputEventsComp), this);
   }
