@@ -7,7 +7,7 @@ import {
 } from 'entityx-ts'
 import { Body, Box, Contact, Fixture, Manifold, Shape, Vec2, World } from 'planck'
 
-import { Container, Graphics } from 'pixi.js'
+import { Graphics } from 'pixi.js'
 import { GameWorld, instantiate } from '../base'
 import { NodeComp } from '../components/NodeComp'
 import {
@@ -33,7 +33,6 @@ export function setColliderMatrix(colliderMatrix = [[true]]) {
 
 export class PhysicsSystem implements System {
   world: World
-  _debugNode: Graphics
   listRemoveBody: Body[] = []
   listRemoveShape: Shape[] = []
   colliderMatrix = [[true]]
@@ -41,7 +40,7 @@ export class PhysicsSystem implements System {
   configure(event_manager: EventManager) {
     // Settings.lengthUnitsPerMeter = 100
     this.world = new World({
-      gravity: Vec2(0, -1),
+      gravity: Vec2(0, -10.0),
     })
     // event_manager.world.physicsManager = this
     // event_manager.subscribe(ComponentAddedEvent(RigidBody), this);
@@ -55,25 +54,20 @@ export class PhysicsSystem implements System {
       // const physicsMaterial = entity.getComponent(PhysicsMaterial)
       const box = component
       const node = entity.getComponent(NodeComp)
-      const { width, height, offset, tag } = box
+      const { width, height, ...colliderProps } = box
       // ett.assign(instantiate(ColliderPhysics, { tag, offset }))
       // const { density, restitution, friction } = physicsMaterial
-      const { x, y } = offset
-      const bodyDef = {
+      const body = this.world.createBody({
         position: node.position as any, // the body's origin position.
         angle: 0.25 * Math.PI, // the body's angle in radians.
         userData: node,
         type: rigidBody.type,
-        gravityScale: 0,
-      }
-      if (rigidBody) {
-        const { gravityScale } = rigidBody
-        bodyDef.gravityScale = gravityScale
-      }
-      const body = this.world.createBody(bodyDef)
+        gravityScale: rigidBody.gravityScale,
+      })
       rigidBody.body = body
+      // console.log('body', body);
       // body.setMassData({ mass: 1 } as any)
-      const physicsNode: any = new PhysicsSprite(node.instance, body)
+      const physicsNode = new PhysicsSprite(node.instance, body)
       const shape = new Box(width, height)
       body.createFixture({
         shape,
@@ -81,12 +75,11 @@ export class PhysicsSystem implements System {
         isSensor: true,
       })
       const debugBox = new Graphics()
-      // const { x, y } = node.position
-      // shape.m_vertices
-      debugBox.fill({ color: 0xff0000, alpha: 0.3 })
+      const { x, y } = colliderProps.offset
       debugBox.rect(x, y, width, height)
+      debugBox.fill({ color: 0xff0000, alpha: 0.3 })
       node.instance.addChild(debugBox)
-      const physicsCollide = entity.assign(instantiate(ColliderPhysics, { tag, offset }))
+      const physicsCollide = entity.assign(instantiate(ColliderPhysics, colliderProps))
       physicsCollide.instance = physicsNode
       physicsCollide.node = node
       box.node = node
@@ -130,10 +123,10 @@ export class PhysicsSystem implements System {
 
   renderBody(body: Body) {
     // Render or update body rendering
-    const ett = body.getUserData() as Entity
+    const ett = body.getUserData() as NodeComp
     const collider = ett.getComponent(ColliderPhysics)
     if (collider) {
-      collider.instance.position = body.getPosition()
+      collider.instance.node.position = body.getPosition()
       collider.instance.angle = body.getAngle()
       // console.log('renderBody body', body.getPosition())
     }
@@ -162,11 +155,11 @@ export class PhysicsSystem implements System {
     const phys1 = ett1.getComponent(ColliderPhysics)
     const phys2 = ett2.getComponent(ColliderPhysics)
     if (phys1 && phys2) {
-      if (Object.prototype.hasOwnProperty.call(phys1, '_onCollisionEnter')) {
-        phys1._onCollisionEnter(phys2)
+      if (Object.prototype.hasOwnProperty.call(phys1, 'onCollisionEnter')) {
+        phys1.onCollisionEnter(phys2)
       }
-      if (Object.prototype.hasOwnProperty.call(phys2, '_onCollisionEnter')) {
-        phys2._onCollisionEnter(phys1)
+      if (Object.prototype.hasOwnProperty.call(phys2, 'onCollisionEnter')) {
+        phys2.onCollisionEnter(phys1)
       }
     }
   }
@@ -183,32 +176,23 @@ export class PhysicsSystem implements System {
     // log('collisionSeparate');
     const ett1: Entity = contact.getFixtureA().getBody().getUserData() as Entity
     const ett2: Entity = contact.getFixtureB().getBody().getUserData() as Entity
-    const event1 = ett1.getComponent(NodeComp)
+    // const event1 = ett1.getComponent(NodeComp)
     const phys1 = ett1.getComponent(ColliderPhysics)
     const phys2 = ett2.getComponent(ColliderPhysics)
-    const event2 = ett2.getComponent(NodeComp)
-    if (event1) {
-      if (phys1 && phys2) {
-        event1.emit('onCollisionExit', contact, ett1.getComponent(ColliderPhysics), ett2.getComponent(ColliderPhysics))
+    // const event2 = ett2.getComponent(NodeComp)
+    if (phys1 && phys2) {
+      if (Object.prototype.hasOwnProperty.call(phys1, 'onCollisionExit')) {
+        phys1.onCollisionExit(phys2)
+      }
+      if (Object.prototype.hasOwnProperty.call(phys2, 'onCollisionExit')) {
+        phys2.onCollisionExit(phys1)
       }
     }
-    if (event2) {
-      if (phys1 && phys2) {
-        event2.emit('onCollisionExit', contact, ett2.getComponent(ColliderPhysics), ett1.getComponent(ColliderPhysics))
-      }
-    }
-  }
-
-  setupDebugNode(currentScene: Container) {
-    // const currentScene = director.getRunningScene();
-    this._debugNode = new Graphics()
-    this._debugNode.visible = true
-    currentScene.addChild(this._debugNode)
   }
 
   set enabled(val) {
     if (val) {
-      this.world.setGravity(Vec2(0, -300))
+      this.world.setGravity(Vec2(0, -1))
       // this.world.iterations = 60
       // this.world.collisionSlop = 0.5
     }

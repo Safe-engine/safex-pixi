@@ -53,6 +53,7 @@ export function startGameSystems() {
     world.systems.configureOnce(system)
   })
   world.listUpdate.push(CollideSystem)
+  world.listUpdate.push(PhysicsSystem)
   startGameLoop(world)
   // console.log('startGameLoop', world.listUpdate)
 }
