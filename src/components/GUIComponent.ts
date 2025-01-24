@@ -2,7 +2,8 @@ import { CheckBox, CheckBoxOptions, Input, List, ProgressBar, RadioGroup, Slider
 import { Assets, Container, FillInput, Point, Text } from 'pixi.js'
 
 import TaggedText from 'pixi-tagged-text-plus'
-import { ButtonCompProps, ColorSource, LabelCompProps, LabelOutlineCompProps, LabelShadowCompProps, ProgressTimerProps, ScrollViewProps } from '../../@types/safex'
+import { ButtonCompProps, LabelCompProps, LabelOutlineCompProps, LabelShadowCompProps, ProgressTimerProps, ScrollViewProps } from '../../@types/safex'
+import { Color4B } from '../core/Color'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
 import { generateStringFromStyledElements, generateStylesFromStyledElements, parseFontString, transformToStyledElements } from '../helper/html-text-parser'
 import { ComponentX, NoRenderComponentX } from './BaseComponent'
@@ -147,12 +148,12 @@ export class RichTextComp extends ComponentX<LabelCompProps, TaggedText> {
 }
 
 export class LabelOutlineComp extends NoRenderComponentX<LabelOutlineCompProps> {
-  color: ColorSource
+  color: Color4B
   width: number
 }
 
 export class LabelShadowComp extends NoRenderComponentX<LabelShadowCompProps> {
-  color: ColorSource
+  color: Color4B
   blur: number
   offset: Point
 }

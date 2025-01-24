@@ -1,8 +1,6 @@
 import { NodeComp, TouchEVentCallback } from "../src";
 import { Color4B } from "../src/core/Color";
 
-type ColorSource = ReturnType<typeof Color4B>
-
 interface BaseComponentProps {
   $ref?: object;
   $push?: object[];
@@ -20,8 +18,8 @@ interface SpriteRenderProps {
 
 interface GraphicsRenderProps {
   lineWidth?: number
-  strokeColor?: ColorSource
-  fillColor?: ColorSource
+  strokeColor?: Color4B
+  fillColor?: Color4B
 }
 
 interface MaskRenderProps {
@@ -53,12 +51,12 @@ interface ScrollViewProps {
 }
 
 interface LabelOutlineCompProps {
-  color: ColorSource
+  color: Color4B
   width: number
 }
 
 interface LabelShadowCompProps {
-  color: ColorSource
+  color: Color4B
   blur: number
   offset: Point
 }

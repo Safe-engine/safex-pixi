@@ -1,5 +1,6 @@
-import { ColorSource, Graphics, Point, Sprite, Texture } from 'pixi.js'
+import { Graphics, Point, Sprite, Texture } from 'pixi.js'
 
+import { Color4B, Vec2 } from '..'
 import { GraphicsRenderProps, MaskRenderProps, SpriteRenderProps } from '../../@types/safex'
 import { LoadingBar, LoadingBarMode } from '../core/LoadingBar'
 import { SpriteTypes } from '../systems/RenderSystem'
@@ -52,11 +53,66 @@ export class SpriteRender extends ComponentX<SpriteRenderProps, Sprite> {
     // }
   }
 }
-
+enum PointType {
+  Circle,
+  Rect,
+};
 export class GraphicsRender extends ComponentX<GraphicsRenderProps, Graphics> {
   lineWidth = 2
-  strokeColor: ColorSource
-  fillColor: ColorSource
+  strokeColor: Color4B
+  fillColor: Color4B
+
+  drawPoint(position: Vec2, pointSize: Float, color: Color4B, pointType = PointType.Rect) {
+
+  }
+  // drawPoints(points: Vec2[], color: Color4B) {
+  // }
+  drawLine(origin: Vec2, destination: Vec2, color: Color4B, thickness: Float) {
+
+  }
+  drawRect(origin: Vec2, destination: Vec2, color: Color4B) {
+    const { x, y } = origin
+    const width = destination.x - x
+    const height = destination.y - y
+    this.node.instance.rect(x, y, width, height)
+    this.node.instance.fill(color)
+  }
+  drawSolidRect(origin: Vec2, destination: Vec2, color: Color4B) {
+
+  }
+  drawCircle(center: Vec2, radius: Float, angle?: Float, segments?: Integer, drawLineToCenter?: boolean, scaleX?: Float, scaleY?: Float, color?: Color4B, thickness?: Float) {
+    const { x, y } = center
+    this.node.instance.circle(x, y, radius)
+    this.node.instance.fill(color)
+  }
+  drawSolidCircle(origin: Vec2, destination: Vec2, color: Color4B) {
+
+  }
+  drawQuadBezier(origin: Vec2, destination: Vec2, color: Color4B) {
+
+  }
+  drawCubicBezier(origin: Vec2, destination: Vec2, color: Color4B) {
+
+  }
+  drawCardinalSpline(points: Vec2[], color: Color4B) {
+  }
+  drawCatmullRom(points: Vec2[], color: Color4B) {
+  }
+  drawPoly(points: Vec2[], closedPolygon: boolean, color: Color4B, thickness: Float) {
+  }
+  drawSolidPoly(points: Vec2[], color: Color4B) {
+  }
+  drawDot(points: Vec2[], color: Color4B) {
+  }
+  drawSegment(from: Vec2, to: Vec2, color: Color4B) {
+  }
+  drawTriangle(p1: Vec2, p2: Vec2, p3: Vec2, color: Color4B) {
+    this.node.instance.poly([p1, p2, p3], true)
+    this.node.instance.fill(color)
+  }
+  clear() {
+    this.node.instance.clear()
+  }
 }
 
 export class MaskRender extends ComponentX<MaskRenderProps> {
