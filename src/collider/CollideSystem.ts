@@ -31,9 +31,9 @@ export class CollideSystem implements System {
       this.debugGraphics = new Graphics()
       this.debugGraphics.setFillStyle({ color: new Color('white') })
       this.debugGraphics.width = 4
-      // this.debugGraphics.beginFill(new Color('white'))
-      app.stage.addChild(this.debugGraphics)
+      this.debugGraphics.zIndex = 40
     }
+    app.stage.addChild(this.debugGraphics)
   }
 
   update(entities: EntityManager, events: EventManager, dt: number) {
@@ -70,14 +70,9 @@ export class CollideSystem implements System {
     //   })
     // })
     this.removeColliders = []
-    let draw
+    const draw = this.enabledDebugDraw ? this.debugGraphics : undefined
     if (this.enabledDebugDraw) {
-      draw = this.debugGraphics
       draw.clear()
-      draw.removeFromParent()
-      app.stage.addChild(draw)
-      this.debugGraphics.setFillStyle({ color: new Color('white') })
-      this.debugGraphics.width = 4
     }
     for (const entt of entities.entities_with_components(BoxCollider)) {
       const comp = entt.getComponent(BoxCollider)
@@ -90,6 +85,15 @@ export class CollideSystem implements System {
     for (const entt of entities.entities_with_components(PolygonCollider)) {
       const comp = entt.getComponent(PolygonCollider)
       comp.update(dt, draw)
+    }
+    if (this.enabledDebugDraw) {
+      // draw.clear()
+      // draw.removeFromParent()
+      // app.stage.addChild(draw)
+      // console.log('enabledDebugDraw', this.debugGraphics)
+      // this.debugGraphics.width = 4
+      // this.debugGraphics.circle(500, 600, 450)
+      this.debugGraphics.fill({ color: new Color('white'), alpha: 0.3 })
     }
     // console.log(this._contracts.length)
     this._contracts.forEach((contract) => {
@@ -148,14 +152,14 @@ export class CollideSystem implements System {
   removeCollider(colliderPhysics: Collider) {
     this.removeColliders.push(colliderPhysics)
   }
-   onAddCollider({ entity, component }) {
+  onAddCollider({ entity, component }) {
     console.log('ComponentAddedEvent', component)
     const collider = entity.assign(new Collider(component))
     collider.node = entity.getComponent(NodeComp)
     component.node = entity.getComponent(NodeComp)
     this.addCollider(collider)
   }
-   onRemoveCollider({ entity, component }) {
+  onRemoveCollider({ entity, component }) {
     console.log('ComponentRemovedEvent', component)
     const collider = entity.getComponent(Collider)
     this.removeCollider(collider)

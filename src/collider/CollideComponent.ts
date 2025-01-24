@@ -81,16 +81,20 @@ export class BoxCollider extends Collider {
       return
     }
     const { x, y } = this.offset || v2()
-    const hw = this.width * 0.5
-    const hh = this.height * 0.5
+    // const hw = this.width * 0.5
+    // const hh = this.height * 0.5
     const transform = getNodeToWorldTransformAR(this.node)
-    const rectTrs = new Rectangle(x - hw, y - hh, this.width, this.height)
+    // const dx = x - hw
+    // const dy = y - hh
     const collider = this.getComponent(Collider)
-    collider._worldPoints[0] = transform.apply(v2(rectTrs.x, rectTrs.y))
-    collider._worldPoints[1] = transform.apply(v2(rectTrs.x, rectTrs.y + rectTrs.height))
-    collider._worldPoints[2] = transform.apply(v2(rectTrs.x + rectTrs.width, rectTrs.y + rectTrs.height))
-    collider._worldPoints[3] = transform.apply(v2(rectTrs.x + rectTrs.width, rectTrs.y))
-
+    collider._worldPoints = [
+      v2(x, y),
+      v2(x, y + this.height),
+      v2(x + this.width, y + this.height),
+      v2(x + this.width, y)
+    ].map(p => transform.apply(p))
+    // console.log("_worldPoints", collider._worldPoints, rectTrs)
+    // collider._worldPoints = collider._worldPoints.map(p => transform.apply(p))
     const listX = collider._worldPoints.map(({ x }) => x)
     const listY = collider._worldPoints.map(({ y }) => y)
     collider._preAabb = cloneRect(collider._AABB)
@@ -99,8 +103,11 @@ export class BoxCollider extends Collider {
     collider._AABB.width = max(listX) - collider._AABB.x
     collider._AABB.height = max(listY) - collider._AABB.y
     if (draw) {
-      const drawList = collider._worldPoints.map(({ x, y }) => v2(x, app.screen.height - y))
+      // console.log("drawing", JSON.stringify(collider._worldPoints))
+      const drawList = collider._worldPoints
+      // draw.clear()
       draw.poly(drawList)
+      // draw.fill({ color: '#fff', alpha: 0.3 })
     }
   }
 }

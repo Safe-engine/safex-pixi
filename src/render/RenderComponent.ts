@@ -98,7 +98,9 @@ export class GraphicsRender extends ComponentX<GraphicsRenderProps, Graphics> {
   }
   drawCatmullRom(points: Vec2[], color: Color4B) {
   }
-  drawPoly(points: Vec2[], closedPolygon: boolean, color: Color4B, thickness: Float) {
+  drawPoly(points: Vec2[], closedPolygon: boolean, color: Color4B, thickness?: Float) {
+    this.node.instance.poly(points, closedPolygon)
+    this.node.instance.fill(color)
   }
   drawSolidPoly(points: Vec2[], color: Color4B) {
   }
