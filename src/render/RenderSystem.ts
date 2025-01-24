@@ -2,8 +2,8 @@ import { EventManager, EventTypes, System } from 'entityx-ts'
 import { Container, Graphics, Sprite } from 'pixi.js'
 
 import { NodeComp } from '..'
-import { GraphicsRender, MaskRender, NodeRender, SpriteRender } from '../components/RenderComponent'
 import { LoadingBar } from '../core/LoadingBar'
+import { GraphicsRender, MaskRender, NodeRender, SpriteRender } from './RenderComponent'
 
 export enum SpriteTypes {
   SIMPLE,

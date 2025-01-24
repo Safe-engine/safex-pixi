@@ -3,7 +3,7 @@ import { EventManager, EventTypes, System } from 'entityx-ts'
 // import { Touch } from '../../polyfills'
 import { Container } from 'pixi.js'
 import { NodeComp } from '../components/NodeComp'
-import { ExtraDataComp, TouchEventRegister } from '../components/NoRenderComponent'
+import { ExtraDataComp, TouchEventRegister } from './NoRenderComponent'
 
 export class NoRenderSystem implements System {
   configure(event_manager: EventManager) {

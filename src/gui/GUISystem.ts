@@ -10,8 +10,8 @@ import { GameWorld } from '../base'
 
 import TaggedText from 'pixi-tagged-text-plus'
 import { NodeComp } from '..'
-import { ButtonComp, CheckBoxComp, InputComp, LabelComp, ListComp, ProgressBarComp, ProgressTimerComp, RadioGroupComp, RichTextComp, ScrollView, SliderComp } from '../components/GUIComponent'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
+import { ButtonComp, CheckBoxComp, InputComp, LabelComp, ListComp, ProgressBarComp, ProgressTimerComp, RadioGroupComp, RichTextComp, ScrollView, SliderComp } from './GUIComponent'
 
 export class GUISystem implements System {
   configure(event_manager: EventManager<GameWorld>) {
