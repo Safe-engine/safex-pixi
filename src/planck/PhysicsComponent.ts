@@ -1,18 +1,17 @@
-import { Body, Vec2 } from 'planck'
+import { Body, BodyType, Vec2 } from 'planck'
 
-import { BoxColliderPhysicsProps, CircleColliderPhysicsProps, PhysicsMaterialProps, PolygonColliderPhysicsProps } from '../../@types/safex'
+import { BoxColliderPhysicsProps, CircleColliderPhysicsProps, ColliderPhysicsProps, PhysicsMaterialProps, PolygonColliderPhysicsProps, RigidBodyProps } from '../../@types/safex'
 import { NoRenderComponentX } from '../components/BaseComponent'
 import { PhysicsSprite } from './PhysicsSprite'
 
-export type BodyType = 'kinematic' | 'dynamic' | 'static'
 
-export class RigidBody extends NoRenderComponentX {
+export class RigidBody extends NoRenderComponentX<RigidBodyProps> {
   type: BodyType = 'dynamic'
   density = 1
-  restitution = 0
-  friction = 0
+  restitution = 0.5
+  friction = 0.3
   body: Body
-  gravityScale = 0
+  gravityScale = 1
   // set linearVelocity(vel: Vec2) {
   //   if (!this.node) {
   //     return
@@ -39,11 +38,12 @@ export class PhysicsMaterial extends NoRenderComponentX<PhysicsMaterialProps> {
   friction = 0
 }
 
-export class ColliderPhysics<T = {}> extends NoRenderComponentX<T> {
+export class ColliderPhysics<T extends ColliderPhysicsProps = ColliderPhysicsProps> extends NoRenderComponentX<T, PhysicsSprite['node']> {
   tag = 0
   group = 0
   offset: Vec2 = Vec2.zero()
-  _onCollisionEnter: (other: ColliderPhysics) => void
+  onCollisionEnter: (other: ColliderPhysics) => void
+  onCollisionExit: (other: ColliderPhysics) => void
   enabled = true
   instance: PhysicsSprite
 }
@@ -52,15 +52,15 @@ export class BoxColliderPhysics extends ColliderPhysics<BoxColliderPhysicsProps>
   width: number
   height: number
 
-  set onCollisionEnter(val) {
-    const phys1 = this.getComponent(ColliderPhysics)
-    phys1._onCollisionEnter = val
-  }
+  // set onCollisionEnter(val) {
+  //   const phys1 = this.getComponent(ColliderPhysics)
+  //   phys1._onCollisionEnter = val
+  // }
 
-  get onCollisionEnter() {
-    const phys1 = this.getComponent(ColliderPhysics)
-    return phys1._onCollisionEnter
-  }
+  // get onCollisionEnter() {
+  //   const phys1 = this.getComponent(ColliderPhysics)
+  //   return phys1._onCollisionEnter
+  // }
 }
 
 export class CircleColliderPhysics extends ColliderPhysics<CircleColliderPhysicsProps> {

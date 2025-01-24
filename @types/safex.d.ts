@@ -131,6 +131,15 @@ interface TouchEventProps {
   onTouchCancel?: TouchEVentCallback
 }
 
+export type BodyType = 'kinematic' | 'dynamic' | 'static'
+interface RigidBodyProps {
+  type?: BodyType
+  density?: Float
+  restitution?: Float
+  friction?: Float
+  gravityScale?: Float
+}
+
 interface PhysicsMaterialProps {
   friction?: number
   restitution?: number
@@ -146,15 +155,15 @@ interface ColliderPhysicsProps {
   onCollisionStay?: (other: Collider) => void
 }
 
-interface BoxColliderPhysicsProps {
+interface BoxColliderPhysicsProps extends ColliderPhysicsProps {
   width: number
   height: number
 }
 
-interface CircleColliderPhysicsProps {
+interface CircleColliderPhysicsProps extends ColliderPhysicsProps {
   radius: number
 }
 
-interface PolygonColliderPhysicsProps {
+interface PolygonColliderPhysicsProps extends ColliderPhysicsProps {
   points: Array<Vec2>
 }

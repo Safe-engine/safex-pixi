@@ -32,6 +32,9 @@ importers:
       pixi.js:
         specifier: ^8.6.6
         version: 8.6.6
+      planck:
+        specifier: ^1.3.0
+        version: 1.3.0(stage-js@1.0.0-alpha.16)
     devDependencies:
       '@types/lodash':
         specifier: ^4.17.14
@@ -104,6 +107,16 @@ packages:
   pixi.js@8.6.6:
     resolution: {integrity: sha512-o5pw7G2yuIrnBx0G4npBlmFp+XGNcapI/Ufs62rRj/4XKxc1Zo74YJr/BtEXcXTraTKd+pQvYOLvnfxRjxBMvQ==}
 
+  planck@1.3.0:
+    resolution: {integrity: sha512-zsKIYYCt/0LS/+uclz7DIOgCWk8nozJRwLe9hN985HivLYfmJkTQsVRCTEWRB9GkjTcLR5P5UgDX2Cl0pVZgvA==}
+    engines: {node: '>=14.0'}
+    peerDependencies:
+      stage-js: ^1.0.0-alpha.12
+
+  stage-js@1.0.0-alpha.16:
+    resolution: {integrity: sha512-Sh4Ovo++zy8hZyEyYNDvkk7V8BLHlQUe195YI6fb3gTJQODcvzip72OeIiIhFiWsEyllDun3aeXnBCujD3ZlTg==}
+    engines: {node: '>=18.0'}
+
   tweedle.js@2.1.0:
     resolution: {integrity: sha512-0ReQgVjepoZkE6t0upWNgCRbplHkQJQYk1LStXugwSR728GLFmGDRuaQJlxeC/iBlxud6+P1RdODjaO25vHAqw==}
 
@@ -175,6 +188,12 @@ snapshots:
       eventemitter3: 5.0.1
       ismobilejs: 1.1.1
       parse-svg-path: 0.1.2
+
+  planck@1.3.0(stage-js@1.0.0-alpha.16):
+    dependencies:
+      stage-js: 1.0.0-alpha.16
+
+  stage-js@1.0.0-alpha.16: {}
 
   tweedle.js@2.1.0: {}
 
