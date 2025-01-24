@@ -1,8 +1,4 @@
-import {
-  EventManager,
-  EventTypes,
-  System
-} from 'entityx-ts'
+import { EventManager, EventTypes, System } from 'entityx-ts'
 import { Container, Graphics, Sprite } from 'pixi.js'
 
 import { NodeComp } from '..'
@@ -43,7 +39,7 @@ export class RenderSystem implements System {
       // component.node.anchorY = 0.5
     })
     event_manager.subscribe(EventTypes.ComponentAdded, MaskRender, ({ component }) => {
-      console.log('MaskRender', component);
+      console.log('MaskRender', component)
       // const { type, segments, inverted } = maskComp
       // const node = new cc.ClippingNode()
       // node.setInverted(inverted)
@@ -51,9 +47,12 @@ export class RenderSystem implements System {
     })
     event_manager.subscribe(EventTypes.ComponentAdded, GraphicsRender, ({ entity, component }) => {
       const { lineWidth, strokeColor, fillColor } = component
+      // console.log('GraphicsRender', component);
       const node = new Graphics()
-      node.beginFill(fillColor)
-      node.lineStyle(lineWidth, strokeColor)
+      node.fill(fillColor)
+      // node.fillStyle = fillColor
+      node.stroke(strokeColor)
+      node.width = lineWidth
       component.node = entity.assign(new NodeComp(node, entity))
       // node.drawCircle(0, 0, 100)
     })
