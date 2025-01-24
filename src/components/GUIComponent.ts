@@ -4,9 +4,9 @@ import { Assets, Container, FillInput, Point, Text } from 'pixi.js'
 import TaggedText from 'pixi-tagged-text-plus'
 import { ButtonCompProps, ColorSource, LabelCompProps, LabelOutlineCompProps, LabelShadowCompProps, ProgressTimerProps, ScrollViewProps } from '../../@types/safex'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
+import { generateStringFromStyledElements, generateStylesFromStyledElements, parseFontString, transformToStyledElements } from '../helper/html-text-parser'
 import { ComponentX, NoRenderComponentX } from './BaseComponent'
 
-// const _htmlTextParser = new HtmlTextParser()
 export const FillType = {
   HORIZONTAL: 0,
   VERTICAL: 1,
@@ -117,6 +117,7 @@ export class ProgressTimerComp extends ComponentX<ProgressTimerProps & { $ref?: 
 }
 
 export class RichTextComp extends ComponentX<LabelCompProps, TaggedText> {
+
   font: string
   string: string
   size: number
@@ -125,8 +126,23 @@ export class RichTextComp extends ComponentX<LabelCompProps, TaggedText> {
     return this.string
   }
 
+
   setString(val: string) {
     this.string = val
+    const jObj = parseFontString(val);
+    const styledOutput = transformToStyledElements(jObj);
+    const newText = generateStringFromStyledElements(styledOutput)
+    const styles = generateStylesFromStyledElements(styledOutput)
+    // console.log(styledOutput)
+    const wrapped = `<root>${newText}</root>`
+    this.node.instance.setText(wrapped)
+    this.node.instance.setTagStyles(styles)
+  }
+  setSize(size: number) {
+    this.node.instance.setStyleForTag('root', { fontSize: size, color: '#fff' })
+  }
+  setFont(font: string) {
+    this.node.instance.setStyleForTag('root', { color: '#fff', fontFamily: font })
   }
 }
 
