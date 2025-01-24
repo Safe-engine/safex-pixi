@@ -3,10 +3,10 @@ import { Assets, Container, FillInput, Point, Text } from 'pixi.js'
 
 import TaggedText from 'pixi-tagged-text-plus'
 import { ButtonCompProps, LabelCompProps, LabelOutlineCompProps, LabelShadowCompProps, ProgressTimerProps, ScrollViewProps } from '../../@types/safex'
+import { ComponentX, NoRenderComponentX } from '../components/BaseComponent'
 import { Color4B } from '../core/Color'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
 import { generateStringFromStyledElements, generateStylesFromStyledElements, parseFontString, transformToStyledElements } from '../helper/html-text-parser'
-import { ComponentX, NoRenderComponentX } from './BaseComponent'
 
 export const FillType = {
   HORIZONTAL: 0,

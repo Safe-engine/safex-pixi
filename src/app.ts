@@ -3,11 +3,11 @@ import { Application } from 'pixi.js'
 import { GameWorld } from './base'
 import { CollideSystem } from './collider'
 import { DragonBonesSystem } from './dragonbones'
+import { GUISystem } from './gui/GUISystem'
+import { NoRenderSystem } from './norender/NoRenderSystem'
 import { PhysicsSystem } from './planck'
+import { RenderSystem } from './render/RenderSystem'
 import { SpineSystem } from './spine'
-import { GUISystem } from './systems/GUISystem'
-import { NoRenderSystem } from './systems/NoRenderSystem'
-import { RenderSystem } from './systems/RenderSystem'
 
 export const app = new Application()
 

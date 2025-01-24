@@ -5,8 +5,8 @@ import { Color, ColorSource, Container, Point, Sprite } from 'pixi.js'
 import { BaseNode, ComponentType, EnhancedComponent } from '../base'
 
 import { Size } from '../core/Size'
-import { ProgressBarComp } from './GUIComponent'
-import { ExtraDataComp } from './NoRenderComponent'
+import { ProgressBarComp } from '../gui/GUIComponent'
+import { ExtraDataComp } from '../norender/NoRenderComponent'
 
 export type EventCallbackType = (...args) => void
 export interface EventMap {

@@ -2,9 +2,9 @@ import { Graphics, Point, Sprite, Texture } from 'pixi.js'
 
 import { Color4B, Vec2 } from '..'
 import { GraphicsRenderProps, MaskRenderProps, SpriteRenderProps } from '../../@types/safex'
+import { ComponentX } from '../components/BaseComponent'
 import { LoadingBar, LoadingBarMode } from '../core/LoadingBar'
-import { SpriteTypes } from '../systems/RenderSystem'
-import { ComponentX } from './BaseComponent'
+import { SpriteTypes } from './RenderSystem'
 
 export class NodeRender extends ComponentX {
   nodeName?: string
