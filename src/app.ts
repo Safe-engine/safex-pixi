@@ -1,7 +1,13 @@
-import { GameWorld } from '@safe-engine/core'
-import { Constructor, System } from 'entityx-ts'
-import { Application } from 'pixi.js'
 import { actionManager } from 'pixi-action-ease'
+import { Application } from 'pixi.js'
+import { GameWorld } from './base'
+import { CollideSystem } from './collider'
+import { DragonBonesSystem } from './dragonbones'
+import { GUISystem } from './gui/GUISystem'
+import { NoRenderSystem } from './norender/NoRenderSystem'
+import { PhysicsSystem } from './planck'
+import { RenderSystem } from './render/RenderSystem'
+import { SpineSystem } from './spine'
 
 export const app = new Application()
 
@@ -39,15 +45,15 @@ function startGameLoop(world: GameWorld) {
   // app.ticker.speed = 0.5
 }
 
-export function startGameWithSystems(systemsList: Constructor<System>[]) {
+const systemsList = [RenderSystem, GUISystem, SpineSystem, DragonBonesSystem, CollideSystem, PhysicsSystem, NoRenderSystem]
+export function startGameSystems() {
   const world = GameWorld.Instance
   systemsList.forEach(system => {
     world.systems.add(system)
-    const sys = world.systemsMap[system.name]
-    if (sys.update) {
-      world.listUpdate.push(system)
-    }
+    world.systems.configureOnce(system)
   })
-  world.systems.configure()
+  world.listUpdate.push(CollideSystem)
+  world.listUpdate.push(PhysicsSystem)
   startGameLoop(world)
+  // console.log('startGameLoop', world.listUpdate)
 }

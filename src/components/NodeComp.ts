@@ -1,18 +1,19 @@
-import { BaseNode, ComponentType, EnhancedComponent } from '@safe-engine/core'
 import { Constructor, Entity } from 'entityx-ts'
 import remove from 'lodash/remove'
-import { Color, ColorSource, Container, Point, Sprite } from 'pixi.js'
 import { Action, actionManager, Animation } from 'pixi-action-ease'
+import { Color, ColorSource, Container, Point, Sprite } from 'pixi.js'
+import { BaseNode, ComponentType, EnhancedComponent } from '../base'
 
 import { Size } from '../core/Size'
-import { ProgressBarComp } from './GUIComponent'
+import { ProgressBarComp } from '../gui/GUIComponent'
+import { ExtraDataComp } from '../norender/NoRenderComponent'
 
 export type EventCallbackType = (...args) => void
 export interface EventMap {
   [key: string]: [EventCallbackType]
 }
 
-type TouchEVentCallback = (target: { location: Point }) => void
+type TouchEventCallback = (target: { location: Point }) => void
 
 export class NodeComp<C extends Container = Container> implements BaseNode<C> {
   entity: Entity
@@ -27,12 +28,12 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
   // private lastMove: { x: number; y: number }
   private _group = 0
 
-  onTouchStart?: TouchEVentCallback
-  onTouchMove?: TouchEVentCallback
-  onTouchEnd?: TouchEVentCallback
-  onTouchCancel?: TouchEVentCallback
+  onTouchStart?: TouchEventCallback
+  onTouchMove?: TouchEventCallback
+  onTouchEnd?: TouchEventCallback
+  onTouchCancel?: TouchEventCallback
 
-  setOnTouchStart(cb: TouchEVentCallback) {
+  setOnTouchStart(cb: TouchEventCallback) {
     this.onTouchStart = cb
     this.instance.on('touchstart', (event) => {
       const { global } = event
@@ -40,7 +41,7 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
     })
   }
 
-  setOnTouchMove(cb: TouchEVentCallback) {
+  setOnTouchMove(cb: TouchEventCallback) {
     this.onTouchMove = cb
     this.instance.on('touchmove', (event) => {
       const { global } = event
@@ -48,7 +49,7 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
     })
   }
 
-  setOnTouchEnd(cb: TouchEVentCallback) {
+  setOnTouchEnd(cb: TouchEventCallback) {
     this.onTouchEnd = cb
     this.instance.on('touchend', (event) => {
       const { global } = event
@@ -56,7 +57,7 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
     })
   }
 
-  setOnTouchCancel(cb: TouchEVentCallback) {
+  setOnTouchCancel(cb: TouchEventCallback) {
     this.onTouchCancel = cb
     this.instance.on('touchcancel', (event) => {
       const { global } = event
@@ -397,7 +398,7 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
     }
   }
 
-  resolveComponent(component: EnhancedComponent<NodeComp>) {
+  resolveComponent(component: EnhancedComponent<{}, NodeComp>) {
     // console.log(component.constructor.name, (component.constructor as any).hasRender)
     if ((component.constructor as any).hasRender) {
       this.addChild(component.node)
@@ -408,10 +409,20 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
       }
     }
   }
+
   getData<T>(key: string): T {
-    return this.data[key]
+    const data = this.getComponent(ExtraDataComp)
+    if (!data) throw Error('need add ExtraDataComp to Node')
+    return data.getData(key)
   }
-  setData<T>(key: string, val: T) {
-    this.data[key] = val
+
+  setData<T>(key: string, value: T) {
+    const data = this.getComponent(ExtraDataComp)
+    // console.log('setData', key, value, data)
+    if (!data) {
+      this.addComponent(ExtraDataComp.create({ key, value }))
+    } else {
+      data.setData(key, value)
+    }
   }
 }

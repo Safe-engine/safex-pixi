@@ -1,6 +1,6 @@
-import { EnhancedComponent, GameWorld } from '@safe-engine/core';
 import { Constructor, EntityManager, EventManager, EventReceive, EventTypes, System } from 'entityx-ts';
 import { Point } from 'pixi.js';
+import { EnhancedComponent, GameWorld } from '../base';
 
 import { NodeComp } from '../components/NodeComp';
 
@@ -21,13 +21,12 @@ export function registerSystem<T extends EnhancedComponent<any>>(component: Cons
   class NewSystem implements System {
     configure(event_manager: EventManager<GameWorld>) {
       console.log('configure registerSystem core', component.name)
-      event_manager.subscribe(EventTypes.ComponentAdded, component, this.receiveComponentAddedEvent.bind(this))
-    }
-
-    receiveComponentAddedEvent(event: EventReceive<T>) {
-      const ett = event.entity
-      const newComp = ett.getComponent<T>(component)
-      newComp.node = ett.getComponent(NodeComp)
+      event_manager.subscribe(EventTypes.ComponentAdded, component, (event: EventReceive<T>) => {
+        // console.log('receiveComponentAddedEvent', event)
+        const ett = event.entity
+        const newComp = ett.getComponent<T>(component)
+        newComp.node = ett.getComponent(NodeComp)
+      })
     }
 
     update(entities: EntityManager, events: EventManager<GameWorld>, dt: number) {

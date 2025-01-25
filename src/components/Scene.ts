@@ -1,10 +1,10 @@
-import { EnhancedComponent, GameWorld } from '@safe-engine/core'
-
 import { app } from '../app'
+import { EnhancedComponent, GameWorld } from '../base'
+
 import { NodeComp } from './NodeComp'
 
-export class SceneComponent extends EnhancedComponent<NodeComp> {
-  static boot: () => void
+export class SceneComponent extends EnhancedComponent<{}, NodeComp> {
+
   static create() {
     const world = GameWorld.Instance
     world.entities.reset()
@@ -14,4 +14,5 @@ export class SceneComponent extends EnhancedComponent<NodeComp> {
     sceneComponent.node = node
     return sceneComponent
   }
+
 }

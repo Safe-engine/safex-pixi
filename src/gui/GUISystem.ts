@@ -1,40 +1,42 @@
 import { Button, CheckBox, Input, List, ProgressBar, RadioGroup, ScrollBox, Slider } from '@pixi/ui'
-import { GameWorld } from '@safe-engine/core'
 import {
   EventManager,
   EventTypes,
   System
 } from 'entityx-ts'
+import { callFunc, easeBackIn, scaleTo, sequence } from 'pixi-action-ease'
 import { Text } from 'pixi.js'
-import { CallFunc, EaseBackIn, ScaleTo, Sequence } from 'pixi-action-ease'
+import { GameWorld } from '../base'
 
+import TaggedText from 'pixi-tagged-text-plus'
 import { NodeComp } from '..'
-import { ButtonComp, CheckBoxComp, InputComp, LabelComp, ListComp, ProgressBarComp, ProgressTimerComp, RadioGroupComp, ScrollView, SliderComp } from '../components/GUIComponent'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
+import { ButtonComp, CheckBoxComp, InputComp, LabelComp, ListComp, ProgressBarComp, ProgressTimerComp, RadioGroupComp, RichTextComp, ScrollView, SliderComp } from './GUIComponent'
 
 export class GUISystem implements System {
   configure(event_manager: EventManager<GameWorld>) {
     event_manager.subscribe(EventTypes.ComponentAdded, ButtonComp, ({ entity, component }) => {
       const nodeComp = entity.getComponent(NodeComp)
       // const { normalImage, selectedImage, disableImage, texType, zoomScale } = button
-      const node = new Button(nodeComp.instance)
+      // console.log('onPress.ButtonComp', component)
+      const button = new Button(nodeComp.instance)
       // node.setZoomScale(zoomScale - 1)
       component.node = nodeComp
       // component.node = entity.assign(new NodeComp(node, entity))
-      node.onPress.connect(() => {
+      button.onPress.connect(() => {
         // console.log('onPress.connect')
-        const scale = ScaleTo.create(0.5, 1.2)
-        const scaleDown = ScaleTo.create(0.5, 1)
-        const seq = Sequence.create(
+        const scale = scaleTo(0.5, 1.2)
+        const scaleDown = scaleTo(0.5, 1)
+        const seq = sequence(
           scale,
-          CallFunc.create(() => {
+          callFunc(() => {
             if (Object.prototype.hasOwnProperty.call(component, 'onPress')) {
               component.onPress(component)
             }
           }),
           scaleDown,
         )
-        const ease = EaseBackIn.create(seq)
+        const ease = easeBackIn(seq)
         component.node.runAction(ease)
       })
     })
@@ -90,6 +92,16 @@ export class GUISystem implements System {
       if (font) component.setFont(font)
       component.setSize(size)
       component.setString(string)
+    })
+    event_manager.subscribe(EventTypes.ComponentAdded, RichTextComp, ({ entity, component }) => {
+      // console.log('ComponentAddedEvent LabelComp', component)
+      const { string = '', font, size } = component
+      const node = new TaggedText(string);
+      // node.defaultStyle = { }
+      component.node = entity.assign(new NodeComp(node, entity))
+      component.setString(string)
+      if (font) component.setFont(font)
+      if (size) component.setSize(size)
     })
     // event_manager.subscribe(EventTypes.ComponentAdded, BlockInputEventsComp), this);
   }

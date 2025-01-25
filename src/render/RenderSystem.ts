@@ -6,8 +6,8 @@ import {
 import { Container, Graphics, Sprite } from 'pixi.js'
 
 import { NodeComp } from '..'
-import { GraphicsRender, MaskRender, NodeRender, SpriteRender } from '../components/RenderComponent'
 import { LoadingBar } from '../core/LoadingBar'
+import { GraphicsRender, MaskRender, NodeRender, SpriteRender } from './RenderComponent'
 
 export enum SpriteTypes {
   SIMPLE,
@@ -27,7 +27,7 @@ export class RenderSystem implements System {
     })
     event_manager.subscribe(EventTypes.ComponentAdded, SpriteRender, ({ entity, component }) => {
       const { spriteFrame, type, fillType, fillRange, fillCenter } = component
-      // console.log('SpriteRender', component)
+      // console.log('SpriteRender ComponentAdded', component)
       const node = Sprite.from(spriteFrame)
       if (type === SpriteTypes.FILLED) {
         // console.log('fillType', fillType)
@@ -51,9 +51,11 @@ export class RenderSystem implements System {
     })
     event_manager.subscribe(EventTypes.ComponentAdded, GraphicsRender, ({ entity, component }) => {
       const { lineWidth, strokeColor, fillColor } = component
+      // console.log('GraphicsRender', component);
       const node = new Graphics()
       node.fill(fillColor)
-      node.fillStyle = strokeColor
+      // node.fillStyle = fillColor
+      node.stroke(strokeColor)
       node.width = lineWidth
       component.node = entity.assign(new NodeComp(node, entity))
       // node.drawCircle(0, 0, 100)
