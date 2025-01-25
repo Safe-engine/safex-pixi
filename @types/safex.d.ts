@@ -5,7 +5,6 @@ interface BaseComponentProps {
   $ref?: object;
   $push?: object[];
   node?: Partial<NodeComp>;
-  // [$key: `$${string}`]: string
 }
 
 interface NodeCompProps {

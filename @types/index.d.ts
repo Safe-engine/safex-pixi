@@ -1,2 +1,2 @@
-type Float = number & { __floatBrand: 'Float' };
-type Integer = number & { __integerBrand: 'Integer' };
+type Float = number
+type Integer = number
