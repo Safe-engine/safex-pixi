@@ -1,10 +1,14 @@
-// import { Touch } from '../../polyfills'
 import { FederatedPointerEvent } from 'pixi.js'
 import { ExtraDataProps, TouchEventProps } from '../../@types/safex'
 import { NoRenderComponentX } from '../components/BaseComponent'
 import { EventCallbackType, EventMap, NodeComp } from '../components/NodeComp'
 
-export type TouchEventCallback = (touch?: FederatedPointerEvent, node?: NodeComp) => void
+export class Touch extends FederatedPointerEvent {
+  // declare getLocation: () => Vec2
+  // declare getDelta: () => Vec2
+}
+
+export type TouchEventCallback = (touch?: Touch, node?: NodeComp) => void
 
 export class EventRegister extends NoRenderComponentX {
   events: EventMap = {}
