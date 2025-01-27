@@ -18,12 +18,13 @@
   "dependencies": {
     "@esotericsoftware/spine-core": "^4.2.70",
     "@pixi/ui": "^2.2.0",
+    "@types/node": "^22.10.10",
     "dragonbones-pixijs": "^1.0.3",
     "entityx-ts": "^2.1.2",
     "lodash": "^4.17.21",
     "pixi-action-ease": "^3.0.6",
     "pixi-tagged-text-plus": "0.0.1-next.2",
-    "pixi.js": "^8.6.6",
+    "pixi.js": "8.7.2",
     "planck": "^1.3.0"
   },
   "devDependencies": {

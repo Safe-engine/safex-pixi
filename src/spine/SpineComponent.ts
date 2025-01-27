@@ -1,4 +1,4 @@
-import { SpineData, SpineSkeletonProps } from "../../@types/safex"
+import { SpineData, SpineSkeletonProps } from "../@types/safex"
 import { ComponentX } from "../components/BaseComponent"
 
 export class SpineSkeleton extends ComponentX<SpineSkeletonProps> {

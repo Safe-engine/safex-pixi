@@ -1,10 +1,8 @@
-import chunk from 'lodash/chunk'
-import flatten from 'lodash/flatten'
 import max from 'lodash/max'
 import min from 'lodash/min'
 import { Graphics, Point, Rectangle, Size } from 'pixi.js'
 
-import { BoxColliderProps, CircleColliderProps, PolygonColliderProps } from '../../@types/safex'
+import { BoxColliderProps, CircleColliderProps, PolygonColliderProps } from '../@types/safex'
 import { app } from '../app'
 import { NoRenderComponentX } from '../components/BaseComponent'
 import { NodeComp } from '../components/NodeComp'
@@ -143,7 +141,7 @@ export class CircleCollider extends Collider {
 }
 
 export class PolygonCollider extends Collider {
-  _points: number[]
+  _points: Point[]
 
   constructor(props: PolygonColliderProps) {
     super(props)
@@ -152,12 +150,12 @@ export class PolygonCollider extends Collider {
 
   get points(): Point[] {
     const { x, y } = this.offset
-    const pointsList = chunk(this._points, 2).map(([px, py]) => v2(px + x, py + y))
+    const pointsList = this._points.map((p) => v2(p.x + x, p.y + y))
     return pointsList
   }
 
   set points(points: Point[]) {
-    this._points = flatten(points.map(({ x, y }) => [x, y]))
+    this._points = points
   }
 
   update(dt, draw: Graphics) {
