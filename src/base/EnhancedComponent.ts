@@ -1,5 +1,5 @@
 import { Constructor, Entity } from 'entityx-ts'
-import { BaseComponentProps } from '../../@types/safex'
+import { BaseComponentProps } from '../@types/safex'
 
 export interface BaseNode<C> {
   active: boolean
