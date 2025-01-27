@@ -1,5 +1,5 @@
-import { NodeComp, TouchEVentCallback } from "../src";
-import { Color4B } from "../src/core/Color";
+import { ButtonComp, Collider, NodeComp, Point, TouchEventCallback, Vec2 } from "..";
+import { Color4B } from "../core/Color";
 
 interface BaseComponentProps {
   $ref?: object;
@@ -29,7 +29,7 @@ interface MaskRenderProps {
 
 interface ProgressTimerProps {
   spriteFrame: string
-  fillType?: LoadingBarMode
+  fillType?: number
   fillRange?: number
   fillCenter?: Point
   isReverse?: boolean
@@ -124,10 +124,10 @@ interface ButtonCompProps {
 }
 
 interface TouchEventProps {
-  onTouchStart?: TouchEVentCallback
-  onTouchMove?: TouchEVentCallback
-  onTouchEnd?: TouchEVentCallback
-  onTouchCancel?: TouchEVentCallback
+  onTouchStart?: TouchEventCallback
+  onTouchMove?: TouchEventCallback
+  onTouchEnd?: TouchEventCallback
+  onTouchCancel?: TouchEventCallback
 }
 
 export type BodyType = 'kinematic' | 'dynamic' | 'static'

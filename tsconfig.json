@@ -1,24 +1,25 @@
 {
   "compilerOptions": {
     "lib": [
-      "es2017",
+      "ES2020",
       "dom"
     ],
     "outDir": "dist",
     "target": "ES6",
     "declaration": true,
     "declarationMap": true,
-    "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": false,
-    "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "types": [
+      "node"
+    ],
     "noEmit": false
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

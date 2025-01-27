@@ -1,4 +1,4 @@
-import { DragonBonesProps } from "../../@types/safex"
+import { DragonBonesProps } from "../@types/safex"
 import { ComponentX } from "../components/BaseComponent"
 
 export type DragonBonesData = {

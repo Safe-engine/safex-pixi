@@ -1,6 +1,6 @@
 import { Body, BodyType, Vec2 } from 'planck'
 
-import { BoxColliderPhysicsProps, CircleColliderPhysicsProps, ColliderPhysicsProps, PhysicsMaterialProps, PolygonColliderPhysicsProps, RigidBodyProps } from '../../@types/safex'
+import { BoxColliderPhysicsProps, CircleColliderPhysicsProps, ColliderPhysicsProps, PhysicsMaterialProps, PolygonColliderPhysicsProps, RigidBodyProps } from '../@types/safex'
 import { NoRenderComponentX } from '../components/BaseComponent'
 import { PhysicsSprite } from './PhysicsSprite'
 
