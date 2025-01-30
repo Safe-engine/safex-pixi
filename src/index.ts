@@ -1,6 +1,7 @@
 export * from 'pixi-action-ease'
 export * from 'pixi.js'
 export { Vec2 } from 'planck'
+export * from './@types/safex'
 export * from './app'
 export * from './base'
 export * from './collider'

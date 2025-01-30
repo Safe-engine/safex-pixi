@@ -1,6 +1,6 @@
 {
   "name": "@safe-engine/pixi",
-  "version": "8.2.6",
+  "version": "8.2.7",
   "description": "safex pixi plugin",
   "type": "module",
   "main": "dist/index.js",
@@ -9,7 +9,7 @@
     "export": "safex build -p ios",
     "start": "parcel src/index.html -p 8080",
     "dev": "parcel src/index.html -p 8080 --no-cache",
-    "build": "tsc",
+    "build": "tsc & copyfiles -f ./src/@types/* ./dist/@types",
     "fix": "eslint ./src --ext .ts --fix"
   },
   "keywords": [],
@@ -19,6 +19,7 @@
     "@esotericsoftware/spine-core": "^4.2.70",
     "@pixi/ui": "^2.2.0",
     "@types/node": "^22.10.10",
+    "copyfiles": "^2.4.1",
     "dragonbones-pixijs": "^1.0.3",
     "entityx-ts": "^2.1.2",
     "lodash": "^4.17.21",
