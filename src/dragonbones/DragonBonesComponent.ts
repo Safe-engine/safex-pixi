@@ -1,11 +1,6 @@
-import { DragonBonesProps } from "../@types/safex"
+import { DragonBonesData, DragonBonesProps } from "../@types/safex"
 import { ComponentX } from "../components/BaseComponent"
 
-export type DragonBonesData = {
-  skeleton,
-  atlas,
-  texture: string
-}
 export class DragonBones extends ComponentX<DragonBonesProps> {
   data: DragonBonesData
   skin: string
