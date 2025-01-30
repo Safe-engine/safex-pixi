@@ -14,7 +14,10 @@ export class ComponentX<Props = Object, C extends Container = Container> extends
   render?(data?: Props): any
   static create(data?: any) {
     // console.log('create', this, this.prototype['render'])
-    if (this.prototype.render) return this.prototype.render(data)
+    if (this.prototype.render) {
+      const instance = new this(data)
+      return instance.render(data)
+    }
     const world = GameWorld.Instance
     const root = world.entities.create()
     const comp = root.assign(new this(data))
