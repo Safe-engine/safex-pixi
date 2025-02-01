@@ -11,7 +11,7 @@ export class NodeRender extends ComponentX {
 }
 
 export class SpriteRender extends ComponentX<SpriteRenderProps, Sprite> {
-  public spriteFrame: string
+  protected _spriteFrame: string
   public type: SpriteTypes
   public fillType: LoadingBarMode = LoadingBarMode.BAR
   public fillRange = 1
@@ -30,12 +30,13 @@ export class SpriteRender extends ComponentX<SpriteRenderProps, Sprite> {
     }
   }
 
-  getSpriteFrame() {
-    return this.spriteFrame
+  get spriteFrame() {
+    return this._spriteFrame
   }
 
-  setSpriteFrame(frame) {
-    this.spriteFrame = frame
+  set spriteFrame(frame) {
+    this._spriteFrame = frame
+    if (!this.node) return
     const sprite = this.node.instance as Sprite
     // if (this.node.instance instanceof cc.Sprite) {
     sprite.texture = Texture.from(frame)

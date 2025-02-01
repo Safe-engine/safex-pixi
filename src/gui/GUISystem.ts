@@ -89,9 +89,9 @@ export class GUISystem implements System {
       node.style.fill = '#fff'
       component.node = entity.assign(new NodeComp(node, entity))
       const { string = '', font = '', size } = component
-      if (font) component.setFont(font)
-      component.setSize(size)
-      component.setString(string)
+      if (font) component.font = (font)
+      component.size = (size)
+      component.string = (string)
     })
     event_manager.subscribe(EventTypes.ComponentAdded, RichTextComp, ({ entity, component }) => {
       // console.log('ComponentAddedEvent LabelComp', component)
@@ -99,9 +99,9 @@ export class GUISystem implements System {
       const node = new TaggedText(string);
       // node.defaultStyle = { }
       component.node = entity.assign(new NodeComp(node, entity))
-      component.setString(string)
-      if (font) component.setFont(font)
-      if (size) component.setSize(size)
+      component.string = (string)
+      if (font) component.font = (font)
+      if (size) component.size = (size)
     })
     // event_manager.subscribe(EventTypes.ComponentAdded, BlockInputEventsComp), this);
   }
