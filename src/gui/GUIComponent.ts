@@ -23,9 +23,9 @@ export class ButtonComp extends NoRenderComponentX<ButtonCompProps> {
   zoomScale: number
   onPress: (target: ButtonComp) => void
 
-  setOnPress(cb: (target: ButtonComp) => void) {
-    this.onPress = cb
-  }
+  // setOnPress(cb: (target: ButtonComp) => void) {
+  //   this.onPress = cb
+  // }
 
   set enabled(val) {
     this.node.instance.interactive = val
@@ -48,40 +48,40 @@ export class ProgressBarComp extends ComponentX<{}, ProgressBar> {
 }
 
 export class LabelComp extends ComponentX<LabelCompProps, Text> {
-  font: string
-  string: string
-  size = 64
+  private _font: string
+  private _string: string
+  private _size = 64
 
-  getString() {
-    if (this.node.instance instanceof Text) {
-      return this.node.instance.text
-    }
+  get string() {
+    return this._string
   }
 
-  setString(val: string) {
+  set string(val: string) {
+    this._string = val
+    if (!this.node) return
     if (this.node.instance instanceof Text) {
       this.node.instance.text = val
     }
   }
 
-  getSize() {
-    if (this.node.instance instanceof Text) {
-      return this.node.instance.style.fontSize
-    }
+  get size() {
+    return this._size
   }
-  setSize(val) {
+  set size(val) {
+    this._size = val
+    if (!this.node) return
     if (this.node.instance instanceof Text) {
       this.node.instance.style.fontSize = val
     }
   }
 
-  getFont() {
-    if (this.node.instance instanceof Text) {
-      return this.node.instance.style.fontFamily as string
-    }
+  get font() {
+    return this._font
   }
 
-  setFont(val: string) {
+  set font(val: string) {
+    this._font = val
+    if (!this.node) return
     // console.log('set font', val, Assets.get(val))
     if (this.node.instance instanceof Text) {
       if (Assets.get(val)) this.node.instance.style.fontFamily = Assets.get(val).family
@@ -118,18 +118,18 @@ export class ProgressTimerComp extends ComponentX<ProgressTimerProps & { $ref?: 
 }
 
 export class RichTextComp extends ComponentX<LabelCompProps, TaggedText> {
+  private _font: string
+  private _string: string
+  private _size: number
 
-  font: string
-  string: string
-  size: number
-
-  getString() {
-    return this.string
+  get string() {
+    return this._string
   }
 
 
-  setString(val: string) {
-    this.string = val
+  set string(val: string) {
+    this._string = val
+    if (!this.node) return
     const jObj = parseFontString(val);
     const styledOutput = transformToStyledElements(jObj);
     const newText = generateStringFromStyledElements(styledOutput)
@@ -139,10 +139,20 @@ export class RichTextComp extends ComponentX<LabelCompProps, TaggedText> {
     this.node.instance.setText(wrapped)
     this.node.instance.setTagStyles(styles)
   }
-  setSize(size: number) {
+  get size() {
+    return this._size
+  }
+  set size(size: number) {
+    this._size = size
+    if (!this.node) return
     this.node.instance.setStyleForTag('root', { fontSize: size, color: '#fff' })
   }
-  setFont(font: string) {
+  get font() {
+    return this._font
+  }
+  set font(font: string) {
+    this._font = font
+    if (!this.node) return
     this.node.instance.setStyleForTag('root', { color: '#fff', fontFamily: font })
   }
 }
