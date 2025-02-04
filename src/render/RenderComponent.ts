@@ -107,7 +107,15 @@ export class GraphicsRender extends ComponentX<GraphicsRenderProps, Graphics> {
   }
   drawDot(points: Vec2[], color: Color4B) {
   }
-  drawSegment(from: Vec2, to: Vec2, color: Color4B) {
+  drawSegment(from: Point, to: Point, color?: Color4B) {
+    this.node.instance.moveTo(from.x, from.y);
+    this.node.instance.lineTo(to.x, to.y);
+    this.node.instance.strokeStyle = {
+      cap: 'round', join: 'round',
+      width: this.lineWidth || 36,
+      color: color || this.strokeColor,
+    }
+    this.node.instance.stroke();
   }
   drawTriangle(p1: Vec2, p2: Vec2, p3: Vec2, color: Color4B) {
     this.node.instance.poly([p1, p2, p3], true)

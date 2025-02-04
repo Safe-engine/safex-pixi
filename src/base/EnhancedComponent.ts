@@ -14,6 +14,8 @@ export interface BaseNode<C> {
 
 export class EnhancedComponent<Props = Object, N extends BaseNode<any> = BaseNode<any>> {
   constructor(data?: BaseComponentProps & Props) {
+  }
+  init(data?: Props) {
     if (data) {
       // console.log('constructor', this.constructor.name, data)
       Object.keys(data).forEach((key) => {
