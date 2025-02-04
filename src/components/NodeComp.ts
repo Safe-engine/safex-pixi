@@ -2,7 +2,7 @@ import { Constructor, Entity } from 'entityx-ts'
 import remove from 'lodash/remove'
 import { Action, actionManager, Animation } from 'pixi-action-ease'
 import { Color, ColorSource, Container, Point, Sprite } from 'pixi.js'
-import { BaseNode, ComponentType, EnhancedComponent } from '../base'
+import { BaseNode, ComponentType, EnhancedComponent, instantiate } from '../base'
 
 import { Size } from '../core/Size'
 import { ProgressBarComp } from '../gui/GUIComponent'
@@ -420,7 +420,7 @@ export class NodeComp<C extends Container = Container> implements BaseNode<C> {
     const data = this.getComponent(ExtraDataComp)
     // console.log('setData', key, value, data)
     if (!data) {
-      this.addComponent(ExtraDataComp.create({ key, value }))
+      this.addComponent(instantiate(ExtraDataComp, { key, value }))
     } else {
       data.setData(key, value)
     }
