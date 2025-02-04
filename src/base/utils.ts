@@ -1,10 +1,13 @@
-import { Constructor } from 'entityx-ts'
+import { Constructor } from 'entityx-ts';
 
-import { EnhancedComponent } from '.'
+import { ComponentX, NoRenderComponentX } from '../components/BaseComponent';
 
-export function instantiate<C extends Constructor<EnhancedComponent>, D>(
-  Component: C & { create?(data?: D) },
-  data?: D
-): InstanceType<C> {
-  return Component.create(data);
+export type GetProps<T> = T extends ComponentX<infer P> ? P : T extends NoRenderComponentX<infer Q> ? Q : never;
+
+export function instantiate<T extends ComponentX>(ComponentType: Constructor<T>, data?: GetProps<T>): T {
+  const instance = new ComponentType(data)
+  if (!instance.render) {
+    return instance
+  }
+  return instance.render()
 }
