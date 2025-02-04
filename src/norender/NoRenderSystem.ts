@@ -18,22 +18,22 @@ export class NoRenderSystem implements System {
       touchComp.node = nodeComp
       const container: Container = nodeComp.instance
       if (touchComp.onTouchStart) {
-        container.on('touchstart', (event) => {
+        container.on('pointerdown', (event) => {
           touchComp.onTouchStart(event, nodeComp)
         });
       }
       if (touchComp.onTouchMove) {
-        container.on('touchmove', (event) => {
+        container.on('pointermove', (event) => {
           touchComp.onTouchMove(event, nodeComp)
         });
       }
       if (touchComp.onTouchEnd) {
-        container.on('touchend', (event) => {
+        container.on('pointerup', (event) => {
           touchComp.onTouchEnd(event, nodeComp)
         });
       }
       if (touchComp.onTouchEnd) {
-        container.on('touchcancel', (event) => {
+        container.on('pointercancel', (event) => {
           touchComp.onTouchEnd(event, nodeComp)
         });
       }
