@@ -4,7 +4,10 @@ import { EnhancedComponent, GameWorld } from '../base';
 
 import { NodeComp } from '../components/NodeComp';
 
-export function v2(x = 0, y = 0) {
+export function v2(x: number | { x: number, y: number } = 0, y = 0) {
+  if (typeof x === 'object' && 'x' in x && 'y' in x) {
+    return new Point(x.x, x.y)
+  }
   return new Point(x, y)
 }
 
