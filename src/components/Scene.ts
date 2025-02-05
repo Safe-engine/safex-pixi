@@ -15,5 +15,4 @@ export class SceneComponent extends EnhancedComponent<{}, NodeComp> {
     sceneComponent.node = node
     return sceneComponent
   }
-
 }
