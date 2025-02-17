@@ -8,7 +8,7 @@ import { ExtraDataComp, TouchEventRegister } from './NoRenderComponent'
 export class NoRenderSystem implements System {
   configure(event_manager: EventManager) {
     event_manager.subscribe(EventTypes.ComponentAdded, ExtraDataComp, ({ entity, component }) => {
-      const { key, value } = component
+      const { key, value } = component.props
       component.data[key] = value
     })
     event_manager.subscribe(EventTypes.ComponentAdded, TouchEventRegister, ({ entity, component }) => {
@@ -17,24 +17,24 @@ export class NoRenderSystem implements System {
       const nodeComp = ett.getComponent(NodeComp)
       touchComp.node = nodeComp
       const container: Container = nodeComp.instance
-      if (touchComp.onTouchStart) {
+      if (touchComp.props.onTouchStart) {
         container.on('pointerdown', (event) => {
-          touchComp.onTouchStart(event, nodeComp)
+          touchComp.props.onTouchStart(event, nodeComp)
         });
       }
-      if (touchComp.onTouchMove) {
+      if (touchComp.props.onTouchMove) {
         container.on('pointermove', (event) => {
-          touchComp.onTouchMove(event, nodeComp)
+          touchComp.props.onTouchMove(event, nodeComp)
         });
       }
-      if (touchComp.onTouchEnd) {
+      if (touchComp.props.onTouchEnd) {
         container.on('pointerup', (event) => {
-          touchComp.onTouchEnd(event, nodeComp)
+          touchComp.props.onTouchEnd(event, nodeComp)
         });
       }
-      if (touchComp.onTouchEnd) {
+      if (touchComp.props.onTouchEnd) {
         container.on('pointercancel', (event) => {
-          touchComp.onTouchEnd(event, nodeComp)
+          touchComp.props.onTouchEnd(event, nodeComp)
         });
       }
     })
@@ -44,16 +44,16 @@ export class NoRenderSystem implements System {
       // const nodeComp = ett.getComponent(NodeComp)
       const touchComp = component as TouchEventRegister
       const container: Container = touchComp.node.instance
-      if (touchComp.onTouchStart) {
+      if (touchComp.props.onTouchStart) {
         container.removeListener('touchstart')
       }
-      if (touchComp.onTouchMove) {
+      if (touchComp.props.onTouchMove) {
         container.removeListener('touchmove')
       }
-      if (touchComp.onTouchEnd) {
+      if (touchComp.props.onTouchEnd) {
         container.removeListener('touchend')
       }
-      if (touchComp.onTouchEnd) {
+      if (touchComp.props.onTouchEnd) {
         container.removeListener('touchcancel')
       }
     })

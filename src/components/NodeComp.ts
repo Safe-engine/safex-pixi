@@ -2,7 +2,7 @@ import { Constructor, Entity } from 'entityx-ts'
 import remove from 'lodash/remove'
 import { Action, actionManager, Animation } from 'pixi-action-ease'
 import { Color, ColorSource, Container, Point, Sprite } from 'pixi.js'
-import { BaseNode, ComponentType, EnhancedComponent, instantiate } from '../base'
+import { ComponentType, EnhancedComponent, instantiate } from '../base'
 
 import { Size } from '../core/Size'
 import { ProgressBarComp } from '../gui/GUIComponent'
@@ -15,7 +15,7 @@ export interface EventMap {
 
 type TouchEventCallback = (target: { location: Point }) => void
 
-export class NodeComp<C extends Container = Container> implements BaseNode<C> {
+export class NodeComp<C extends Container = Container> {
   entity: Entity
   instance: C
   events: EventMap = {}

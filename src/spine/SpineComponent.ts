@@ -1,10 +1,18 @@
-import { SpineData, SpineSkeletonProps } from "../@types/safex"
 import { ComponentX } from "../components/BaseComponent"
 
-export class SpineSkeleton extends ComponentX<SpineSkeletonProps> {
+interface SpineData {
+  atlas: string
+  skeleton: string
+  texture?: string
+}
+
+interface SpineSkeletonProps {
   data: SpineData
-  skin: string
-  animation: string
-  loop: boolean
-  timeScale: number
+  skin?: string
+  animation?: string
+  timeScale?: number
+  loop?: boolean
+}
+export class SpineSkeleton extends ComponentX<SpineSkeletonProps> {
+
 }
