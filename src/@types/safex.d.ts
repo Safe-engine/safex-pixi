@@ -1,5 +1,4 @@
-import { ButtonComp, Collider, NodeComp, Point, TouchEventCallback, Vec2 } from "..";
-import { Color4B } from "../core/Color";
+import { Collider, NodeComp, Vec2 } from "..";
 
 interface BaseComponentProps {
   $ref?: object;
@@ -11,89 +10,9 @@ interface NodeCompProps {
   nodeName?: string
 }
 
-interface SpriteRenderProps {
-  spriteFrame: string
-}
-
-interface GraphicsRenderProps {
-  lineWidth?: number
-  strokeColor?: Color4B
-  fillColor?: Color4B
-}
-
-interface MaskRenderProps {
-  type?: number
-  segments?: number
-  inverted?: boolean
-}
-
-interface ProgressTimerProps {
-  spriteFrame: string
-  fillType?: number
-  fillRange?: number
-  fillCenter?: Point
-  isReverse?: boolean
-}
-
 interface LoadingBarProps {
 }
 
-interface LabelCompProps {
-  font?: string
-  string?: string
-  size?: number
-}
-
-interface ScrollViewProps {
-  width: number
-  height: number
-}
-
-interface LabelOutlineCompProps {
-  color: Color4B
-  width: number
-}
-
-interface LabelShadowCompProps {
-  color: Color4B
-  blur: number
-  offset: Point
-}
-
-interface ColliderProps {
-  offset?: Point
-  tag?: number
-  enabled?: boolean
-  onCollisionEnter?: (other: Collider) => void
-  onCollisionExit?: (other: Collider) => void
-  onCollisionStay?: (other: Collider) => void
-}
-
-interface BoxColliderProps extends ColliderProps {
-  width: number
-  height: number
-}
-
-interface CircleColliderProps extends ColliderProps {
-  radius: number
-}
-
-interface PolygonColliderProps extends ColliderProps {
-  points: Array<Point>
-}
-
-interface SpineData {
-  atlas: string
-  skeleton: string
-  texture?: string
-}
-interface SpineSkeletonProps {
-  data: SpineData
-  skin?: string
-  animation?: string
-  timeScale?: number
-  loop?: boolean
-}
 interface DragonBonesData {
   atlas: string
   skeleton: string
@@ -108,26 +27,6 @@ interface DragonBonesProps {
   onAnimationStart?: (event: { name: string }) => void
   onAnimationEnd?: (event: { name: string }) => void
   onAnimationComplete?: (event: { name: string }) => void
-}
-
-interface ExtraDataProps {
-  key: string
-  value: any
-}
-
-interface ButtonCompProps {
-  normalImage?: string
-  selectedImage?: string
-  disableImage?: string
-  zoomScale?: number
-  onPress: (target: ButtonComp) => void
-}
-
-interface TouchEventProps {
-  onTouchStart?: TouchEventCallback
-  onTouchMove?: TouchEventCallback
-  onTouchEnd?: TouchEventCallback
-  onTouchCancel?: TouchEventCallback
 }
 
 export type BodyType = 'kinematic' | 'dynamic' | 'static'

@@ -1,41 +1,43 @@
 import { Graphics, Point, Sprite, Texture } from 'pixi.js'
 
 import { Color4B, Vec2 } from '..'
-import { GraphicsRenderProps, MaskRenderProps, SpriteRenderProps } from '../@types/safex'
 import { ComponentX } from '../components/BaseComponent'
-import { LoadingBar, LoadingBarMode } from '../core/LoadingBar'
+import { LoadingBarMode } from '../core/LoadingBar'
 import { SpriteTypes } from './RenderSystem'
 
 export class NodeRender extends ComponentX {
   nodeName?: string
 }
 
-export class SpriteRender extends ComponentX<SpriteRenderProps, Sprite> {
-  protected _spriteFrame: string
-  public type: SpriteTypes
-  public fillType: LoadingBarMode = LoadingBarMode.BAR
-  public fillRange = 1
-  public fillCenter: Point
-  loadingBar: LoadingBar
+interface SpriteRenderProps {
+  spriteFrame: string
+  type?: SpriteTypes
+  fillType?: LoadingBarMode
+  // fillRange = 1
+  // fillCenter: Point
+  // loadingBar: LoadingBar
+}
 
+export class SpriteRender extends ComponentX<SpriteRenderProps & { $ref?: SpriteRender }, Sprite> {
+  // protected _spriteFrame: string
   // set fillStart(val: number) {
   //   if (this.node.instance instanceof cc.ProgressTimer) {
   //     this.node.instance.setMidpoint(cc.v2(val, val));
   //   }
   // }
 
-  setFillRange(val: number) {
-    if (this.loadingBar) {
-      this.loadingBar.progress = val
-    }
-  }
+  // setFillRange(val: number) {
+  //   if (this.loadingBar) {
+  //     this.loadingBar.progress = val
+  //   }
+  // }
 
   get spriteFrame() {
-    return this._spriteFrame
+    return this.props.spriteFrame
   }
 
   set spriteFrame(frame) {
-    this._spriteFrame = frame
+    this.props.spriteFrame = frame
     if (!this.node) return
     const sprite = this.node.instance as Sprite
     // if (this.node.instance instanceof cc.Sprite) {
@@ -58,10 +60,12 @@ enum PointType {
   Circle,
   Rect,
 };
-export class GraphicsRender extends ComponentX<GraphicsRenderProps, Graphics> {
-  lineWidth = 2
-  strokeColor: Color4B
-  fillColor: Color4B
+interface GraphicsRenderProps {
+  lineWidth?: number
+  strokeColor?: Color4B
+  fillColor?: Color4B
+}
+export class GraphicsRender extends ComponentX<GraphicsRenderProps & { $ref?: GraphicsRender }, Graphics> {
 
   drawPoint(position: Vec2, pointSize: Float, color: Color4B, pointType = PointType.Rect) {
 
@@ -112,8 +116,8 @@ export class GraphicsRender extends ComponentX<GraphicsRenderProps, Graphics> {
     this.node.instance.lineTo(to.x, to.y);
     this.node.instance.strokeStyle = {
       cap: 'round', join: 'round',
-      width: this.lineWidth || 36,
-      color: color || this.strokeColor,
+      width: this.props.lineWidth || 36,
+      color: color || this.props.strokeColor,
     }
     this.node.instance.stroke();
   }
@@ -126,8 +130,9 @@ export class GraphicsRender extends ComponentX<GraphicsRenderProps, Graphics> {
   }
 }
 
-export class MaskRender extends ComponentX<MaskRenderProps> {
-  type: number
-  segments: number
-  inverted: boolean
+interface MaskRenderProps {
+  type?: number
+  segments?: number
+  inverted?: boolean
 }
+export class MaskRender extends ComponentX<MaskRenderProps> { }

@@ -2,7 +2,6 @@ import max from 'lodash/max'
 import min from 'lodash/min'
 import { Graphics, Point, Rectangle, Size } from 'pixi.js'
 
-import { BoxColliderProps, CircleColliderProps, PolygonColliderProps } from '../@types/safex'
 import { app } from '../app'
 import { NoRenderComponentX } from '../components/BaseComponent'
 import { NodeComp } from '../components/NodeComp'
@@ -20,19 +19,32 @@ function getNodeToWorldTransformAR(node: NodeComp) {
 function cloneRect(origin: Rectangle) {
   return new Rectangle(origin.x, origin.y, origin.width, origin.height)
 }
+interface ColliderProps {
+  offset?: Point
+  tag?: number
+  enabled?: boolean
+  onCollisionEnter?: (other: Collider) => void
+  onCollisionExit?: (other: Collider) => void
+  onCollisionStay?: (other: Collider) => void
+}
+interface BoxColliderProps extends ColliderProps {
+  width: number
+  height: number
+}
 
-export class Collider extends NoRenderComponentX {
-  offset: Point
-  tag: number
-  enabled = true
+interface CircleColliderProps extends ColliderProps {
+  radius: number
+}
+
+interface PolygonColliderProps extends ColliderProps {
+  points: Array<Point>
+}
+export class Collider extends NoRenderComponentX<ColliderProps> {
   _worldPoints: Point[] = []
   _worldPosition: Point
   _worldRadius
   _AABB: Rectangle = new Rectangle(0, 0, 0, 0)
   _preAabb: Rectangle = new Rectangle(0, 0, 0, 0)
-  onCollisionEnter?: (other: Collider) => void
-  onCollisionExit?: (other: Collider) => void
-  onCollisionStay?: (other: Collider) => void
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   update(dt: number, draw?: Graphics) { }
   getAABB() {
@@ -43,18 +55,6 @@ export class Collider extends NoRenderComponentX {
       points: this._worldPoints,
       preAabb: this._preAabb,
     }
-  }
-  setOnCollisionEnter(cb: (other: Collider) => void) {
-    const collider = this.getComponent(Collider)
-    collider.onCollisionEnter = cb
-  }
-  setOnCollisionExit(cb: (other: Collider) => void) {
-    const collider = this.getComponent(Collider)
-    collider.onCollisionExit = cb
-  }
-  setOnCollisionStay(cb: (other: Collider) => void) {
-    const collider = this.getComponent(Collider)
-    collider.onCollisionStay = cb
   }
 }
 
@@ -78,7 +78,7 @@ export class BoxCollider extends Collider {
     if (!this.node) {
       return
     }
-    const { x, y } = this.offset || v2()
+    const { x, y } = this.props.offset || v2()
     // const hw = this.width * 0.5
     // const hh = this.height * 0.5
     const transform = getNodeToWorldTransformAR(this.node)
@@ -122,7 +122,7 @@ export class CircleCollider extends Collider {
     const transform = getNodeToWorldTransformAR(this.node)
     const collider = this.getComponent(Collider)
     collider._worldRadius = this.radius * this.node.scaleX
-    collider._worldPosition = transform.apply(this.offset)
+    collider._worldPosition = transform.apply(this.props.offset)
     if (draw) {
       const { x } = collider._worldPosition
       const y = app.screen.height - collider._worldPosition.y
@@ -149,7 +149,7 @@ export class PolygonCollider extends Collider {
   }
 
   get points(): Point[] {
-    const { x, y } = this.offset
+    const { x, y } = this.props.offset
     const pointsList = this._points.map((p) => v2(p.x + x, p.y + y))
     return pointsList
   }

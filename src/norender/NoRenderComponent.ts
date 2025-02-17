@@ -1,5 +1,4 @@
 import { FederatedPointerEvent } from 'pixi.js'
-import { ExtraDataProps, TouchEventProps } from '../@types/safex'
 import { NoRenderComponentX } from '../components/BaseComponent'
 import { EventCallbackType, EventMap, NodeComp } from '../components/NodeComp'
 
@@ -34,34 +33,22 @@ export class EventRegister extends NoRenderComponentX {
   }
 }
 
-export class TouchEventRegister extends NoRenderComponentX<TouchEventProps> {
+interface TouchEventProps {
   onTouchStart?: TouchEventCallback
   onTouchMove?: TouchEventCallback
   onTouchEnd?: TouchEventCallback
   onTouchCancel?: TouchEventCallback
+}
+export class TouchEventRegister extends NoRenderComponentX<TouchEventProps> {
   listener: EventListener
   touch: Touch
-
-  setOnTouchStart(cb: TouchEventCallback) {
-    this.onTouchStart = cb
-  }
-
-  setOnTouchMove(cb: TouchEventCallback) {
-    this.onTouchMove = cb
-  }
-
-  setOnTouchEnd(cb: TouchEventCallback) {
-    this.onTouchEnd = cb
-  }
-
-  setOnTouchCancel(cb: TouchEventCallback) {
-    this.onTouchCancel = cb
-  }
 }
 
-export class ExtraDataComp extends NoRenderComponentX<ExtraDataProps> {
+interface ExtraDataProps {
   key: string
   value: any
+}
+export class ExtraDataComp extends NoRenderComponentX<ExtraDataProps> {
   data: { [key: string]: any } = {}
 
   getData<T>(key: string): T {

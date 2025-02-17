@@ -2,7 +2,6 @@ import { CheckBox, CheckBoxOptions, Input, List, ProgressBar, RadioGroup, Slider
 import { Assets, Container, FillInput, Point, Text } from 'pixi.js'
 
 import TaggedText from 'pixi-tagged-text-plus'
-import { ButtonCompProps, LabelCompProps, LabelOutlineCompProps, LabelShadowCompProps, ProgressTimerProps, ScrollViewProps } from '../@types/safex'
 import { ComponentX, NoRenderComponentX } from '../components/BaseComponent'
 import { Color4B } from '../core/Color'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
@@ -16,13 +15,14 @@ export const FillType = {
 type Keys = keyof typeof FillType
 type Values = (typeof FillType)[Keys]
 
-export class ButtonComp extends NoRenderComponentX<ButtonCompProps> {
-  normalImage: string
-  selectedImage: string
-  disableImage: string
-  zoomScale: number
+interface ButtonCompProps {
+  normalImage?: string
+  selectedImage?: string
+  disableImage?: string
+  zoomScale?: number
   onPress: (target: ButtonComp) => void
-
+}
+export class ButtonComp extends NoRenderComponentX<ButtonCompProps> {
   // setOnPress(cb: (target: ButtonComp) => void) {
   //   this.onPress = cb
   // }
@@ -46,18 +46,19 @@ export class ProgressBarComp extends ComponentX<{}, ProgressBar> {
     this.node.instance.progress = val
   }
 }
-
+interface LabelCompProps {
+  font?: string
+  string?: string
+  size?: number
+}
 export class LabelComp extends ComponentX<LabelCompProps, Text> {
-  private _font: string
-  private _string: string
-  private _size = 64
 
   get string() {
-    return this._string
+    return this.props.string
   }
 
   set string(val: string) {
-    this._string = val
+    this.props.string = val
     if (!this.node) return
     if (this.node.instance instanceof Text) {
       this.node.instance.text = val
@@ -65,10 +66,10 @@ export class LabelComp extends ComponentX<LabelCompProps, Text> {
   }
 
   get size() {
-    return this._size
+    return this.props.size
   }
   set size(val) {
-    this._size = val
+    this.props.size = val
     if (!this.node) return
     if (this.node.instance instanceof Text) {
       this.node.instance.style.fontSize = val
@@ -76,11 +77,11 @@ export class LabelComp extends ComponentX<LabelCompProps, Text> {
   }
 
   get font() {
-    return this._font
+    return this.props.font
   }
 
   set font(val: string) {
-    this._font = val
+    this.props.font = val
     if (!this.node) return
     // console.log('set font', val, Assets.get(val))
     if (this.node.instance instanceof Text) {
@@ -89,19 +90,24 @@ export class LabelComp extends ComponentX<LabelCompProps, Text> {
   }
 }
 
-export class ScrollView extends NoRenderComponentX<ScrollViewProps> {
+interface ScrollViewProps {
   width: number
   height: number
+}
+export class ScrollView extends NoRenderComponentX<ScrollViewProps> {
+
 }
 
 export class BlockInputEventsComp extends NoRenderComponentX { }
 
-export class ProgressTimerComp extends ComponentX<ProgressTimerProps & { $ref?: ProgressTimerComp }, ProgressTimer> {
+interface ProgressTimerProps {
   spriteFrame: string
-  fillType?: Values
+  fillType?: number
   fillRange?: number
   fillCenter?: Point
   isReverse?: boolean
+}
+export class ProgressTimerComp extends ComponentX<ProgressTimerProps & { $ref?: ProgressTimerComp }, ProgressTimer> {
 
   getFillRange() {
     return this.node.instance.progress
@@ -157,15 +163,21 @@ export class RichTextComp extends ComponentX<LabelCompProps, TaggedText> {
   }
 }
 
-export class LabelOutlineComp extends NoRenderComponentX<LabelOutlineCompProps> {
+interface LabelOutlineCompProps {
   color: Color4B
   width: number
 }
+export class LabelOutlineComp extends NoRenderComponentX<LabelOutlineCompProps> {
 
-export class LabelShadowComp extends NoRenderComponentX<LabelShadowCompProps> {
+}
+
+interface LabelShadowCompProps {
   color: Color4B
   blur: number
   offset: Point
+}
+export class LabelShadowComp extends NoRenderComponentX<LabelShadowCompProps> {
+
 }
 
 export class InputComp extends ComponentX<{}, Input> {
@@ -185,6 +197,5 @@ export class SliderComp extends ComponentX<{}, Slider> {
 }
 export class RadioGroupComp extends ComponentX<{}, RadioGroup> {
 }
-export class CheckBoxComp extends ComponentX<{}, CheckBox> {
-  style: CheckBoxOptions['style'];
+export class CheckBoxComp extends ComponentX<{ style: CheckBoxOptions['style'] }, CheckBox> {
 }

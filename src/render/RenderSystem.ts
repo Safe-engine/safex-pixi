@@ -6,7 +6,6 @@ import {
 import { Container, Graphics, Sprite } from 'pixi.js'
 
 import { NodeComp } from '..'
-import { LoadingBar } from '../core/LoadingBar'
 import { GraphicsRender, MaskRender, NodeRender, SpriteRender } from './RenderComponent'
 
 export enum SpriteTypes {
@@ -26,17 +25,17 @@ export class RenderSystem implements System {
       nodeRenderComp.node = entity.assign(new NodeComp(node, entity))
     })
     event_manager.subscribe(EventTypes.ComponentAdded, SpriteRender, ({ entity, component }) => {
-      const { spriteFrame, type, fillType, fillRange, fillCenter } = component
+      const { spriteFrame } = component.props
       // console.log('SpriteRender ComponentAdded', component)
       const node = Sprite.from(spriteFrame)
-      if (type === SpriteTypes.FILLED) {
-        // console.log('fillType', fillType)
-        const loadingBar = new LoadingBar(fillType, node)
-        if (fillRange) loadingBar.progress = fillRange
-        if (fillCenter) loadingBar.fillCenter = fillCenter
-        component.loadingBar = loadingBar
-        // node.setMidpoint(fillCenter)
-      }
+      // if (type === SpriteTypes.FILLED) {
+      //   // console.log('fillType', fillType)
+      //   const loadingBar = new LoadingBar(fillType, node)
+      //   if (fillRange) loadingBar.progress = fillRange
+      //   if (fillCenter) loadingBar.fillCenter = fillCenter
+      //   component.loadingBar = loadingBar
+      //   // node.setMidpoint(fillCenter)
+      // }
       // node.texture.rotate = 8
       component.node = entity.assign(new NodeComp(node, entity))
       // component.node.anchorX = 0.5
