@@ -38,9 +38,8 @@ export class PhysicsSystem implements System {
   colliderMatrix = [[true]]
 
   configure(event_manager: EventManager) {
-    // Settings.lengthUnitsPerMeter = 100
     this.world = new World({
-      gravity: Vec2(0, -10.0),
+      gravity: Vec2(0, 98.0),
     })
     // event_manager.world.physicsManager = this
     // event_manager.subscribe(ComponentAddedEvent(RigidBody), this);
