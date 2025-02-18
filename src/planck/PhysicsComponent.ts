@@ -10,21 +10,8 @@ interface RigidBodyProps {
   friction?: Float
   gravityScale?: Float
 }
-
-interface PhysicsMaterialProps {
-  friction?: number
-  restitution?: number
-  density?: number
-}
-
-
 export class RigidBody extends NoRenderComponentX<RigidBodyProps> {
-  type: BodyType = 'dynamic'
-  density = 1
-  restitution = 0.5
-  friction = 0.3
   body: Body
-  gravityScale = 1
   // set linearVelocity(vel: Vec2) {
   //   if (!this.node) {
   //     return
@@ -45,10 +32,13 @@ export class RigidBody extends NoRenderComponentX<RigidBodyProps> {
   // }
 }
 
+interface PhysicsMaterialProps {
+  friction?: number
+  restitution?: number
+  density?: number
+}
 export class PhysicsMaterial extends NoRenderComponentX<PhysicsMaterialProps> {
-  density = 1
-  restitution = 0
-  friction = 0
+
 }
 
 interface ColliderPhysicsProps {

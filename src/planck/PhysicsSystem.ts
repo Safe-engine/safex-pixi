@@ -50,6 +50,7 @@ export class PhysicsSystem implements System {
         rigidBody = instantiate(RigidBody)
         entity.assign(rigidBody)
       }
+      const { type = 'dynamic', gravityScale = 1 } = rigidBody.props
       // const physicsMaterial = entity.getComponent(PhysicsMaterial)
       const box = component
       const node = entity.getComponent(NodeComp)
@@ -60,8 +61,8 @@ export class PhysicsSystem implements System {
         position: node.position as any, // the body's origin position.
         angle: 0.25 * Math.PI, // the body's angle in radians.
         userData: node,
-        type: rigidBody.type,
-        gravityScale: rigidBody.gravityScale,
+        type,
+        gravityScale,
       })
       rigidBody.body = body
       // console.log('body', body);
@@ -142,6 +143,7 @@ export class PhysicsSystem implements System {
   }
 
   contactBegin(contact: Contact) {
+    console.log('contactBegin');
     const ett1: NodeComp = contact.getFixtureA().getBody().getUserData() as NodeComp
     const ett2: NodeComp = contact.getFixtureB().getBody().getUserData() as NodeComp
     // this.world.addPostStepCallback(() => {
@@ -191,7 +193,7 @@ export class PhysicsSystem implements System {
 
   set enabled(val) {
     if (val) {
-      this.world.setGravity(Vec2(0, -1))
+      this.world.setGravity(Vec2(0, 98))
       // this.world.iterations = 60
       // this.world.collisionSlop = 0.5
     }
