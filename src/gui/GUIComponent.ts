@@ -124,17 +124,14 @@ export class ProgressTimerComp extends ComponentX<ProgressTimerProps & { $ref?: 
 }
 
 export class RichTextComp extends ComponentX<LabelCompProps, TaggedText> {
-  private _font: string
-  private _string: string
-  private _size: number
 
   get string() {
-    return this._string
+    return this.props.string
   }
 
 
   set string(val: string) {
-    this._string = val
+    this.props.string = val
     if (!this.node) return
     const jObj = parseFontString(val);
     const styledOutput = transformToStyledElements(jObj);
@@ -146,18 +143,18 @@ export class RichTextComp extends ComponentX<LabelCompProps, TaggedText> {
     this.node.instance.setTagStyles(styles)
   }
   get size() {
-    return this._size
+    return this.props.size
   }
   set size(size: number) {
-    this._size = size
+    this.props.size = size
     if (!this.node) return
     this.node.instance.setStyleForTag('root', { fontSize: size, color: '#fff' })
   }
   get font() {
-    return this._font
+    return this.props.font
   }
   set font(font: string) {
-    this._font = font
+    this.props.font = font
     if (!this.node) return
     this.node.instance.setStyleForTag('root', { color: '#fff', fontFamily: font })
   }

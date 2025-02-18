@@ -1,12 +1,21 @@
-import { DragonBonesData, DragonBonesProps } from "../@types/safex"
 import { ComponentX } from "../components/BaseComponent"
+interface DragonBonesData {
+  atlas: string
+  skeleton: string
+  texture: string
+}
 
-export class DragonBones extends ComponentX<DragonBonesProps> {
+interface DragonBonesProps {
   data: DragonBonesData
-  skin: string
-  animation: string
-  playTimes = 0
-  timeScale: number
+  skin?: string
+  animation?: string
+  playTimes?: number
+  timeScale?: number
+  onAnimationStart?: (event: { name: string }) => void
+  onAnimationEnd?: (event: { name: string }) => void
+  onAnimationComplete?: (event: { name: string }) => void
+}
+export class DragonBones extends ComponentX<DragonBonesProps> {
 
   setAnimation(name: string, playTimes = 0) {
     const skel: any = this.node.instance

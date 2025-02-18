@@ -27,19 +27,8 @@ interface ColliderProps {
   onCollisionExit?: (other: Collider) => void
   onCollisionStay?: (other: Collider) => void
 }
-interface BoxColliderProps extends ColliderProps {
-  width: number
-  height: number
-}
 
-interface CircleColliderProps extends ColliderProps {
-  radius: number
-}
-
-interface PolygonColliderProps extends ColliderProps {
-  points: Array<Point>
-}
-export class Collider extends NoRenderComponentX<ColliderProps> {
+export class Collider<T = ColliderProps> extends NoRenderComponentX<T> {
   _worldPoints: Point[] = []
   _worldPosition: Point
   _worldRadius
@@ -58,20 +47,19 @@ export class Collider extends NoRenderComponentX<ColliderProps> {
   }
 }
 
-export class BoxCollider extends Collider {
+interface BoxColliderProps extends ColliderProps {
   width: number
   height: number
-  constructor(props: BoxColliderProps) {
-    super(props)
+}
+export class BoxCollider extends Collider<BoxColliderProps> {
 
-  }
   get size(): Size {
-    return this
+    return this.props
   }
 
   set size(s: Size) {
-    this.width = s.width
-    this.height = s.height
+    this.props.width = s.width
+    this.props.height = s.height
   }
 
   update(dt, draw: Graphics) {
@@ -87,9 +75,9 @@ export class BoxCollider extends Collider {
     const collider = this.getComponent(Collider)
     collider._worldPoints = [
       v2(x, y),
-      v2(x, y + this.height),
-      v2(x + this.width, y + this.height),
-      v2(x + this.width, y)
+      v2(x, y + this.props.height),
+      v2(x + this.props.width, y + this.props.height),
+      v2(x + this.props.width, y)
     ].map(p => transform.apply(p))
     // console.log("_worldPoints", collider._worldPoints, rectTrs)
     // collider._worldPoints = collider._worldPoints.map(p => transform.apply(p))
@@ -110,18 +98,19 @@ export class BoxCollider extends Collider {
   }
 }
 
-export class CircleCollider extends Collider {
+interface CircleColliderProps extends ColliderProps {
   radius: number
-  constructor(props: CircleColliderProps) {
-    super(props)
-  }
+}
+
+export class CircleCollider extends Collider<CircleColliderProps> {
+
   update(dt, draw: Graphics) {
     if (!this.node) {
       return
     }
     const transform = getNodeToWorldTransformAR(this.node)
     const collider = this.getComponent(Collider)
-    collider._worldRadius = this.radius * this.node.scaleX
+    collider._worldRadius = this.props.radius * this.node.scaleX
     collider._worldPosition = transform.apply(this.props.offset)
     if (draw) {
       const { x } = collider._worldPosition
@@ -140,22 +129,20 @@ export class CircleCollider extends Collider {
   }
 }
 
-export class PolygonCollider extends Collider {
-  _points: Point[]
 
-  constructor(props: PolygonColliderProps) {
-    super(props)
-    this._points = props.points || []
-  }
+interface PolygonColliderProps extends ColliderProps {
+  points: Array<Point>
+}
+export class PolygonCollider extends Collider<PolygonColliderProps> {
 
   get points(): Point[] {
     const { x, y } = this.props.offset
-    const pointsList = this._points.map((p) => v2(p.x + x, p.y + y))
+    const pointsList = this.props.points.map((p) => v2(p.x + x, p.y + y))
     return pointsList
   }
 
   set points(points: Point[]) {
-    this._points = points
+    this.props.points = points
   }
 
   update(dt, draw: Graphics) {
