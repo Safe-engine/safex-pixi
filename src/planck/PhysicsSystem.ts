@@ -54,7 +54,7 @@ export class PhysicsSystem implements System {
       // const physicsMaterial = entity.getComponent(PhysicsMaterial)
       const box = component
       const node = entity.getComponent(NodeComp)
-      const { width, height, ...colliderProps } = box
+      const { width, height, ...colliderProps } = box.props
       // ett.assign(instantiate(ColliderPhysics, { tag, offset }))
       // const { density, restitution, friction } = physicsMaterial
       const body = this.world.createBody({
@@ -75,7 +75,7 @@ export class PhysicsSystem implements System {
         isSensor: true,
       })
       const debugBox = new Graphics()
-      const { x, y } = colliderProps.offset
+      const { x = 0, y = 0 } = colliderProps.offset || {}
       debugBox.rect(x, y, width, height)
       debugBox.fill({ color: 0xff0000, alpha: 0.3 })
       node.instance.addChild(debugBox)
@@ -156,10 +156,10 @@ export class PhysicsSystem implements System {
     const phys2 = ett2.getComponent(ColliderPhysics)
     if (phys1 && phys2) {
       if (Object.prototype.hasOwnProperty.call(phys1, 'onCollisionEnter')) {
-        phys1.onCollisionEnter(phys2)
+        phys1.props.onCollisionEnter(phys2)
       }
       if (Object.prototype.hasOwnProperty.call(phys2, 'onCollisionEnter')) {
-        phys2.onCollisionEnter(phys1)
+        phys2.props.onCollisionEnter(phys1)
       }
     }
   }
@@ -182,10 +182,10 @@ export class PhysicsSystem implements System {
     // const event2 = ett2.getComponent(NodeComp)
     if (phys1 && phys2) {
       if (Object.prototype.hasOwnProperty.call(phys1, 'onCollisionExit')) {
-        phys1.onCollisionExit(phys2)
+        phys1.props.onCollisionExit(phys2)
       }
       if (Object.prototype.hasOwnProperty.call(phys2, 'onCollisionExit')) {
-        phys2.onCollisionExit(phys1)
+        phys2.props.onCollisionExit(phys1)
       }
     }
   }

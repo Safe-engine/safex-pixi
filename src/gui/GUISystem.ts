@@ -95,7 +95,7 @@ export class GUISystem implements System {
     })
     event_manager.subscribe(EventTypes.ComponentAdded, RichTextComp, ({ entity, component }) => {
       // console.log('ComponentAddedEvent LabelComp', component)
-      const { string = '', font, size } = component.props
+      const { string = '', font, size = 64 } = component.props
       const node = new TaggedText(string);
       // node.defaultStyle = { }
       component.node = entity.assign(new NodeComp(node, entity))

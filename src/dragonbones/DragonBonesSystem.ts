@@ -9,7 +9,7 @@ import { DragonBones } from './DragonBonesComponent';
 export class DragonBonesSystem implements System {
   configure(event_manager: EventManager<GameWorld>) {
     event_manager.subscribe(EventTypes.ComponentAdded, DragonBones, ({ entity, component }) => {
-      const { data, animation, playTimes } = component
+      const { data, animation, playTimes = 0 } = component.props
       const { skeleton, atlas, texture } = data
       const skeletonAsset = Assets.get(skeleton)
       const atlasAsset = Assets.get(atlas)
