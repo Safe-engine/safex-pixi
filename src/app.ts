@@ -5,7 +5,6 @@ import { CollideSystem } from './collider'
 import { DragonBonesSystem } from './dragonbones'
 import { GUISystem } from './gui/GUISystem'
 import { NoRenderSystem } from './norender/NoRenderSystem'
-import { PhysicsSystem } from './planck'
 import { RenderSystem } from './render/RenderSystem'
 import { SpineSystem } from './spine'
 
@@ -45,15 +44,20 @@ function startGameLoop(world: GameWorld) {
   // app.ticker.speed = 0.5
 }
 
-const systemsList = [RenderSystem, GUISystem, SpineSystem, DragonBonesSystem, CollideSystem, PhysicsSystem, NoRenderSystem]
-export function startGameSystems() {
+const systemsList = [RenderSystem, GUISystem, SpineSystem, DragonBonesSystem, CollideSystem, NoRenderSystem]
+export function startGameSystems(list = []) {
   const world = GameWorld.Instance
   systemsList.forEach(system => {
     world.systems.add(system)
     world.systems.configureOnce(system)
   })
   world.listUpdate.push(CollideSystem)
-  world.listUpdate.push(PhysicsSystem)
+  // world.listUpdate.push(PhysicsSystem)
+  list.forEach(system => {
+    world.systems.add(system)
+    world.systems.configureOnce(system)
+    world.listUpdate.push(system)
+  })
   startGameLoop(world)
   // console.log('startGameLoop', world.listUpdate)
 }

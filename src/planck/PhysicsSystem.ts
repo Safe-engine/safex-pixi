@@ -57,8 +57,9 @@ export class PhysicsSystem implements System {
       const { width, height, ...colliderProps } = box.props
       // ett.assign(instantiate(ColliderPhysics, { tag, offset }))
       // const { density, restitution, friction } = physicsMaterial
+      const { x = 0, y = 0 } = colliderProps.offset || {}
       const body = this.world.createBody({
-        position: node.position as any, // the body's origin position.
+        position: { x: node.position.x + x, y: node.position.y + y }, // the body's origin position.
         angle: 0.25 * Math.PI, // the body's angle in radians.
         userData: node,
         type,
@@ -75,7 +76,6 @@ export class PhysicsSystem implements System {
         isSensor: true,
       })
       const debugBox = new Graphics()
-      const { x = 0, y = 0 } = colliderProps.offset || {}
       debugBox.rect(x, y, width, height)
       debugBox.fill({ color: 0xff0000, alpha: 0.3 })
       node.instance.addChild(debugBox)
@@ -166,15 +166,15 @@ export class PhysicsSystem implements System {
   }
 
   preSolve(contact: Contact, oldManifold: Manifold) {
-    // log('preSolve');
+    console.log('preSolve');
   }
 
   postSolve(contact: Contact, contactImpulse) {
-    // log('collisionPost');
+    console.log('collisionPost');
   }
 
   contactEnd(contact: Contact) {
-    // log('collisionSeparate');
+    console.log('collisionSeparate');
     const ett1: Entity = contact.getFixtureA().getBody().getUserData() as Entity
     const ett2: Entity = contact.getFixtureB().getBody().getUserData() as Entity
     // const event1 = ett1.getComponent(NodeComp)
