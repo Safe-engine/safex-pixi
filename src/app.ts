@@ -25,6 +25,11 @@ export async function addGameCanvasTo(id = 'game') {
     canvas: document.getElementById(id) as HTMLCanvasElement
   })
   // GameWorld.Instance.setup(NodeComp, app.stage)
+  Object.assign(app.canvas.style, {
+    width: `${window.innerWidth}px`,
+    height: `${window.innerHeight}px`,
+    overflow: 'visible',
+  })
 }
 
 export function setupResolution(designedResolution = { width: 720, height: 1280 }) {
