@@ -16,7 +16,7 @@ export class EnhancedComponent<Props = {}, N extends NodeComp<any> = NodeComp<an
     }
   }
   node: N
-  actionsMap: { [key: string]: Animation } = {}
+  // actionsMap: { [key: string]: Animation } = {}
   addComponent<T extends EnhancedComponent>(instance): T {
     return this.node.addComponent(instance)
   }
