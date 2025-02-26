@@ -73,6 +73,7 @@ We welcome all contributions! If you have ideas or want to improve the engine, f
 
 ## Contact
 
-- GitHub: [safex-pixi](https://github.com/Safe-engine/safex-pixi)
+- [GitHub](https://github.com/Safe-engine/safex-pixi)
+- [Discord](https://discord.com/channels/1344214207268388979/1344214208044208140)
 
 Let's build a powerful and convenient game engine together! 🚀
