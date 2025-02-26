@@ -25,18 +25,25 @@ export function startGame(
     height: `${window.innerHeight}px`,
     overflow: 'visible',
   })
+  // GameWorld.Instance.setup(NodeComp, app.stage)
+  Object.assign(app.canvas.style, {
+    width: `${window.innerWidth}px`,
+    height: `${window.innerHeight}px`,
+    overflow: 'visible',
+  })
+}
 
-  const gameDiv = document.getElementById(id)
-  gameDiv.appendChild(app.view as never)
-  const { width, height } = designedResolution
-  app.renderer.resize(width, height)
-  // app.stage.position.y = app.renderer.height / app.renderer.resolution
-  // app.stage.scale.y = -1
-  GameWorld.Instance.app = app
-  GameWorld.Instance.assetManager = assetManager
-  initWorld(defaultFont)
-  startGameLoop(GameWorld.Instance)
-  return app
+const gameDiv = document.getElementById(id)
+gameDiv.appendChild(app.view as never)
+const { width, height } = designedResolution
+app.renderer.resize(width, height)
+// app.stage.position.y = app.renderer.height / app.renderer.resolution
+// app.stage.scale.y = -1
+GameWorld.Instance.app = app
+GameWorld.Instance.assetManager = assetManager
+initWorld(defaultFont)
+startGameLoop(GameWorld.Instance)
+return app
 }
 
 function startGameLoop(world: GameWorld) {
