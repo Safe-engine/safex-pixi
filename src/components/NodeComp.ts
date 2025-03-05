@@ -412,7 +412,7 @@ export class NodeComp<C extends Container = Container> {
 
   getData<T>(key: string): T {
     const data = this.getComponent(ExtraDataComp)
-    if (!data) return console.log('need add ExtraDataComp to Node') as T
+    if (!data) return console.warn('need add ExtraDataComp to Node') as T
     return data.getData(key)
   }
 
