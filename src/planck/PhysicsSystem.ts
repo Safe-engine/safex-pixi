@@ -38,9 +38,8 @@ export class PhysicsSystem implements System {
   colliderMatrix = [[true]]
 
   configure(event_manager: EventManager) {
-    // Settings.lengthUnitsPerMeter = 100
     this.world = new World({
-      gravity: Vec2(0, -10.0),
+      gravity: Vec2(0, 98.0),
     })
     // event_manager.world.physicsManager = this
     // event_manager.subscribe(ComponentAddedEvent(RigidBody), this);
@@ -51,18 +50,20 @@ export class PhysicsSystem implements System {
         rigidBody = instantiate(RigidBody)
         entity.assign(rigidBody)
       }
+      const { type = 'dynamic', gravityScale = 1 } = rigidBody.props
       // const physicsMaterial = entity.getComponent(PhysicsMaterial)
       const box = component
       const node = entity.getComponent(NodeComp)
-      const { width, height, ...colliderProps } = box
+      const { width, height, ...colliderProps } = box.props
       // ett.assign(instantiate(ColliderPhysics, { tag, offset }))
       // const { density, restitution, friction } = physicsMaterial
+      const { x = 0, y = 0 } = colliderProps.offset || {}
       const body = this.world.createBody({
-        position: node.position as any, // the body's origin position.
+        position: { x: node.position.x + x, y: node.position.y + y }, // the body's origin position.
         angle: 0.25 * Math.PI, // the body's angle in radians.
         userData: node,
-        type: rigidBody.type,
-        gravityScale: rigidBody.gravityScale,
+        type,
+        gravityScale,
       })
       rigidBody.body = body
       // console.log('body', body);
@@ -75,7 +76,6 @@ export class PhysicsSystem implements System {
         isSensor: true,
       })
       const debugBox = new Graphics()
-      const { x, y } = colliderProps.offset
       debugBox.rect(x, y, width, height)
       debugBox.fill({ color: 0xff0000, alpha: 0.3 })
       node.instance.addChild(debugBox)
@@ -143,6 +143,7 @@ export class PhysicsSystem implements System {
   }
 
   contactBegin(contact: Contact) {
+    console.log('contactBegin');
     const ett1: NodeComp = contact.getFixtureA().getBody().getUserData() as NodeComp
     const ett2: NodeComp = contact.getFixtureB().getBody().getUserData() as NodeComp
     // this.world.addPostStepCallback(() => {
@@ -156,24 +157,24 @@ export class PhysicsSystem implements System {
     const phys2 = ett2.getComponent(ColliderPhysics)
     if (phys1 && phys2) {
       if (Object.prototype.hasOwnProperty.call(phys1, 'onCollisionEnter')) {
-        phys1.onCollisionEnter(phys2)
+        phys1.props.onCollisionEnter(phys2)
       }
       if (Object.prototype.hasOwnProperty.call(phys2, 'onCollisionEnter')) {
-        phys2.onCollisionEnter(phys1)
+        phys2.props.onCollisionEnter(phys1)
       }
     }
   }
 
   preSolve(contact: Contact, oldManifold: Manifold) {
-    // log('preSolve');
+    console.log('preSolve');
   }
 
   postSolve(contact: Contact, contactImpulse) {
-    // log('collisionPost');
+    console.log('collisionPost');
   }
 
   contactEnd(contact: Contact) {
-    // log('collisionSeparate');
+    console.log('collisionSeparate');
     const ett1: Entity = contact.getFixtureA().getBody().getUserData() as Entity
     const ett2: Entity = contact.getFixtureB().getBody().getUserData() as Entity
     // const event1 = ett1.getComponent(NodeComp)
@@ -182,17 +183,17 @@ export class PhysicsSystem implements System {
     // const event2 = ett2.getComponent(NodeComp)
     if (phys1 && phys2) {
       if (Object.prototype.hasOwnProperty.call(phys1, 'onCollisionExit')) {
-        phys1.onCollisionExit(phys2)
+        phys1.props.onCollisionExit(phys2)
       }
       if (Object.prototype.hasOwnProperty.call(phys2, 'onCollisionExit')) {
-        phys2.onCollisionExit(phys1)
+        phys2.props.onCollisionExit(phys1)
       }
     }
   }
 
   set enabled(val) {
     if (val) {
-      this.world.setGravity(Vec2(0, -1))
+      this.world.setGravity(Vec2(0, 98))
       // this.world.iterations = 60
       // this.world.collisionSlop = 0.5
     }

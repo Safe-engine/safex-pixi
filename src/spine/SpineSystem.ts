@@ -9,7 +9,7 @@ export class SpineSystem implements System {
     event_manager.subscribe(EventTypes.ComponentAdded, SpineSkeleton, ({ entity, component }) => {
       // console.log('SpineSkeleton', component)
       // const spine = entity.getComponent(SpineSkeleton)
-      const { data, skin, animation, loop, timeScale } = component
+      const { data, skin, animation, loop, timeScale } = component.props
       const node = Spine.from(data)
       // node.skeleton.scaleY = -1
       if (skin) {

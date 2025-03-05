@@ -2,7 +2,6 @@ import max from 'lodash/max'
 import min from 'lodash/min'
 import { Graphics, Point, Rectangle, Size } from 'pixi.js'
 
-import { BoxColliderProps, CircleColliderProps, PolygonColliderProps } from '../@types/safex'
 import { app } from '../app'
 import { NoRenderComponentX } from '../components/BaseComponent'
 import { NodeComp } from '../components/NodeComp'
@@ -20,19 +19,21 @@ function getNodeToWorldTransformAR(node: NodeComp) {
 function cloneRect(origin: Rectangle) {
   return new Rectangle(origin.x, origin.y, origin.width, origin.height)
 }
+interface ColliderProps {
+  offset?: Point
+  tag?: number
+  enabled?: boolean
+  onCollisionEnter?: (other: Collider) => void
+  onCollisionExit?: (other: Collider) => void
+  onCollisionStay?: (other: Collider) => void
+}
 
-export class Collider extends NoRenderComponentX {
-  offset: Point
-  tag: number
-  enabled = true
+export class Collider<T = ColliderProps> extends NoRenderComponentX<T> {
   _worldPoints: Point[] = []
   _worldPosition: Point
   _worldRadius
   _AABB: Rectangle = new Rectangle(0, 0, 0, 0)
   _preAabb: Rectangle = new Rectangle(0, 0, 0, 0)
-  onCollisionEnter?: (other: Collider) => void
-  onCollisionExit?: (other: Collider) => void
-  onCollisionStay?: (other: Collider) => void
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   update(dt: number, draw?: Graphics) { }
   getAABB() {
@@ -44,41 +45,28 @@ export class Collider extends NoRenderComponentX {
       preAabb: this._preAabb,
     }
   }
-  setOnCollisionEnter(cb: (other: Collider) => void) {
-    const collider = this.getComponent(Collider)
-    collider.onCollisionEnter = cb
-  }
-  setOnCollisionExit(cb: (other: Collider) => void) {
-    const collider = this.getComponent(Collider)
-    collider.onCollisionExit = cb
-  }
-  setOnCollisionStay(cb: (other: Collider) => void) {
-    const collider = this.getComponent(Collider)
-    collider.onCollisionStay = cb
-  }
 }
 
-export class BoxCollider extends Collider {
+interface BoxColliderProps extends ColliderProps {
   width: number
   height: number
-  constructor(props: BoxColliderProps) {
-    super(props)
+}
+export class BoxCollider extends Collider<BoxColliderProps> {
 
-  }
   get size(): Size {
-    return this
+    return this.props
   }
 
   set size(s: Size) {
-    this.width = s.width
-    this.height = s.height
+    this.props.width = s.width
+    this.props.height = s.height
   }
 
   update(dt, draw: Graphics) {
     if (!this.node) {
       return
     }
-    const { x, y } = this.offset || v2()
+    const { x, y } = this.props.offset || v2()
     // const hw = this.width * 0.5
     // const hh = this.height * 0.5
     const transform = getNodeToWorldTransformAR(this.node)
@@ -87,9 +75,9 @@ export class BoxCollider extends Collider {
     const collider = this.getComponent(Collider)
     collider._worldPoints = [
       v2(x, y),
-      v2(x, y + this.height),
-      v2(x + this.width, y + this.height),
-      v2(x + this.width, y)
+      v2(x, y + this.props.height),
+      v2(x + this.props.width, y + this.props.height),
+      v2(x + this.props.width, y)
     ].map(p => transform.apply(p))
     // console.log("_worldPoints", collider._worldPoints, rectTrs)
     // collider._worldPoints = collider._worldPoints.map(p => transform.apply(p))
@@ -110,19 +98,20 @@ export class BoxCollider extends Collider {
   }
 }
 
-export class CircleCollider extends Collider {
+interface CircleColliderProps extends ColliderProps {
   radius: number
-  constructor(props: CircleColliderProps) {
-    super(props)
-  }
+}
+
+export class CircleCollider extends Collider<CircleColliderProps> {
+
   update(dt, draw: Graphics) {
     if (!this.node) {
       return
     }
     const transform = getNodeToWorldTransformAR(this.node)
     const collider = this.getComponent(Collider)
-    collider._worldRadius = this.radius * this.node.scaleX
-    collider._worldPosition = transform.apply(this.offset)
+    collider._worldRadius = this.props.radius * this.node.scaleX
+    collider._worldPosition = transform.apply(this.props.offset)
     if (draw) {
       const { x } = collider._worldPosition
       const y = app.screen.height - collider._worldPosition.y
@@ -140,22 +129,20 @@ export class CircleCollider extends Collider {
   }
 }
 
-export class PolygonCollider extends Collider {
-  _points: Point[]
 
-  constructor(props: PolygonColliderProps) {
-    super(props)
-    this._points = props.points || []
-  }
+interface PolygonColliderProps extends ColliderProps {
+  points: Array<Point>
+}
+export class PolygonCollider extends Collider<PolygonColliderProps> {
 
   get points(): Point[] {
-    const { x, y } = this.offset
-    const pointsList = this._points.map((p) => v2(p.x + x, p.y + y))
+    const { x, y } = this.props.offset
+    const pointsList = this.props.points.map((p) => v2(p.x + x, p.y + y))
     return pointsList
   }
 
   set points(points: Point[]) {
-    this._points = points
+    this.props.points = points
   }
 
   update(dt, draw: Graphics) {
