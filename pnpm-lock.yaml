@@ -9,14 +9,14 @@ importers:
   .:
     dependencies:
       '@esotericsoftware/spine-core':
-        specifier: ^4.2.73
-        version: 4.2.73
+        specifier: ^4.2.74
+        version: 4.2.74
       '@pixi/ui':
-        specifier: ^2.2.1
-        version: 2.2.1(pixi.js@8.8.0)
+        specifier: ^2.2.2
+        version: 2.2.2(pixi.js@8.8.0)
       '@types/node':
-        specifier: ^22.13.4
-        version: 22.13.4
+        specifier: ^22.13.5
+        version: 22.13.5
       copyfiles:
         specifier: ^2.4.1
         version: 2.4.1
@@ -24,8 +24,8 @@ importers:
         specifier: ^1.0.3
         version: 1.0.3
       entityx-ts:
-        specifier: ^2.1.2
-        version: 2.1.2
+        specifier: ^2.1.3
+        version: 2.1.3
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -51,14 +51,14 @@ importers:
 
 packages:
 
-  '@esotericsoftware/spine-core@4.2.73':
-    resolution: {integrity: sha512-BLKqJRaUtqG8O4stkrthgjI4QFHKPEK8SuNPjUBOIw1OrQHXVEmS7tbsinynTtauS2Ow0IpHwTU/E/+fKdj61A==}
+  '@esotericsoftware/spine-core@4.2.74':
+    resolution: {integrity: sha512-HdEm7702yT7tZyBwX8CeB1+UhBLJRLW9+mffBQIEllr+XzwiawrRalV5RneKwhpygs8PYVqlZbpeWCPlZEH22A==}
 
   '@pixi/colord@2.9.6':
     resolution: {integrity: sha512-nezytU2pw587fQstUu1AsJZDVEynjskwOL+kibwcdxsMBFqPsFFNA7xl0ii/gXuDi6M0xj3mfRJj8pBSc2jCfA==}
 
-  '@pixi/ui@2.2.1':
-    resolution: {integrity: sha512-VIltIIZ8yFcrmBWQ3vzoBUo++yrCjmUOBSDNdinxYmDkGDpVOqFHnBi7xU7IiZXBKaNYntjI3M6AV7LWVwLt4Q==}
+  '@pixi/ui@2.2.2':
+    resolution: {integrity: sha512-1SXH/BjsBK6QhMXoSuMi9ozj/ZX1vqVzB2vaFEKz2Cbw6wmxq+Msimdw6HbB6ZoHWKJkWc8AQYgWBR+EYF8ejw==}
     peerDependencies:
       pixi.js: ^8.6.2
 
@@ -71,8 +71,8 @@ packages:
   '@types/lodash@4.17.15':
     resolution: {integrity: sha512-w/P33JFeySuhN6JLkysYUK2gEmy9kHHFN7E8ro0tkfmlDOgxBDzWEZ/J8cWA+fHqFevpswDTFZnDx+R9lbL6xw==}
 
-  '@types/node@22.13.4':
-    resolution: {integrity: sha512-ywP2X0DYtX3y08eFVx5fNIw7/uIv8hYUKgXoK8oayJlLnKcRfEYCxWMVE1XagUdVtCJlZT1AU4LXEABW+L1Peg==}
+  '@types/node@22.13.5':
+    resolution: {integrity: sha512-+lTU0PxZXn0Dr1NBtC7Y8cR21AJr87dLLU953CWA6pMxxv/UDc7jYAY90upcrie1nRcD6XNG5HOYEDtgW5TxAg==}
 
   '@webgpu/types@0.1.54':
     resolution: {integrity: sha512-81oaalC8LFrXjhsczomEQ0u3jG+TqE6V9QHLA8GNZq/Rnot0KDugu3LhSYSlie8tSdooAN1Hov05asrUUp9qgg==}
@@ -127,8 +127,8 @@ packages:
   emoji-regex@9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
 
-  entityx-ts@2.1.2:
-    resolution: {integrity: sha512-pBWy6SqLR0+1oNnuaNIgrOzUU2ej0l9iS15wF0tagyVyf+RZkotcyv/Li781ve60X6BB5BFR69vX+VGukF9AiA==}
+  entityx-ts@2.1.3:
+    resolution: {integrity: sha512-fR9QsCvBPcpgcnS7FVrbTKFMtPEcLkAlmGveLfPTRlnFyJiupW+oS8DARf5RDyyD18AllqsmCDwXNaD8Qc0zrQ==}
 
   escalade@3.2.0:
     resolution: {integrity: sha512-WUj2qlxaQtO4g6Pq5c29GTcWGDyd8itL8zTlipgECz3JesAiiOKotd8JU6otB3PACgG6xkJUyVhboMS+bje/jA==}
@@ -292,11 +292,11 @@ packages:
 
 snapshots:
 
-  '@esotericsoftware/spine-core@4.2.73': {}
+  '@esotericsoftware/spine-core@4.2.74': {}
 
   '@pixi/colord@2.9.6': {}
 
-  '@pixi/ui@2.2.1(pixi.js@8.8.0)':
+  '@pixi/ui@2.2.2(pixi.js@8.8.0)':
     dependencies:
       pixi.js: 8.8.0
       tweedle.js: 2.1.0
@@ -308,7 +308,7 @@ snapshots:
 
   '@types/lodash@4.17.15': {}
 
-  '@types/node@22.13.4':
+  '@types/node@22.13.5':
     dependencies:
       undici-types: 6.20.0
 
@@ -365,7 +365,7 @@ snapshots:
 
   emoji-regex@9.2.2: {}
 
-  entityx-ts@2.1.2: {}
+  entityx-ts@2.1.3: {}
 
   escalade@3.2.0: {}
 
