@@ -171,7 +171,7 @@ export class LabelOutlineComp extends NoRenderComponentX<LabelOutlineCompProps> 
 interface LabelShadowCompProps {
   color: Color4B
   blur: number
-  offset: Point
+  offset?: Point
 }
 export class LabelShadowComp extends NoRenderComponentX<LabelShadowCompProps> {
 

@@ -11,7 +11,7 @@ import { GameWorld } from '../base'
 import TaggedText from 'pixi-tagged-text-plus'
 import { NodeComp } from '..'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
-import { ButtonComp, CheckBoxComp, LabelComp, ListComp, ProgressTimerComp, RadioGroupComp, RichTextComp, ScrollView } from './GUIComponent'
+import { ButtonComp, CheckBoxComp, LabelComp, LabelOutlineComp, LabelShadowComp, ListComp, ProgressTimerComp, RadioGroupComp, RichTextComp, ScrollView } from './GUIComponent'
 
 export class GUISystem implements System {
   configure(event_manager: EventManager<GameWorld>) {
@@ -92,6 +92,20 @@ export class GUISystem implements System {
       if (font) component.font = (font)
       component.size = (size)
       component.string = (string)
+    })
+    event_manager.subscribe(EventTypes.ComponentAdded, LabelOutlineComp, ({ entity, component }) => {
+      const { color, width } = component.props
+      const node = entity.getComponent(NodeComp)
+      if (node.instance instanceof Text) {
+        node.instance.style.stroke = { color, width }
+      }
+    })
+    event_manager.subscribe(EventTypes.ComponentAdded, LabelShadowComp, ({ entity, component }) => {
+      const { color, blur, offset } = component.props
+      const node = entity.getComponent(NodeComp)
+      if (node.instance instanceof Text) {
+        node.instance.style.dropShadow = { color, blur, alpha: 1, angle: 0, distance: 0 }
+      }
     })
     event_manager.subscribe(EventTypes.ComponentAdded, RichTextComp, ({ entity, component }) => {
       // console.log('ComponentAddedEvent LabelComp', component)
