@@ -124,23 +124,25 @@ export class NodeComp<C extends Container = Container> {
   }
 
   get anchorX() {
-    if (this.instance instanceof Sprite)
-      return (this.instance as Sprite).anchor.x
+    if ((this.instance instanceof Sprite) || (this.instance instanceof Text))
+      return this.instance.anchor.x
     return 0
   }
 
   set anchorX(val: number) {
-    if (this.instance instanceof Sprite) this.instance.anchor.x = val
+    if ((this.instance instanceof Sprite) || (this.instance instanceof Text))
+      this.instance.anchor.x = val
   }
 
   get anchorY() {
-    if (this.instance instanceof Sprite)
-      return (this.instance as Sprite).anchor.y
+    if ((this.instance instanceof Sprite) || (this.instance instanceof Text))
+      return this.instance.anchor.y
     return 0
   }
 
   set anchorY(val: number) {
-    if (this.instance instanceof Sprite) this.instance.anchor.y = val
+    if ((this.instance instanceof Sprite) || (this.instance instanceof Text))
+      this.instance.anchor.y = val
   }
 
   /** rotation is in radians */
