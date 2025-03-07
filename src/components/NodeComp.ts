@@ -1,7 +1,7 @@
 import { Constructor, Entity } from 'entityx-ts'
 import remove from 'lodash/remove'
 import { Action, actionManager, Animation } from 'pixi-action-ease'
-import { Color, ColorSource, Container, Point, Sprite } from 'pixi.js'
+import { Color, ColorSource, Container, Point, Sprite, Text } from 'pixi.js'
 import { ComponentType, EnhancedComponent, instantiate } from '../base'
 
 import { Size } from '../core/Size'
@@ -163,12 +163,15 @@ export class NodeComp<C extends Container = Container> {
 
   get color() {
     if (this.instance instanceof Sprite)
-      return (this.instance as Sprite).tint
+      return this.instance.tint
+    if (this.instance instanceof Text)
+      return this.instance.style.fill as ColorSource
     return 0xffffff
   }
 
   set color(val: ColorSource) {
     if (this.instance instanceof Sprite) this.instance.tint = val
+    if (this.instance instanceof Text) this.instance.style.fill = val
   }
 
   get opacity() {
