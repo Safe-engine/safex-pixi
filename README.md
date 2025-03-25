@@ -32,10 +32,18 @@ Safex is an open-source game engine written in TypeScript, combining the power o
 npm install @safe-engine/pixi
 ```
 
+# dependencies
+
+```json
+  "dependencies": {
+    "safex": "npm:@safe-engine/pixi"
+  },
+```
+
 ## Basic Example
 
 ```tsx game.ts
-import { addGameCanvasTo, loadScene, startGameSystems } from '@safe-engine/pixi'
+import { addGameCanvasTo, loadScene, startGameSystems } from 'safex'
 async function start() {
   await addGameCanvasTo('canvasId')
   startGameSystems()
@@ -45,23 +53,82 @@ start()
 ```
 
 ```tsx GameScene.tsx
-import { SceneComponent, LabelComp, ButtonComp, SpriteRender } from '@safe-engine/pixi'
+import { SceneComponent, LabelComp, ButtonComp, SpriteRender, instantiate } from 'safex'
+import ColliderSprite from './ColliderSprite'
 
 export class GameScene extends ComponentX {
   sprite: SpriteRender
+  label: LabelComp
 
   onPress() {
     this.sprite.spriteFrame = 'other.sprite.png'
+    this.label.string = 'Pressed'
+  }
+
+  onTouchMove(event: FederatedPointerEvent) {
+    console.log('onTouchMove', event.global)
+    const sprite = instantiate(ColliderSprite)
+    sprite.node.x = event.global.x
+    sprite.node.y = event.global.y
+    this.node.addChild(sprite)
   }
 
   render() {
     return (
       <SceneComponent>
-        <LabelComp node={{ x: 106, y: 240 }} string="Hello safex" font={defaultFont} />
+        <TouchEventRegister
+          // onTouchStart={this.onTouchStart}
+          // onTouchEnd={this.onTouchEnd}
+          onTouchMove={this.onTouchMove}
+        />
+        <LabelComp $ref={this.label} node={{ x: 106, y: 240 }} string="Hello safex" font={defaultFont} />
         <SpriteRender $ref={this.sprite} node={{ x: 500, y: 600 }} spriteFrame={'path/to/sprite.png'}>
           <ButtonComp onPress={this.onPress} />
         </SpriteRender>
       </SceneComponent>
+    )
+  }
+}
+```
+
+## Collider Events
+
+```tsx
+import { BoxCollider, Collider, ComponentX, SpriteRender } from 'safex'
+import { sf_crash } from '../assets'
+
+export class ColliderSprite extends ComponentX {
+  onCollisionEnter(other: Collider) {
+    console.log(other.tag)
+  }
+
+  render() {
+    return (
+      <SpriteRender node={{ x: 640, y: 360 }} spriteFrame={sf_crash}>
+        <BoxCollider height={100} width={100}></BoxCollider>
+      </SpriteRender>
+    )
+  }
+}
+```
+
+## Physics Events
+
+```tsx
+import { BoxColliderPhysics, ColliderPhysics, RigidBody, ComponentX, SpriteRender } from 'safex'
+import { sf_crash } from '../assets'
+
+export class ColliderPhysics extends ComponentX {
+  onCollisionEnter(col: ColliderPhysics) {
+    console.log('onCollisionEnter', col)
+  }
+
+  render() {
+    return (
+      <SpriteRender node={{ x: 640, y: 360 }} spriteFrame={sf_crash}>
+        <RigidBody type="static"></RigidBody>
+        <BoxColliderPhysics height={100} width={100}></BoxColliderPhysics>
+      </SpriteRender>
     )
   }
 }
