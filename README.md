@@ -16,8 +16,8 @@ Safex is an open-source game engine written in TypeScript, combining the power o
 - Example `<SpriteRender node={{ x: 5, y: 9 }} />`
 - `$ref` bind component with current class property as string
 - `$push` push component to list
-- `Array(2).map(_, i)` iteration repeat component 2 times
-- `Loading.listItems.map(item, i)` iteration in static property
+- `Array(2).map(i)` iteration repeat component 2 times
+- `Loading.listItems.map(item, i = 1)` iteration in static property
 - `listItems.map(item, i)` iteration in const variable
 
 ## Benefits
