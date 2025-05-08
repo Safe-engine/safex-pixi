@@ -32,12 +32,10 @@ Safex is an open-source game engine written in TypeScript, combining the power o
 npm install @safe-engine/pixi
 ```
 
-# dependencies
+# Quick start
 
-```json
-  "dependencies": {
-    "safex": "npm:@safe-engine/pixi"
-  },
+```sh
+  git clone https://github.com/Safe-engine/pixi-safe-engine-demo
 ```
 
 ## Basic Example
