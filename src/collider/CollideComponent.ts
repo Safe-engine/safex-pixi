@@ -1,5 +1,3 @@
-import max from 'lodash/max'
-import min from 'lodash/min'
 import { Graphics, Point, Rectangle, Size } from 'pixi.js'
 
 import { app } from '../app'
@@ -7,6 +5,7 @@ import { NoRenderComponentX } from '../components/BaseComponent'
 import { NodeComp } from '../components/NodeComp'
 import { v2 } from '../helper/utils'
 import { circleCircle, polygonCircle, polygonPolygon } from './helper/Intersection'
+import { getMax, getMin } from './helper/utils'
 
 function getNodeToWorldTransformAR(node: NodeComp) {
   const t = node.instance.worldTransform
@@ -84,10 +83,10 @@ export class BoxCollider extends Collider<BoxColliderProps> {
     const listX = collider._worldPoints.map(({ x }) => x)
     const listY = collider._worldPoints.map(({ y }) => y)
     collider._preAabb = cloneRect(collider._AABB)
-    collider._AABB.x = min(listX)
-    collider._AABB.y = min(listY)
-    collider._AABB.width = max(listX) - collider._AABB.x
-    collider._AABB.height = max(listY) - collider._AABB.y
+    collider._AABB.x = getMin(listX)
+    collider._AABB.y = getMin(listY)
+    collider._AABB.width = getMax(listX) - collider._AABB.x
+    collider._AABB.height = getMax(listY) - collider._AABB.y
     if (draw) {
       // console.log("drawing", JSON.stringify(collider._worldPoints))
       const drawList = collider._worldPoints
@@ -160,10 +159,10 @@ export class PolygonCollider extends Collider<PolygonColliderProps> {
     const listX = collider._worldPoints.map(({ x }) => x)
     const listY = collider._worldPoints.map(({ y }) => y)
     collider._preAabb = cloneRect(collider._AABB)
-    collider._AABB.x = min(listX)
-    collider._AABB.y = min(listY)
-    collider._AABB.width = max(listX) - collider._AABB.x
-    collider._AABB.height = max(listY) - collider._AABB.y
+    collider._AABB.x = getMin(listX)
+    collider._AABB.y = getMin(listY)
+    collider._AABB.width = getMax(listX) - collider._AABB.x
+    collider._AABB.height = getMax(listY) - collider._AABB.y
     // draw.drawRect(p(this._AABB.x, this._AABB.y), p(max(listX), max(listY)),
     // Color.WHITE, 3, Color.DEBUG_BORDER_COLOR);
   }
