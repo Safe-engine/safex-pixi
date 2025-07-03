@@ -1,5 +1,4 @@
 import { Constructor, Entity } from 'entityx-ts'
-import remove from 'lodash/remove'
 import { Action, actionManager, Animation } from 'pixi-action-ease'
 import { Color, ColorSource, Container, Point, Sprite, Text } from 'pixi.js'
 import { ComponentType, EnhancedComponent, instantiate } from '../base'
@@ -353,7 +352,7 @@ export class NodeComp<C extends Container = Container> {
 
   destroy() {
     if (this.parent) {
-      remove(this.parent.children, ({ entity }) => entity.id === this.entity.id)
+      this.parent.children = this.parent.children.filter(({ entity }) => entity.id !== this.entity.id)
     }
     this.children.forEach((child) => {
       child.destroy()
