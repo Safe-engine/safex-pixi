@@ -16,20 +16,20 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@esotericsoftware/spine-core": "^4.2.74",
-    "@pixi/ui": "^2.2.2",
-    "@types/node": "^22.13.5",
+    "@esotericsoftware/spine-core": "^4.2.84",
+    "@pixi/ui": "^2.2.4",
+    "@types/node": "^24.0.10",
     "copyfiles": "^2.4.1",
-    "dragonbones-pixijs": "^1.0.3",
-    "entityx-ts": "^2.1.3",
+    "dragonbones-pixijs": "^1.0.5",
+    "entityx-ts": "^2.2.1",
     "lodash": "^4.17.21",
     "pixi-action-ease": "^3.0.6",
     "pixi-tagged-text-plus": "0.0.1-next.2",
-    "pixi.js": "8.8.0",
-    "planck": "^1.3.0"
+    "pixi.js": "8.10.2",
+    "planck": "^1.4.2"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.15",
-    "typescript": "^5.7.3"
+    "@types/lodash": "^4.17.20",
+    "typescript": "^5.8.3"
   }
 }
