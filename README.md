@@ -113,11 +113,11 @@ export class ColliderSprite extends ComponentX {
 ## Physics Events
 
 ```tsx
-import { BoxColliderPhysics, ColliderPhysics, RigidBody, ComponentX, SpriteRender } from 'safex'
+import { PhysicsBoxCollider, PhysicsCollider, RigidBody, ComponentX, SpriteRender } from 'safex'
 import { sf_crash } from '../assets'
 
-export class ColliderPhysics extends ComponentX {
-  onCollisionEnter(col: ColliderPhysics) {
+export class PhysicsCollider extends ComponentX {
+  onCollisionEnter(col: PhysicsCollider) {
     console.log('onCollisionEnter', col)
   }
 
@@ -125,7 +125,7 @@ export class ColliderPhysics extends ComponentX {
     return (
       <SpriteRender node={{ x: 640, y: 360 }} spriteFrame={sf_crash}>
         <RigidBody type="static"></RigidBody>
-        <BoxColliderPhysics height={100} width={100}></BoxColliderPhysics>
+        <PhysicsBoxCollider height={100} width={100}></PhysicsBoxCollider>
       </SpriteRender>
     )
   }

@@ -45,12 +45,12 @@ interface ColliderPhysicsProps {
   tag?: number
   group?: number
   offset?: Vec2
-  onCollisionEnter?: (other: ColliderPhysics) => void
-  onCollisionExit?: (other: ColliderPhysics) => void
-  onCollisionStay?: (other: ColliderPhysics) => void
+  onCollisionEnter?: (other: PhysicsCollider) => void
+  onCollisionExit?: (other: PhysicsCollider) => void
+  onCollisionStay?: (other: PhysicsCollider) => void
 }
 
-export class ColliderPhysics<T extends ColliderPhysicsProps = ColliderPhysicsProps> extends NoRenderComponentX<T, PhysicsSprite['node']> {
+export class PhysicsCollider<T extends ColliderPhysicsProps = ColliderPhysicsProps> extends NoRenderComponentX<T, PhysicsSprite['node']> {
   enabled = true
   instance: PhysicsSprite
 }
@@ -59,25 +59,25 @@ interface BoxColliderPhysicsProps extends ColliderPhysicsProps {
   width: number
   height: number
 }
-export class BoxColliderPhysics extends ColliderPhysics<BoxColliderPhysicsProps> {
+export class PhysicsBoxCollider extends PhysicsCollider<BoxColliderPhysicsProps> {
 
   // set onCollisionEnter(val) {
-  //   const phys1 = this.getComponent(ColliderPhysics)
+  //   const phys1 = this.getComponent(PhysicsCollider)
   //   phys1._onCollisionEnter = val
   // }
 
   // get onCollisionEnter() {
-  //   const phys1 = this.getComponent(ColliderPhysics)
+  //   const phys1 = this.getComponent(PhysicsCollider)
   //   return phys1._onCollisionEnter
   // }
 }
 interface CircleColliderPhysicsProps extends ColliderPhysicsProps {
   radius: number
 }
-export class CircleColliderPhysics extends ColliderPhysics<CircleColliderPhysicsProps> {
+export class PhysicsCircleCollider extends PhysicsCollider<CircleColliderPhysicsProps> {
 }
 interface PolygonColliderPhysicsProps extends ColliderPhysicsProps {
   points: Array<Vec2>
 }
-export class PolygonColliderPhysics extends ColliderPhysics<PolygonColliderPhysicsProps> {
+export class PhysicsPolygonCollider extends PhysicsCollider<PolygonColliderPhysicsProps> {
 }

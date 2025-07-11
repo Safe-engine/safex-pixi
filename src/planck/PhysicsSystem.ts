@@ -11,10 +11,10 @@ import { Graphics } from 'pixi.js'
 import { GameWorld, instantiate } from '../base'
 import { NodeComp } from '../components/NodeComp'
 import {
-  BoxColliderPhysics,
-  CircleColliderPhysics,
-  ColliderPhysics,
-  PolygonColliderPhysics,
+  PhysicsBoxCollider,
+  PhysicsCircleCollider,
+  PhysicsCollider,
+  PhysicsPolygonCollider,
   RigidBody,
 } from './PhysicsComponent'
 import { PhysicsSprite } from './PhysicsSprite'
@@ -43,8 +43,8 @@ export class PhysicsSystem implements System {
     })
     // event_manager.world.physicsManager = this
     // event_manager.subscribe(ComponentAddedEvent(RigidBody), this);
-    event_manager.subscribe(EventTypes.ComponentAdded, BoxColliderPhysics, ({ entity, component }) => {
-      console.log('ComponentAddedEvent BoxColliderPhysics', component)
+    event_manager.subscribe(EventTypes.ComponentAdded, PhysicsBoxCollider, ({ entity, component }) => {
+      console.log('ComponentAddedEvent PhysicsBoxCollider', component)
       let rigidBody = entity.getComponent(RigidBody)
       if (!rigidBody) {
         rigidBody = instantiate(RigidBody)
@@ -55,7 +55,7 @@ export class PhysicsSystem implements System {
       const box = component
       const node = entity.getComponent(NodeComp)
       const { width, height, ...colliderProps } = box.props
-      // ett.assign(instantiate(ColliderPhysics, { tag, offset }))
+      // ett.assign(instantiate(PhysicsCollider, { tag, offset }))
       // const { density, restitution, friction } = physicsMaterial
       const { x = 0, y = 0 } = colliderProps.offset || {}
       const body = this.world.createBody({
@@ -79,13 +79,13 @@ export class PhysicsSystem implements System {
       debugBox.rect(x, y, width, height)
       debugBox.fill({ color: 0xff0000, alpha: 0.3 })
       node.instance.addChild(debugBox)
-      const physicsCollide = entity.assign(instantiate(ColliderPhysics, colliderProps))
+      const physicsCollide = entity.assign(instantiate(PhysicsCollider, colliderProps))
       physicsCollide.instance = physicsNode
       physicsCollide.node = node
       box.node = node
     })
-    event_manager.subscribe(EventTypes.ComponentAdded, (CircleColliderPhysics), () => { })
-    event_manager.subscribe(EventTypes.ComponentAdded, (PolygonColliderPhysics), () => { })
+    event_manager.subscribe(EventTypes.ComponentAdded, (PhysicsCircleCollider), () => { })
+    event_manager.subscribe(EventTypes.ComponentAdded, (PhysicsPolygonCollider), () => { })
     event_manager.subscribe(EventTypes.ComponentRemoved, (NodeComp), () => {
       // log('ComponentRemovedEvent NodeComp', event);
       // const node = event.entity.getComponent(NodeComp)
@@ -124,7 +124,7 @@ export class PhysicsSystem implements System {
   renderBody(body: Body) {
     // Render or update body rendering
     const ett = body.getUserData() as NodeComp
-    const collider = ett.getComponent(ColliderPhysics)
+    const collider = ett.getComponent(PhysicsCollider)
     if (collider) {
       collider.instance.node.position = body.getPosition()
       collider.instance.angle = body.getAngle()
@@ -153,8 +153,8 @@ export class PhysicsSystem implements System {
     //   this.listRemoveBody = []
     //   this.listRemoveShape = []
     // })
-    const phys1 = ett1.getComponent(ColliderPhysics)
-    const phys2 = ett2.getComponent(ColliderPhysics)
+    const phys1 = ett1.getComponent(PhysicsCollider)
+    const phys2 = ett2.getComponent(PhysicsCollider)
     if (phys1 && phys2) {
       if (Object.prototype.hasOwnProperty.call(phys1, 'onCollisionEnter')) {
         phys1.props.onCollisionEnter(phys2)
@@ -178,8 +178,8 @@ export class PhysicsSystem implements System {
     const ett1: Entity = contact.getFixtureA().getBody().getUserData() as Entity
     const ett2: Entity = contact.getFixtureB().getBody().getUserData() as Entity
     // const event1 = ett1.getComponent(NodeComp)
-    const phys1 = ett1.getComponent(ColliderPhysics)
-    const phys2 = ett2.getComponent(ColliderPhysics)
+    const phys1 = ett1.getComponent(PhysicsCollider)
+    const phys2 = ett2.getComponent(PhysicsCollider)
     // const event2 = ett2.getComponent(NodeComp)
     if (phys1 && phys2) {
       if (Object.prototype.hasOwnProperty.call(phys1, 'onCollisionExit')) {
