@@ -20,7 +20,7 @@ export async function startGame(defaultFont, designedResolution = { width: 720, 
       click: true,
       wheel: false,
     },
-    canvas: document.getElementById(id) as HTMLCanvasElement
+    canvas: document.getElementById(id) as HTMLCanvasElement,
   })
   // GameWorld.Instance.setup(NodeComp, app.stage)
   Object.assign(app.canvas.style, {

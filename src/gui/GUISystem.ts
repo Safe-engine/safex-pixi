@@ -1,16 +1,22 @@
 import { Button, CheckBox, List, RadioGroup, ScrollBox } from '@pixi/ui'
-import {
-  EventManager,
-  EventTypes,
-  System
-} from 'entityx-ts'
+import { EventManager, EventTypes, System } from 'entityx-ts'
 import { callFunc, easeBackIn, scaleTo, sequence } from 'pixi-action-ease'
 import { Text } from 'pixi.js'
 
 import { NodeComp } from '..'
 import { GameWorld } from '../base'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
-import { ButtonComp, CheckBoxComp, LabelComp, LabelOutlineComp, LabelShadowComp, ListComp, ProgressTimerComp, RadioGroupComp, ScrollView } from './GUIComponent'
+import {
+  ButtonComp,
+  CheckBoxComp,
+  LabelComp,
+  LabelOutlineComp,
+  LabelShadowComp,
+  ListComp,
+  ProgressTimerComp,
+  RadioGroupComp,
+  ScrollView,
+} from './GUIComponent'
 
 export class GUISystem implements System {
   defaultFont: string
@@ -89,9 +95,9 @@ export class GUISystem implements System {
       node.style.fill = '#fff'
       component.node = entity.assign(new NodeComp(node, entity))
       const { string = '', font = this.defaultFont, size = 64 } = component.props
-      if (font) component.font = (font)
-      component.size = (size)
-      component.string = (string)
+      if (font) component.font = font
+      component.size = size
+      component.string = string
     })
     event_manager.subscribe(EventTypes.ComponentAdded, LabelOutlineComp, ({ entity, component }) => {
       const { color, width } = component.props
