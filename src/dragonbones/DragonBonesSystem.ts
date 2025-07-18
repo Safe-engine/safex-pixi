@@ -1,5 +1,5 @@
 import { PixiFactory } from 'dragonbones-pixijs';
-import { EventManager, EventTypes, System } from 'entityx-ts';
+import { EntityManager, EventManager, EventTypes, System } from 'entityx-ts';
 
 import { Assets } from 'pixi.js';
 import { GameWorld } from '../base';
@@ -30,6 +30,6 @@ export class DragonBonesSystem implements System {
     // event_manager.subscribe(EventTypes.ComponentRemoved, DragonBones, ({ }) => { })
   }
 
-  // update(entities: EntityManager, events: EventManager<GameWorld>, dt: number) {
-  // }
+  update(entities: EntityManager, events: EventManager<GameWorld>, dt: number) {
+  }
 }

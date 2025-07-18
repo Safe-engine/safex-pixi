@@ -19,5 +19,5 @@ export * from './helper/utils'
 export * from './norender/NoRenderComponent'
 export * from './render/RenderComponent'
 export * from './render/RenderSystem'
+export * from './richtext'
 export * from './spine'
-

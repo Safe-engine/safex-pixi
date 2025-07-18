@@ -26,9 +26,6 @@ importers:
       entityx-ts:
         specifier: ^2.2.1
         version: 2.2.1
-      lodash:
-        specifier: ^4.17.21
-        version: 4.17.21
       pixi-action-ease:
         specifier: ^3.0.6
         version: 3.0.6
@@ -42,9 +39,6 @@ importers:
         specifier: ^1.4.2
         version: 1.4.2(stage-js@1.0.0-alpha.16)
     devDependencies:
-      '@types/lodash':
-        specifier: ^4.17.20
-        version: 4.17.20
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -67,9 +61,6 @@ packages:
 
   '@types/earcut@3.0.0':
     resolution: {integrity: sha512-k/9fOUGO39yd2sCjrbAJvGDEQvRwRnQIZlBz43roGwUZo5SHAmyVvSFyaVVZkicRVCaDXPKlbxrUcBuJoSWunQ==}
-
-  '@types/lodash@4.17.20':
-    resolution: {integrity: sha512-H3MHACvFUEiujabxhaI/ImO6gUrd8oOurg7LQtS7mbwIXA/cUqWrvBsaeJ23aZEPk1TAYkurjfMbSELfoCXlGA==}
 
   '@types/node@24.0.10':
     resolution: {integrity: sha512-ENHwaH+JIRTDIEEbDK6QSQntAYGtbvdDXnMXnZaZ6k13Du1dPMmprkEHIL7ok2Wl2aZevetwTAb5S+7yIF+enA==}
@@ -173,9 +164,6 @@ packages:
 
   js-binary-schema-parser@2.0.3:
     resolution: {integrity: sha512-xezGJmOb4lk/M1ZZLTR/jaBHQ4gG/lqQnJqdIv4721DMggsa1bDVlHXNeHYogaIEHD9vCRv0fcL4hMA+Coarkg==}
-
-  lodash@4.17.21:
-    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
   minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
@@ -312,8 +300,6 @@ snapshots:
 
   '@types/earcut@3.0.0': {}
 
-  '@types/lodash@4.17.20': {}
-
   '@types/node@24.0.10':
     dependencies:
       undici-types: 7.8.0
@@ -410,8 +396,6 @@ snapshots:
   ismobilejs@1.1.1: {}
 
   js-binary-schema-parser@2.0.3: {}
-
-  lodash@4.17.21: {}
 
   minimatch@3.1.2:
     dependencies:

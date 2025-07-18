@@ -1,6 +1,6 @@
 {
   "name": "@safe-engine/pixi",
-  "version": "8.3.7",
+  "version": "8.4.1",
   "description": "safex pixi plugin",
   "type": "module",
   "main": "dist/index.js",
@@ -22,14 +22,12 @@
     "copyfiles": "^2.4.1",
     "dragonbones-pixijs": "^1.0.5",
     "entityx-ts": "^2.2.1",
-    "lodash": "^4.17.21",
     "pixi-action-ease": "^3.0.6",
     "pixi-tagged-text-plus": "0.0.1-next.2",
     "pixi.js": "8.10.2",
     "planck": "^1.4.2"
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.20",
     "typescript": "^5.8.3"
   }
 }

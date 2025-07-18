@@ -1,7 +1,9 @@
 import { Constructor, System, World } from 'entityx-ts'
+import { Application } from 'pixi.js'
 
 export class GameWorld extends World {
   listUpdate: (System | Constructor<System>)[] = []
+  app: Application
   update(dt: number) {
     this.listUpdate.forEach((system: any) => {
       this.systems.update(system, dt)
