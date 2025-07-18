@@ -1,9 +1,11 @@
-import { app } from "../app"
+// import { app } from "../app"
+
+import { GameWorld } from ".."
 
 export function pauseAll() {
-  app.ticker.stop()
+  GameWorld.Instance.app.ticker.stop()
 }
 
 export function resumeAll() {
-  app.ticker.start()
+  GameWorld.Instance.app.ticker.start()
 }

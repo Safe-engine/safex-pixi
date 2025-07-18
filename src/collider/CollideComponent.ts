@@ -1,6 +1,6 @@
 import { Graphics, Point, Rectangle, Size } from 'pixi.js'
 
-import { app } from '../app'
+import { GameWorld } from '..'
 import { NoRenderComponentX } from '../components/BaseComponent'
 import { NodeComp } from '../components/NodeComp'
 import { v2 } from '../helper/utils'
@@ -113,7 +113,7 @@ export class CircleCollider extends Collider<CircleColliderProps> {
     collider._worldPosition = transform.apply(this.props.offset)
     if (draw) {
       const { x } = collider._worldPosition
-      const y = app.screen.height - collider._worldPosition.y
+      const y = GameWorld.Instance.app.screen.height - collider._worldPosition.y
       draw.rect(x, y, 2, 2)
       draw.circle(x, y, collider._worldRadius)
     }
@@ -153,7 +153,7 @@ export class PolygonCollider extends Collider<PolygonColliderProps> {
     collider._worldPoints = this.points.map((p) => transform.apply(p))
     // log(polyPoints);
     if (draw) {
-      const drawList = collider._worldPoints.map(({ x, y }) => v2(x, app.screen.height - y))
+      const drawList = collider._worldPoints.map(({ x, y }) => v2(x, GameWorld.Instance.app.screen.height - y))
       draw.poly(drawList)
     }
     const listX = collider._worldPoints.map(({ x }) => x)

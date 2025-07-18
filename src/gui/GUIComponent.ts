@@ -1,11 +1,9 @@
 import { CheckBox, CheckBoxOptions, Input, List, ProgressBar, RadioGroup, Slider, SliderOptions } from '@pixi/ui'
 import { Assets, Container, FillInput, Point, Text } from 'pixi.js'
 
-import TaggedText from 'pixi-tagged-text-plus'
 import { ComponentX, NoRenderComponentX } from '../components/BaseComponent'
 import { Color4B } from '../core/Color'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
-import { generateStringFromStyledElements, generateStylesFromStyledElements, parseFontString, transformToStyledElements } from '../helper/html-text-parser'
 
 export const FillType = {
   HORIZONTAL: 0,
@@ -120,43 +118,6 @@ export class ProgressTimerComp extends ComponentX<ProgressTimerProps & { $ref?: 
   setFillRange(val: number) {
     // console.log('setFillRange', this.node.instance);
     this.node.instance.progress = val
-  }
-}
-
-export class RichTextComp extends ComponentX<LabelCompProps, TaggedText> {
-
-  get string() {
-    return this.props.string
-  }
-
-
-  set string(val: string) {
-    this.props.string = val
-    if (!this.node) return
-    const jObj = parseFontString(val);
-    const styledOutput = transformToStyledElements(jObj);
-    const newText = generateStringFromStyledElements(styledOutput)
-    const styles = generateStylesFromStyledElements(styledOutput)
-    // console.log(styledOutput)
-    const wrapped = `<root>${newText}</root>`
-    this.node.instance.setText(wrapped)
-    this.node.instance.setTagStyles(styles)
-  }
-  get size() {
-    return this.props.size
-  }
-  set size(size: number) {
-    this.props.size = size
-    if (!this.node) return
-    this.node.instance.setStyleForTag('root', { fontSize: size, color: '#fff' })
-  }
-  get font() {
-    return this.props.font
-  }
-  set font(font: string) {
-    this.props.font = font
-    if (!this.node) return
-    this.node.instance.setStyleForTag('root', { color: '#fff', fontFamily: font })
   }
 }
 

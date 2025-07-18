@@ -82,25 +82,29 @@ export class NodeComp<C extends Container = Container> {
     this.setPosition(val.x, val.y)
   }
 
-  get x() {
+  get posX() {
     return this.instance.x
   }
 
-  set x(val: number) {
+  set posX(val: number) {
     this.instance.x = val
   }
 
-  get y() {
+  get posY() {
     return this.instance.y
   }
 
-  set y(val: number) {
+  set posY(val: number) {
     this.instance.y = val
   }
 
-  // get scale() {
-  //   return this.instance.scale
-  // }
+  set xy(val: [number, number]) {
+    this.setPosition(val[0], val[1])
+  }
+
+  get scale() {
+    return this.instance.scale.x
+  }
 
   set scale(val: number) {
     this.instance.scale = new Point(val, val)
@@ -267,11 +271,9 @@ export class NodeComp<C extends Container = Container> {
 
   setPosition(x: number | Point, y?: number) {
     if (typeof x !== 'number') {
-      this.x = x.x
-      this.y = x.y
+      this.instance.position = new Point(x.x, x.y)
     } else {
-      this.x = x
-      this.y = y
+      this.instance.position = new Point(x, y)
     }
   }
 

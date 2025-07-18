@@ -6,14 +6,14 @@ import {
 } from 'entityx-ts'
 import { callFunc, easeBackIn, scaleTo, sequence } from 'pixi-action-ease'
 import { Text } from 'pixi.js'
-import { GameWorld } from '../base'
 
-import TaggedText from 'pixi-tagged-text-plus'
 import { NodeComp } from '..'
+import { GameWorld } from '../base'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
-import { ButtonComp, CheckBoxComp, LabelComp, LabelOutlineComp, LabelShadowComp, ListComp, ProgressTimerComp, RadioGroupComp, RichTextComp, ScrollView } from './GUIComponent'
+import { ButtonComp, CheckBoxComp, LabelComp, LabelOutlineComp, LabelShadowComp, ListComp, ProgressTimerComp, RadioGroupComp, ScrollView } from './GUIComponent'
 
 export class GUISystem implements System {
+  defaultFont: string
   configure(event_manager: EventManager<GameWorld>) {
     event_manager.subscribe(EventTypes.ComponentAdded, ButtonComp, ({ entity, component }) => {
       const nodeComp = entity.getComponent(NodeComp)
@@ -88,7 +88,7 @@ export class GUISystem implements System {
       // node.texture.rotate = 8
       node.style.fill = '#fff'
       component.node = entity.assign(new NodeComp(node, entity))
-      const { string = '', font = '', size = 64 } = component.props
+      const { string = '', font = this.defaultFont, size = 64 } = component.props
       if (font) component.font = (font)
       component.size = (size)
       component.string = (string)
@@ -107,16 +107,7 @@ export class GUISystem implements System {
         node.instance.style.dropShadow = { color, blur, alpha: 1, angle: 0, distance: 0 }
       }
     })
-    event_manager.subscribe(EventTypes.ComponentAdded, RichTextComp, ({ entity, component }) => {
-      // console.log('ComponentAddedEvent LabelComp', component)
-      const { string = '', font, size = 64 } = component.props
-      const node = new TaggedText(string);
-      // node.defaultStyle = { }
-      component.node = entity.assign(new NodeComp(node, entity))
-      component.string = (string)
-      if (font) component.font = (font)
-      if (size) component.size = (size)
-    })
+
     // event_manager.subscribe(EventTypes.ComponentAdded, BlockInputEventsComp), this);
   }
   // update() {

@@ -1,7 +1,6 @@
 import { EntityManager, EventManager, EventTypes, System } from 'entityx-ts'
 import { Color, Graphics } from 'pixi.js'
 
-import { app } from '../app'
 import { GameWorld } from '../base'
 import { NodeComp } from '../components/NodeComp'
 import { BoxCollider, CircleCollider, Collider, CollisionType, Contract, PolygonCollider } from './CollideComponent'
@@ -33,7 +32,7 @@ export class CollideSystem implements System {
       this.debugGraphics.width = 4
       this.debugGraphics.zIndex = 40
     }
-    app.stage.addChild(this.debugGraphics)
+    GameWorld.Instance.app.stage.addChild(this.debugGraphics)
   }
 
   update(entities: EntityManager, events: EventManager, dt: number) {

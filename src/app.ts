@@ -1,5 +1,5 @@
 import { actionManager } from 'pixi-action-ease'
-import { Application, AssetsClass, Renderer } from 'pixi.js'
+import { Application } from 'pixi.js'
 
 import { GameWorld } from './base'
 import { CollideSystem } from './collider'
@@ -7,15 +7,9 @@ import { GUISystem } from './gui/GUISystem'
 import { NoRenderSystem } from './norender/NoRenderSystem'
 import { RenderSystem } from './render/RenderSystem'
 
-export function startGame(
-  defaultFont,
-  designedResolution = { width: 720, height: 1280 },
-  assetManager: AssetsClass,
-  id = 'gameCanvas',
-): Application<Renderer> {
-  const app = new Application({
-    width: 1080,
-    height: 1920,
+export async function startGame(defaultFont, designedResolution = { width: 720, height: 1280 }, id = 'game') {
+  const app = new Application()
+  await app.init({
     antialias: true,
     resolution: window.devicePixelRatio,
     canvas: document.getElementById(id) as HTMLCanvasElement,
@@ -31,19 +25,14 @@ export function startGame(
     height: `${window.innerHeight}px`,
     overflow: 'visible',
   })
-}
-
-const gameDiv = document.getElementById(id)
-gameDiv.appendChild(app.view as never)
-const { width, height } = designedResolution
-app.renderer.resize(width, height)
-// app.stage.position.y = app.renderer.height / app.renderer.resolution
-// app.stage.scale.y = -1
-GameWorld.Instance.app = app
-GameWorld.Instance.assetManager = assetManager
-initWorld(defaultFont)
-startGameLoop(GameWorld.Instance)
-return app
+  const { width, height } = designedResolution
+  app.renderer.resize(width, height)
+  // app.stage.position.y = app.renderer.height / app.renderer.resolution
+  // app.stage.scale.y = -1
+  GameWorld.Instance.app = app
+  initWorld(defaultFont)
+  startGameLoop(GameWorld.Instance)
+  return app
 }
 
 function startGameLoop(world: GameWorld) {
