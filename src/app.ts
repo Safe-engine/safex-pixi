@@ -12,12 +12,15 @@ export async function startGame(defaultFont, designedResolution = { width: 720, 
   await app.init({
     antialias: true,
     resolution: window.devicePixelRatio,
+    resizeTo: window,
+    eventFeatures: {
+      move: true,
+      /** disables the global move events which can be very expensive in large scenes */
+      globalMove: false,
+      click: true,
+      wheel: false,
+    },
     canvas: document.getElementById(id) as HTMLCanvasElement,
-  })
-  Object.assign(app.canvas.style, {
-    width: `${window.innerWidth}px`,
-    height: `${window.innerHeight}px`,
-    overflow: 'visible',
   })
   // GameWorld.Instance.setup(NodeComp, app.stage)
   Object.assign(app.canvas.style, {

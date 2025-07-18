@@ -1,8 +1,9 @@
 import { Constructor, Entity } from 'entityx-ts'
 import { Action, actionManager, Animation } from 'pixi-action-ease'
 import { Color, ColorSource, Container, Point, Sprite, Text } from 'pixi.js'
-import { ComponentType, EnhancedComponent, instantiate } from '../base'
 
+import { ComponentType, EnhancedComponent, instantiate } from '../base'
+import { updatePoint, Vec2 } from '../core'
 import { Size } from '../core/Size'
 import { ProgressBarComp } from '../gui/GUIComponent'
 import { ExtraDataComp } from '../norender/NoRenderComponent'
@@ -12,7 +13,7 @@ export interface EventMap {
   [key: string]: [EventCallbackType]
 }
 
-type TouchEventCallback = (target: { location: Point }) => void
+type TouchEventCallback = (target: { location: Vec2 }) => void
 
 export class NodeComp<C extends Container = Container> {
   entity: Entity
@@ -36,7 +37,7 @@ export class NodeComp<C extends Container = Container> {
     this.onTouchStart = cb
     this.instance.on('touchstart', (event) => {
       const { global } = event
-      this.onTouchStart({ location: global })
+      this.onTouchStart({ location: updatePoint(global) })
     })
   }
 
@@ -44,7 +45,7 @@ export class NodeComp<C extends Container = Container> {
     this.onTouchMove = cb
     this.instance.on('touchmove', (event) => {
       const { global } = event
-      this.onTouchMove({ location: global })
+      this.onTouchMove({ location: updatePoint(global) })
     })
   }
 
@@ -52,7 +53,7 @@ export class NodeComp<C extends Container = Container> {
     this.onTouchEnd = cb
     this.instance.on('touchend', (event) => {
       const { global } = event
-      this.onTouchEnd({ location: global })
+      this.onTouchEnd({ location: updatePoint(global) })
     })
   }
 
@@ -60,7 +61,7 @@ export class NodeComp<C extends Container = Container> {
     this.onTouchCancel = cb
     this.instance.on('touchcancel', (event) => {
       const { global } = event
-      this.onTouchCancel({ location: global })
+      this.onTouchCancel({ location: updatePoint(global) })
     })
   }
 
@@ -74,11 +75,11 @@ export class NodeComp<C extends Container = Container> {
     return this.entity.id
   }
 
-  get position(): Point {
+  get position(): Vec2 {
     return this.getPosition()
   }
 
-  set position(val: Point) {
+  set position(val: Vec2) {
     this.setPosition(val.x, val.y)
   }
 
@@ -127,25 +128,21 @@ export class NodeComp<C extends Container = Container> {
   }
 
   get anchorX() {
-    if ((this.instance instanceof Sprite) || (this.instance instanceof Text))
-      return this.instance.anchor.x
+    if (this.instance instanceof Sprite || this.instance instanceof Text) return this.instance.anchor.x
     return 0
   }
 
   set anchorX(val: number) {
-    if ((this.instance instanceof Sprite) || (this.instance instanceof Text))
-      this.instance.anchor.x = val
+    if (this.instance instanceof Sprite || this.instance instanceof Text) this.instance.anchor.x = val
   }
 
   get anchorY() {
-    if ((this.instance instanceof Sprite) || (this.instance instanceof Text))
-      return this.instance.anchor.y
+    if (this.instance instanceof Sprite || this.instance instanceof Text) return this.instance.anchor.y
     return 0
   }
 
   set anchorY(val: number) {
-    if ((this.instance instanceof Sprite) || (this.instance instanceof Text))
-      this.instance.anchor.y = val
+    if (this.instance instanceof Sprite || this.instance instanceof Text) this.instance.anchor.y = val
   }
 
   /** rotation is in radians */
@@ -167,10 +164,8 @@ export class NodeComp<C extends Container = Container> {
   }
 
   get color() {
-    if (this.instance instanceof Sprite)
-      return this.instance.tint
-    if (this.instance instanceof Text)
-      return this.instance.style.fill as ColorSource
+    if (this.instance instanceof Sprite) return this.instance.tint
+    if (this.instance instanceof Text) return this.instance.style.fill as ColorSource
     return 0xffffff
   }
 
@@ -253,27 +248,27 @@ export class NodeComp<C extends Container = Container> {
     return this.getComponentsInChildren(component)[0]
   }
 
-  convertToNodeSpace(point: Point) {
+  convertToNodeSpace(point: Vec2) {
     return this.instance.toLocal(point)
   }
 
-  convertToNodeSpaceAR(point: Point) {
+  convertToNodeSpaceAR(point: Vec2) {
     return this.instance.toLocal(point)
   }
 
-  convertToWorldSpaceAR(point: Point) {
+  convertToWorldSpaceAR(point: Vec2) {
     return this.instance.toGlobal(point)
   }
 
-  getPosition(): Point {
-    return this.instance.position
+  getPosition(): Vec2 {
+    return updatePoint(this.instance.position)
   }
 
   setPosition(x: number | Point, y?: number) {
     if (typeof x !== 'number') {
-      this.instance.position = new Point(x.x, x.y)
+      this.instance.position = Vec2(x.x, x.y)
     } else {
-      this.instance.position = new Point(x, y)
+      this.instance.position = Vec2(x, y)
     }
   }
 
@@ -319,8 +314,7 @@ export class NodeComp<C extends Container = Container> {
   // }
 
   setColor(color: Color) {
-    if (this.instance instanceof Sprite)
-      (this.instance as Sprite).tint = color
+    if (this.instance instanceof Sprite) (this.instance as Sprite).tint = color
   }
 
   setScale(scaleX: number, scaleY?: number) {
@@ -404,7 +398,7 @@ export class NodeComp<C extends Container = Container> {
     }
   }
 
-  resolveComponent(component: EnhancedComponent<{}, NodeComp>) {
+  resolveComponent(component: EnhancedComponent<object, NodeComp>) {
     // console.log(component.constructor.name, (component.constructor as any).hasRender)
     if ((component.constructor as any).hasRender) {
       this.addChild(component.node)

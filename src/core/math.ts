@@ -11,3 +11,12 @@ export function degreesToRadians(deg: Float) {
 export function radiansToDegrees(rad: Float) {
   return RAD_TO_DEG * rad
 }
+
+export function clampf(theta: number, arg1: number, arg2: number): number {
+  if (theta < arg1) {
+    return arg1
+  } else if (theta > arg2) {
+    return arg2
+  }
+  return theta
+}
