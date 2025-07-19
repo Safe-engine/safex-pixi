@@ -22,7 +22,8 @@ export class RenderSystem implements System {
     })
     event_manager.subscribe(EventTypes.ComponentAdded, SpriteRender, ({ entity, component }) => {
       const { spriteFrame } = component.props
-      // console.log('SpriteRender ComponentAdded', component)
+      // const texture = GameWorld.Instance.assetManager.get<Texture>(spriteFrame)
+      // console.log('SpriteRender ComponentAdded', component, texture)
       const node = Sprite.from(spriteFrame)
       // if (type === SpriteTypes.FILLED) {
       //   // console.log('fillType', fillType)
