@@ -379,6 +379,12 @@ export class NodeComp<C extends Container = Container> {
     })
   }
 
+  removeAllChildren() {
+    this.children.forEach((child) => {
+      child.removeFromParent()
+    })
+  }
+
   on(name: string, callback: EventCallbackType, target?: any) {
     const bound = target ? callback.bind(target) : callback
     if (this.events[name]) {
