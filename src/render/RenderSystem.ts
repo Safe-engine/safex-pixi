@@ -45,7 +45,7 @@ export class RenderSystem implements System {
       // maskComp.node = ett.assign(new NodeComp(node, ett))
     })
     event_manager.subscribe(EventTypes.ComponentAdded, GraphicsRender, ({ entity, component }) => {
-      // const { lineWidth, strokeColor, fillColor } = component
+      // const { lineWidth, strokeColor, fillColor } = component.props
       // console.log('GraphicsRender', component);
       const node = new Graphics()
       component.node = entity.assign(new NodeComp(node, entity))

@@ -1,4 +1,4 @@
-import { Graphics, Point, Sprite, Texture } from 'pixi.js'
+import { Graphics, Sprite, Texture } from 'pixi.js'
 
 import { Color4B, Vec2 } from '..'
 import { ComponentX } from '../components/BaseComponent'
@@ -59,22 +59,17 @@ export class SpriteRender extends ComponentX<SpriteRenderProps & { $ref?: Sprite
 enum PointType {
   Circle,
   Rect,
-};
+}
 interface GraphicsRenderProps {
   lineWidth?: number
   strokeColor?: Color4B
   fillColor?: Color4B
 }
 export class GraphicsRender extends ComponentX<GraphicsRenderProps & { $ref?: GraphicsRender }, Graphics> {
-
-  drawPoint(position: Vec2, pointSize: Float, color: Color4B, pointType = PointType.Rect) {
-
-  }
+  drawPoint(position: Vec2, pointSize: Float, color: Color4B, pointType = PointType.Rect) {}
   // drawPoints(points: Vec2[], color: Color4B) {
   // }
-  drawLine(origin: Vec2, destination: Vec2, color: Color4B, thickness: Float) {
-
-  }
+  drawLine(origin: Vec2, destination: Vec2, color: Color4B, thickness: Float) {}
   drawRect(origin: Vec2, destination: Vec2, color: Color4B) {
     const { x, y } = origin
     const width = destination.x - x
@@ -82,44 +77,43 @@ export class GraphicsRender extends ComponentX<GraphicsRenderProps & { $ref?: Gr
     this.node.instance.rect(x, y, width, height)
     this.node.instance.fill(color)
   }
-  drawSolidRect(origin: Vec2, destination: Vec2, color: Color4B) {
-
-  }
-  drawCircle(center: Vec2, radius: Float, angle?: Float, segments?: Integer, drawLineToCenter?: boolean, scaleX?: Float, scaleY?: Float, color?: Color4B, thickness?: Float) {
+  drawSolidRect(origin: Vec2, destination: Vec2, color: Color4B) {}
+  drawCircle(
+    center: Vec2,
+    radius: Float,
+    angle?: Float,
+    segments?: Integer,
+    drawLineToCenter?: boolean,
+    scaleX?: Float,
+    scaleY?: Float,
+    color?: Color4B,
+    thickness?: Float,
+  ) {
     const { x, y } = center
     this.node.instance.circle(x, y, radius)
     this.node.instance.fill(color)
   }
-  drawSolidCircle(origin: Vec2, destination: Vec2, color: Color4B) {
-
+  drawSolidCircle(origin: Vec2, destination: Vec2, color: Color4B) {}
+  drawQuadBezier(origin: Vec2, destination: Vec2, color: Color4B) {}
+  drawCubicBezier(origin: Vec2, destination: Vec2, color: Color4B) {}
+  drawCardinalSpline(points: Vec2[], color: Color4B) {}
+  drawCatmullRom(points: Vec2[], color: Color4B) {}
+  drawPoly(points: Vec2[], color?: Color4B, thickness?: Float) {
+    this.node.instance.poly(points, true)
+    this.node.instance.fill(color || this.props.fillColor)
   }
-  drawQuadBezier(origin: Vec2, destination: Vec2, color: Color4B) {
-
-  }
-  drawCubicBezier(origin: Vec2, destination: Vec2, color: Color4B) {
-
-  }
-  drawCardinalSpline(points: Vec2[], color: Color4B) {
-  }
-  drawCatmullRom(points: Vec2[], color: Color4B) {
-  }
-  drawPoly(points: Vec2[], closedPolygon: boolean, color: Color4B, thickness?: Float) {
-    this.node.instance.poly(points, closedPolygon)
-    this.node.instance.fill(color)
-  }
-  drawSolidPoly(points: Vec2[], color: Color4B) {
-  }
-  drawDot(points: Vec2[], color: Color4B) {
-  }
-  drawSegment(from: Point, to: Point, color?: Color4B) {
-    this.node.instance.moveTo(from.x, from.y);
-    this.node.instance.lineTo(to.x, to.y);
+  drawSolidPoly(points: Vec2[], color: Color4B) {}
+  drawDot(points: Vec2[], color: Color4B) {}
+  drawSegment(from: Vec2, to: Vec2, thickness?: Float, color?: Color4B) {
+    this.node.instance.moveTo(from.x, from.y)
+    this.node.instance.lineTo(to.x, to.y)
     this.node.instance.strokeStyle = {
-      cap: 'round', join: 'round',
-      width: this.props.lineWidth || 36,
+      cap: 'round',
+      join: 'round',
+      width: thickness || this.props.lineWidth || 36,
       color: color || this.props.strokeColor,
     }
-    this.node.instance.stroke();
+    this.node.instance.stroke()
   }
   drawTriangle(p1: Vec2, p2: Vec2, p3: Vec2, color: Color4B) {
     this.node.instance.poly([p1, p2, p3], true)
@@ -135,4 +129,4 @@ interface MaskRenderProps {
   segments?: number
   inverted?: boolean
 }
-export class MaskRender extends ComponentX<MaskRenderProps> { }
+export class MaskRender extends ComponentX<MaskRenderProps> {}

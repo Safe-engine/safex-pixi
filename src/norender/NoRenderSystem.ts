@@ -1,13 +1,14 @@
 import { EventManager, EventTypes, System } from 'entityx-ts'
-
 // import { Touch } from '../../polyfills'
 import { Container } from 'pixi.js'
+
 import { NodeComp } from '../components/NodeComp'
 import { ExtraDataComp, TouchEventRegister } from './NoRenderComponent'
+import { Touch } from './Touch'
 
 export class NoRenderSystem implements System {
   configure(event_manager: EventManager) {
-    event_manager.subscribe(EventTypes.ComponentAdded, ExtraDataComp, ({ entity, component }) => {
+    event_manager.subscribe(EventTypes.ComponentAdded, ExtraDataComp, ({ component }) => {
       const { key, value } = component.props
       component.data[key] = value
     })
@@ -19,26 +20,26 @@ export class NoRenderSystem implements System {
       const container: Container = nodeComp.instance
       if (touchComp.props.onTouchStart) {
         container.on('pointerdown', (event) => {
-          touchComp.props.onTouchStart(event, nodeComp)
-        });
+          touchComp.props.onTouchStart(new Touch(event), nodeComp)
+        })
       }
       if (touchComp.props.onTouchMove) {
         container.on('pointermove', (event) => {
-          touchComp.props.onTouchMove(event, nodeComp)
-        });
+          touchComp.props.onTouchMove(new Touch(event), nodeComp)
+        })
       }
       if (touchComp.props.onTouchEnd) {
         container.on('pointerup', (event) => {
-          touchComp.props.onTouchEnd(event, nodeComp)
-        });
+          touchComp.props.onTouchEnd(new Touch(event), nodeComp)
+        })
       }
       if (touchComp.props.onTouchEnd) {
         container.on('pointercancel', (event) => {
-          touchComp.props.onTouchEnd(event, nodeComp)
-        });
+          touchComp.props.onTouchEnd(new Touch(event), nodeComp)
+        })
       }
     })
-    event_manager.subscribe(EventTypes.ComponentRemoved, TouchEventRegister, ({ entity, component }) => {
+    event_manager.subscribe(EventTypes.ComponentRemoved, TouchEventRegister, ({ component }) => {
       console.log('ComponentRemovedEvent TouchEventRegister', event)
       // const ett = event.entity
       // const nodeComp = ett.getComponent(NodeComp)
