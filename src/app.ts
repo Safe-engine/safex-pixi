@@ -1,5 +1,5 @@
 import { actionManager } from 'pixi-action-ease'
-import { Application } from 'pixi.js'
+import { Application, AssetsClass } from 'pixi.js'
 
 import { GameWorld } from './base'
 import { CollideSystem } from './collider'
@@ -7,7 +7,12 @@ import { GUISystem } from './gui/GUISystem'
 import { NoRenderSystem } from './norender/NoRenderSystem'
 import { RenderSystem } from './render/RenderSystem'
 
-export async function startGame(defaultFont, designedResolution = { width: 720, height: 1280 }, id = 'game') {
+export async function startGame(
+  defaultFont,
+  designedResolution = { width: 720, height: 1280 },
+  assetManager: AssetsClass,
+  id = 'gameCanvas',
+) {
   const app = new Application()
   await app.init({
     antialias: true,
@@ -33,6 +38,7 @@ export async function startGame(defaultFont, designedResolution = { width: 720, 
   // app.stage.position.y = app.renderer.height / app.renderer.resolution
   // app.stage.scale.y = -1
   GameWorld.Instance.app = app
+  GameWorld.Instance.assetManager = assetManager
   initWorld(defaultFont)
   startGameLoop(GameWorld.Instance)
   return app
