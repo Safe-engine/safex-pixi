@@ -1,5 +1,5 @@
 import { EventManager, EventTypes, System } from 'entityx-ts'
-import { Spine } from './lib'
+import { Spine } from 'pixi-spine'
 
 import { NodeComp } from '../components/NodeComp'
 import { SpineSkeleton } from './SpineComponent'
@@ -10,7 +10,7 @@ export class SpineSystem implements System {
       // console.log('SpineSkeleton', component)
       // const spine = entity.getComponent(SpineSkeleton)
       const { data, skin, animation, loop, timeScale } = component.props
-      const node = Spine.from(data)
+      const node = new Spine(data as any)
       // node.skeleton.scaleY = -1
       if (skin) {
         node.skeleton.setSkinByName(skin)
@@ -21,7 +21,7 @@ export class SpineSystem implements System {
       if (timeScale) {
         node.state.timeScale = timeScale
       }
-      component.node = entity.assign(new NodeComp(node, entity))
+      component.node = entity.assign(new NodeComp(node as any, entity))
     })
   }
   // update() {

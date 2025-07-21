@@ -74,8 +74,8 @@ export class GraphicsRender extends ComponentX<GraphicsRenderProps, Graphics> {
     const { x, y } = origin
     const width = destination.x - x
     const height = destination.y - y
-    this.node.instance.rect(x, y, width, height)
-    this.node.instance.fill(color)
+    this.node.instance.drawRect(x, y, width, height)
+    // this.node.instance.fill(color)
   }
   drawSolidRect(origin: Vec2, destination: Vec2, color: Color4B) { }
   drawCircle(
@@ -90,8 +90,8 @@ export class GraphicsRender extends ComponentX<GraphicsRenderProps, Graphics> {
     thickness?: Float,
   ) {
     const { x, y } = center
-    this.node.instance.circle(x, y, radius)
-    this.node.instance.fill(color)
+    this.node.instance.drawCircle(x, y, radius)
+    // this.node.instance.fill(color)
   }
   drawSolidCircle(origin: Vec2, destination: Vec2, color: Color4B) { }
   drawQuadBezier(origin: Vec2, destination: Vec2, color: Color4B) { }
@@ -107,24 +107,24 @@ export class GraphicsRender extends ComponentX<GraphicsRenderProps, Graphics> {
   drawSegment(from: Vec2, to: Vec2, thickness?: Float, color?: Color4B) {
     this.node.instance.moveTo(from.x, from.y)
     this.node.instance.lineTo(to.x, to.y)
-    this.node.instance.strokeStyle = {
-      cap: 'round',
-      join: 'round',
-      width: thickness || this.props.lineWidth || 36,
-      color: color || this.props.strokeColor,
-    }
-    this.node.instance.stroke()
+    // this.node.instance.strokeStyle = {
+    //   cap: 'round',
+    //   join: 'round',
+    //   width: thickness || this.props.lineWidth || 36,
+    //   color: color || this.props.strokeColor,
+    // }
+    // this.node.instance.stroke()
   }
   drawTriangle(p1: Vec2, p2: Vec2, p3: Vec2, color: Color4B) {
-    this.node.instance.poly([p1, p2, p3], true)
-    this.node.instance.fill(color)
+    this.node.instance.drawPolygon([p1, p2, p3])
+    // this.node.instance.fill(color)
   }
   clear() {
     this.node.instance.clear()
   }
 }
 
-interface MaskRenderProps extends BaseComponentProps<MaskRender>{
+interface MaskRenderProps extends BaseComponentProps<MaskRender> {
   type?: number
   segments?: number
   inverted?: boolean

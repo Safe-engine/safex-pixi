@@ -1,6 +1,6 @@
-import { BaseComponentProps } from '..'
+import { Spine } from 'pixi-spine'
+import { BaseComponentProps, Container } from '..'
 import { ComponentX } from '../components/BaseComponent'
-import { Spine } from './lib'
 
 interface SpineData {
   atlas: string
@@ -15,4 +15,4 @@ interface SpineSkeletonProps extends BaseComponentProps<SpineSkeleton> {
   timeScale?: number
   loop?: boolean
 }
-export class SpineSkeleton extends ComponentX<SpineSkeletonProps, Spine> {}
+export class SpineSkeleton extends ComponentX<SpineSkeletonProps, Spine & Container> { }

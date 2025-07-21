@@ -112,7 +112,7 @@ export const makeDebugDraw = (graphics: Graphics, pixelsPerMeter, box2D: typeof 
     // console.log("drawSegment", vert1, vert2)
     graphics.moveTo(vert1.get_x(), vert1.get_y())
     graphics.lineTo(vert2.get_x(), vert2.get_y())
-    graphics.stroke()
+    // graphics.stroke()
   }
 
   /**

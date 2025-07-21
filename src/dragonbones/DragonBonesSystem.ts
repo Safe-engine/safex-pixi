@@ -1,10 +1,10 @@
-import { PixiFactory } from 'dragonbones-pixijs';
-import { EntityManager, EventManager, EventTypes, System } from 'entityx-ts';
+import { PixiFactory } from 'dragonbones-pixijs'
+import { EntityManager, EventManager, EventTypes, System } from 'entityx-ts'
 
-import { Assets } from 'pixi.js';
-import { GameWorld } from '../base';
-import { NodeComp } from '../components/NodeComp';
-import { DragonBones } from './DragonBonesComponent';
+import { Assets } from 'pixi.js'
+import { GameWorld } from '../base'
+import { NodeComp } from '../components/NodeComp'
+import { DragonBones } from './DragonBonesComponent'
 
 export class DragonBonesSystem implements System {
   configure(event_manager: EventManager<GameWorld>) {
@@ -16,20 +16,19 @@ export class DragonBonesSystem implements System {
       const textureAsset = Assets.get(texture)
       const armatureName = skeletonAsset.armature[0].name
       // console.log(skeletonAsset, textureAsset, atlasAsset)
-      const factory = PixiFactory.factory;
-      factory.parseDragonBonesData(skeletonAsset);
+      const factory = PixiFactory.factory
+      factory.parseDragonBonesData(skeletonAsset)
       factory.parseTextureAtlasData(atlasAsset, textureAsset)
-      const armatureDisplay = factory.buildArmatureDisplay(armatureName)!;
-      armatureDisplay.debugDraw = false;
-      const node = armatureDisplay;
+      const armatureDisplay = factory.buildArmatureDisplay(armatureName)!
+      armatureDisplay.debugDraw = false
+      const node = armatureDisplay
       if (animation) {
-        armatureDisplay.animation.play(animation, playTimes);
+        armatureDisplay.animation.play(animation, playTimes)
       }
       component.node = entity.assign(new NodeComp(node, entity))
     })
     // event_manager.subscribe(EventTypes.ComponentRemoved, DragonBones, ({ }) => { })
   }
 
-  update(entities: EntityManager, events: EventManager<GameWorld>, dt: number) {
-  }
+  update(entities: EntityManager, events: EventManager<GameWorld>, dt: number) { }
 }

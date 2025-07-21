@@ -19,14 +19,14 @@ export function startGame(
     height: 1920,
     antialias: true,
     resolution: window.devicePixelRatio,
-    canvas: gameDiv,
+    // canvas: gameDiv,
   })
-  Object.assign(app.canvas.style, {
+  Object.assign(app.view.style, {
     width: `${window.innerWidth}px`,
     height: `${window.innerHeight}px`,
     overflow: 'visible',
   })
-  // gameDiv.appendChild(app.view as never)
+  gameDiv.appendChild(app.view as never)
   const { width, height } = designedResolution
   app.renderer.resize(width, height)
   // app.stage.position.y = app.renderer.height / app.renderer.resolution
