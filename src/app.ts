@@ -1,53 +1,86 @@
-import { GameWorld } from '@safe-engine/core'
-import { Constructor, System } from 'entityx-ts'
-import { Application } from 'pixi.js'
 import { actionManager } from 'pixi-action-ease'
+import { Application, AssetsClass, Renderer } from 'pixi.js'
 
-import { NodeComp } from './components/NodeComp'
+import { GameWorld } from './base'
+import { CollideSystem } from './collider'
+import { GUISystem } from './gui/GUISystem'
+import { NoRenderSystem } from './norender/NoRenderSystem'
+import { RenderSystem } from './render/RenderSystem'
 
-export const app = new Application({
-  width: 1080,
-  height: 1920,
-  antialias: true,
-  resolution: window.devicePixelRatio,
-})
-
-export function setupResolution(designedResolution = { width: 720, height: 1280 }) {
-  const { width, height } = designedResolution
-  app.renderer.resize(width, height)
-}
-
-export async function addGameCanvasTo(id = 'game') {
-  Object.assign(app.view.style, {
+export function startGame(
+  defaultFont,
+  designedResolution = { width: 720, height: 1280 },
+  assetManager: AssetsClass,
+  id = 'gameCanvas',
+): Application<Renderer> {
+  const app = new Application({
+    width: 1080,
+    height: 1920,
+    antialias: true,
+    resolution: window.devicePixelRatio,
+    canvas: document.getElementById(id) as HTMLCanvasElement,
+  })
+  Object.assign(app.canvas.style, {
     width: `${window.innerWidth}px`,
-    // height: `${window.innerHeight}px`,
-    overflow: 'hidden',
+    height: `${window.innerHeight}px`,
+    overflow: 'visible',
   })
 
   const gameDiv = document.getElementById(id)
   gameDiv.appendChild(app.view as never)
-  GameWorld.Instance.setup(NodeComp, app.stage)
+  const { width, height } = designedResolution
+  app.renderer.resize(width, height)
+  // app.stage.position.y = app.renderer.height / app.renderer.resolution
+  // app.stage.scale.y = -1
+  GameWorld.Instance.app = app
+  GameWorld.Instance.assetManager = assetManager
+  initWorld(defaultFont)
+  startGameLoop(GameWorld.Instance)
+  return app
 }
 
 function startGameLoop(world: GameWorld) {
   // Listen for frame updates
-  app.ticker.add(() => {
-    const dt = app.ticker.deltaMS * 0.001
+  world.app.ticker.add(() => {
+    const dt = world.app.ticker.deltaMS * 0.001
     actionManager.update(dt)
     world.update(dt)
   })
   // app.ticker.speed = 0.5
 }
 
-export function startGameWithSystems(systemsList: Constructor<System>[]) {
+// const systemsList = [RenderSystem, GUISystem, SpineSystem, DragonBonesSystem, CollideSystem, NoRenderSystem]
+// export function startGameSystems(list = []) {
+//   const world = GameWorld.Instance
+//   systemsList.forEach(system => {
+//     world.systems.add(system)
+//     world.systems.configureOnce(system)
+//   })
+//   world.listUpdate.push(CollideSystem)
+//   // world.listUpdate.push(PhysicsSystem)
+//   list.forEach(system => {
+//     world.systems.add(system)
+//     world.systems.configureOnce(system)
+//     world.listUpdate.push(system)
+//   })
+//   startGameLoop(world)
+//   // console.log('startGameLoop', world.listUpdate)
+// }
+
+function initWorld(defaultFont?: string) {
   const world = GameWorld.Instance
-  systemsList.forEach(system => {
-    world.systems.add(system)
-    const sys = world.systemsMap[system.name]
-    if (sys.update) {
-      world.listUpdate.push(system)
-    }
-  })
-  world.systems.configure()
-  startGameLoop(world)
+  world.systems.add(RenderSystem)
+  world.systems.add(CollideSystem)
+  world.systems.add(GUISystem)
+  world.systems.add(NoRenderSystem)
+  world.listUpdate.push(CollideSystem)
+  world.systems.configureOnce(RenderSystem)
+  world.systems.configureOnce(CollideSystem)
+  world.systems.configureOnce(GUISystem)
+  world.systems.configureOnce(NoRenderSystem)
+  if (defaultFont) {
+    const guiSystem = world.systems.get(GUISystem)
+    guiSystem.defaultFont = defaultFont
+  }
+  // startGameLoop(world, app)
 }
