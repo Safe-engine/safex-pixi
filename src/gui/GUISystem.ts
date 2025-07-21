@@ -30,6 +30,7 @@ export class GUISystem implements System {
       component.node = nodeComp
       // component.node = entity.assign(new NodeComp(node, entity))
       button.onPress.connect(() => {
+        if (!component.enabled) return
         // console.log('onPress.connect')
         const scale = scaleTo(0.5, 1.2)
         const scaleDown = scaleTo(0.5, 1)
@@ -53,11 +54,12 @@ export class GUISystem implements System {
     // })
     event_manager.subscribe(EventTypes.ComponentAdded, ProgressTimerComp, ({ entity, component }) => {
       // console.log(component, '.progress')
-      const { spriteFrame, fillCenter } = component.props
+      const { spriteFrame, fillCenter, fillRange = 0 } = component.props
       const node = new ProgressTimer(LoadingBarMode.BAR, spriteFrame)
       if (fillCenter) {
         node.fillCenter = fillCenter
       }
+      node.progress = fillRange * 100
       component.node = entity.assign(new NodeComp(node, entity))
     })
     event_manager.subscribe(EventTypes.ComponentAdded, ScrollView, ({ entity, component }) => {
@@ -107,7 +109,7 @@ export class GUISystem implements System {
       }
     })
     event_manager.subscribe(EventTypes.ComponentAdded, LabelShadowComp, ({ entity, component }) => {
-      const { color, blur, offset } = component.props
+      const { color, blur } = component.props
       const node = entity.getComponent(NodeComp)
       if (node.instance instanceof Text) {
         node.instance.style.dropShadow = { color, blur, alpha: 1, angle: 0, distance: 0 }

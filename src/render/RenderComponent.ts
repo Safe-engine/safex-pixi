@@ -1,6 +1,6 @@
 import { Graphics, Sprite, Texture } from 'pixi.js'
 
-import { Color4B, Vec2 } from '..'
+import { BaseComponentProps, Color4B, Vec2 } from '..'
 import { ComponentX } from '../components/BaseComponent'
 import { LoadingBarMode } from '../core/LoadingBar'
 import { SpriteTypes } from './RenderSystem'
@@ -9,7 +9,7 @@ export class NodeRender extends ComponentX {
   nodeName?: string
 }
 
-interface SpriteRenderProps {
+interface SpriteRenderProps extends BaseComponentProps<SpriteRender> {
   spriteFrame: string
   type?: SpriteTypes
   fillType?: LoadingBarMode
@@ -18,7 +18,7 @@ interface SpriteRenderProps {
   // loadingBar: LoadingBar
 }
 
-export class SpriteRender extends ComponentX<SpriteRenderProps & { $ref?: SpriteRender }, Sprite> {
+export class SpriteRender extends ComponentX<SpriteRenderProps, Sprite> {
   // protected _spriteFrame: string
   // set fillStart(val: number) {
   //   if (this.node.instance instanceof cc.ProgressTimer) {
@@ -60,16 +60,16 @@ enum PointType {
   Circle,
   Rect,
 }
-interface GraphicsRenderProps {
+interface GraphicsRenderProps extends BaseComponentProps<GraphicsRender> {
   lineWidth?: number
   strokeColor?: Color4B
   fillColor?: Color4B
 }
-export class GraphicsRender extends ComponentX<GraphicsRenderProps & { $ref?: GraphicsRender }, Graphics> {
-  drawPoint(position: Vec2, pointSize: Float, color: Color4B, pointType = PointType.Rect) {}
+export class GraphicsRender extends ComponentX<GraphicsRenderProps, Graphics> {
+  drawPoint(position: Vec2, pointSize: Float, color: Color4B, pointType = PointType.Rect) { }
   // drawPoints(points: Vec2[], color: Color4B) {
   // }
-  drawLine(origin: Vec2, destination: Vec2, color: Color4B, thickness: Float) {}
+  drawLine(origin: Vec2, destination: Vec2, color: Color4B, thickness: Float) { }
   drawRect(origin: Vec2, destination: Vec2, color: Color4B) {
     const { x, y } = origin
     const width = destination.x - x
@@ -77,7 +77,7 @@ export class GraphicsRender extends ComponentX<GraphicsRenderProps & { $ref?: Gr
     this.node.instance.rect(x, y, width, height)
     this.node.instance.fill(color)
   }
-  drawSolidRect(origin: Vec2, destination: Vec2, color: Color4B) {}
+  drawSolidRect(origin: Vec2, destination: Vec2, color: Color4B) { }
   drawCircle(
     center: Vec2,
     radius: Float,
@@ -93,17 +93,17 @@ export class GraphicsRender extends ComponentX<GraphicsRenderProps & { $ref?: Gr
     this.node.instance.circle(x, y, radius)
     this.node.instance.fill(color)
   }
-  drawSolidCircle(origin: Vec2, destination: Vec2, color: Color4B) {}
-  drawQuadBezier(origin: Vec2, destination: Vec2, color: Color4B) {}
-  drawCubicBezier(origin: Vec2, destination: Vec2, color: Color4B) {}
-  drawCardinalSpline(points: Vec2[], color: Color4B) {}
-  drawCatmullRom(points: Vec2[], color: Color4B) {}
+  drawSolidCircle(origin: Vec2, destination: Vec2, color: Color4B) { }
+  drawQuadBezier(origin: Vec2, destination: Vec2, color: Color4B) { }
+  drawCubicBezier(origin: Vec2, destination: Vec2, color: Color4B) { }
+  drawCardinalSpline(points: Vec2[], color: Color4B) { }
+  drawCatmullRom(points: Vec2[], color: Color4B) { }
   drawPoly(points: Vec2[], color?: Color4B, thickness?: Float) {
     this.node.instance.poly(points, true)
     this.node.instance.fill(color || this.props.fillColor)
   }
-  drawSolidPoly(points: Vec2[], color: Color4B) {}
-  drawDot(points: Vec2[], color: Color4B) {}
+  drawSolidPoly(points: Vec2[], color: Color4B) { }
+  drawDot(points: Vec2[], color: Color4B) { }
   drawSegment(from: Vec2, to: Vec2, thickness?: Float, color?: Color4B) {
     this.node.instance.moveTo(from.x, from.y)
     this.node.instance.lineTo(to.x, to.y)
@@ -124,9 +124,9 @@ export class GraphicsRender extends ComponentX<GraphicsRenderProps & { $ref?: Gr
   }
 }
 
-interface MaskRenderProps {
+interface MaskRenderProps extends BaseComponentProps<MaskRender>{
   type?: number
   segments?: number
   inverted?: boolean
 }
-export class MaskRender extends ComponentX<MaskRenderProps> {}
+export class MaskRender extends ComponentX<MaskRenderProps> { }

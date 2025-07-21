@@ -1,4 +1,6 @@
-import { ComponentX } from "../components/BaseComponent"
+import { BaseComponentProps } from '..'
+import { ComponentX } from '../components/BaseComponent'
+import { Spine } from './lib'
 
 interface SpineData {
   atlas: string
@@ -6,13 +8,11 @@ interface SpineData {
   texture?: string
 }
 
-interface SpineSkeletonProps {
+interface SpineSkeletonProps extends BaseComponentProps<SpineSkeleton> {
   data: SpineData
   skin?: string
   animation?: string
   timeScale?: number
   loop?: boolean
 }
-export class SpineSkeleton extends ComponentX<SpineSkeletonProps> {
-
-}
+export class SpineSkeleton extends ComponentX<SpineSkeletonProps, Spine> {}

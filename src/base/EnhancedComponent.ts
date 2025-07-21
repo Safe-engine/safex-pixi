@@ -1,10 +1,11 @@
 import { Constructor } from 'entityx-ts'
-import { BaseComponentProps } from '../@types/safex'
+import { BaseComponentProps } from '..'
 import { NodeComp } from '../components/NodeComp'
 
 export class EnhancedComponent<Props = {}, N extends NodeComp<any> = NodeComp<any>> {
   props: Props = {} as any
-  constructor(data?: BaseComponentProps & Props) {
+  enabled = true
+  constructor(data?: BaseComponentProps<EnhancedComponent> & Props) {
     this.init(data)
   }
   init(data?: Props) {
@@ -16,7 +17,7 @@ export class EnhancedComponent<Props = {}, N extends NodeComp<any> = NodeComp<an
     }
   }
   node: N
-  // actionsMap: { [key: string]: Animation } = {}
+
   addComponent<T extends EnhancedComponent>(instance): T {
     return this.node.addComponent(instance)
   }

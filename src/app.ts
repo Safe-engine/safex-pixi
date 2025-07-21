@@ -1,5 +1,5 @@
 import { actionManager } from 'pixi-action-ease'
-import { Application, AssetsClass } from 'pixi.js'
+import { Application, AssetsClass, Renderer } from 'pixi.js'
 
 import { GameWorld } from './base'
 import { CollideSystem } from './collider'
@@ -12,7 +12,7 @@ export async function startGame(
   designedResolution = { width: 720, height: 1280 },
   assetManager: AssetsClass,
   id = 'gameCanvas',
-) {
+): Promise<Application<Renderer>> {
   const app = new Application()
   await app.init({
     antialias: true,

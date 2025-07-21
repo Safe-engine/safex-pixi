@@ -1,4 +1,3 @@
-export * from 'pixi-action-ease'
 export * from 'pixi.js'
 export * from './app'
 export * from './base'
@@ -18,4 +17,3 @@ export * from './render/RenderComponent'
 export * from './render/RenderSystem'
 export * from './richtext'
 export * from './spine'
-

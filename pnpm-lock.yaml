@@ -9,14 +9,14 @@ importers:
   .:
     dependencies:
       '@esotericsoftware/spine-core':
-        specifier: ^4.2.84
-        version: 4.2.84
+        specifier: ^4.2.87
+        version: 4.2.87
       '@pixi/ui':
         specifier: ^2.2.4
-        version: 2.2.4(pixi.js@8.10.2)
+        version: 2.2.4(pixi.js@8.11.0)
       '@types/node':
-        specifier: ^24.0.10
-        version: 24.0.10
+        specifier: ^24.0.15
+        version: 24.0.15
       box2d-wasm:
         specifier: ^7.0.0
         version: 7.0.0
@@ -34,10 +34,10 @@ importers:
         version: 3.0.6
       pixi-tagged-text-plus:
         specifier: 0.0.1-next.2
-        version: 0.0.1-next.2(pixi.js@8.10.2)
+        version: 0.0.1-next.2(pixi.js@8.11.0)
       pixi.js:
-        specifier: 8.10.2
-        version: 8.10.2
+        specifier: 8.11.0
+        version: 8.11.0
       planck:
         specifier: ^1.4.2
         version: 1.4.2(stage-js@1.0.0-alpha.16)
@@ -48,8 +48,8 @@ importers:
 
 packages:
 
-  '@esotericsoftware/spine-core@4.2.84':
-    resolution: {integrity: sha512-pGqxuRZFDrIXuXB7w8XdTxWIrT8+OVZgdknFv9fV+gGhe765X4sP55aLQLdxuL6ntchefLHFI51Yy9ZKKN0LuQ==}
+  '@esotericsoftware/spine-core@4.2.87':
+    resolution: {integrity: sha512-pq8Vl4et4DvERVOSKu4nLpM8+RzZ6OPSA0yMo2nSsoU/2xIVQN5XhRg/KLAQfQEh74lELcaXhwnwczrHS0cSLQ==}
 
   '@pixi/colord@2.9.6':
     resolution: {integrity: sha512-nezytU2pw587fQstUu1AsJZDVEynjskwOL+kibwcdxsMBFqPsFFNA7xl0ii/gXuDi6M0xj3mfRJj8pBSc2jCfA==}
@@ -68,11 +68,11 @@ packages:
   '@types/emscripten@1.40.1':
     resolution: {integrity: sha512-sr53lnYkQNhjHNN0oJDdUm5564biioI5DuOpycufDVK7D3y+GR3oUswe2rlwY1nPNyusHbrJ9WoTyIHl4/Bpwg==}
 
-  '@types/node@24.0.10':
-    resolution: {integrity: sha512-ENHwaH+JIRTDIEEbDK6QSQntAYGtbvdDXnMXnZaZ6k13Du1dPMmprkEHIL7ok2Wl2aZevetwTAb5S+7yIF+enA==}
+  '@types/node@24.0.15':
+    resolution: {integrity: sha512-oaeTSbCef7U/z7rDeJA138xpG3NuKc64/rZ2qmUFkFJmnMsAPaluIifqyWd8hSSMxyP9oie3dLAqYPblag9KgA==}
 
-  '@webgpu/types@0.1.63':
-    resolution: {integrity: sha512-s9Kuh0nE/2+nKrvmKNMB2fE5Zlr3DL2t3OFKM55v5jRcfCOxbkOHhQoshoFum5mmXIfEtRXtLCWmkeTJsVjE9w==}
+  '@webgpu/types@0.1.64':
+    resolution: {integrity: sha512-84kRIAGV46LJTlJZWxShiOrNL30A+9KokD7RB3dRCIqODFjodS5tCD5yyiZ8kIReGVZSDfA3XkkwyyOIF6K62A==}
 
   '@xmldom/xmldom@0.8.10':
     resolution: {integrity: sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==}
@@ -118,8 +118,8 @@ packages:
   dragonbones-pixijs@1.0.5:
     resolution: {integrity: sha512-HlaZPceIqtwCDln0YSOJw90cEMSeDxJfvbJtKGetuPNCdkvMfbCETlOO54Vh802C/OAXIfKySpaOCmN8Gi6v0A==}
 
-  earcut@3.0.1:
-    resolution: {integrity: sha512-0l1/0gOjESMeQyYaK5IDiPNvFeu93Z/cO0TjZh9eZ1vyCtZnA7KMZ8rQggpsJHIbGSdrqYq9OhuveadOVHCshw==}
+  earcut@3.0.2:
+    resolution: {integrity: sha512-X7hshQbLyMJ/3RPhyObLARM2sNxxmRALLKx1+NVFFnQ9gKzmCrxm9+uLIAdBcvc8FNLpctqlQ2V6AE92Ol9UDQ==}
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -203,8 +203,8 @@ packages:
     peerDependencies:
       pixi.js: ^8
 
-  pixi.js@8.10.2:
-    resolution: {integrity: sha512-utRKxzTwNsIhaxOikxIBxKPfxuOyVkPvdYipY23ZEyWSYhONosrQlcB9nymeIcbsrsuSdwExX0eTnHTDjTN3UQ==}
+  pixi.js@8.11.0:
+    resolution: {integrity: sha512-dyuThzncsgEgJZnvd/A/5x6IkUERbK+phXqUQrI+0C6WE+8xqGH5VChRTLecemhgZF0kQ+gZOM3tJTX9937xpg==}
 
   planck@1.4.2:
     resolution: {integrity: sha512-mNbhnV3g8X2rwGxzcesjmN8BDA6qfXgQxXVMkWau9MCRlQY0RLNEkyHlVp6yFy/X6qrzAXyNONCnZ1cGDLrNew==}
@@ -295,13 +295,13 @@ packages:
 
 snapshots:
 
-  '@esotericsoftware/spine-core@4.2.84': {}
+  '@esotericsoftware/spine-core@4.2.87': {}
 
   '@pixi/colord@2.9.6': {}
 
-  '@pixi/ui@2.2.4(pixi.js@8.10.2)':
+  '@pixi/ui@2.2.4(pixi.js@8.11.0)':
     dependencies:
-      pixi.js: 8.10.2
+      pixi.js: 8.11.0
       tweedle.js: 2.1.0
       typed-signals: 2.5.0
 
@@ -311,11 +311,11 @@ snapshots:
 
   '@types/emscripten@1.40.1': {}
 
-  '@types/node@24.0.10':
+  '@types/node@24.0.15':
     dependencies:
       undici-types: 7.8.0
 
-  '@webgpu/types@0.1.63': {}
+  '@webgpu/types@0.1.64': {}
 
   '@xmldom/xmldom@0.8.10': {}
 
@@ -364,9 +364,9 @@ snapshots:
 
   dragonbones-pixijs@1.0.5:
     dependencies:
-      pixi.js: 8.10.2
+      pixi.js: 8.11.0
 
-  earcut@3.0.1: {}
+  earcut@3.0.2: {}
 
   emoji-regex@8.0.0: {}
 
@@ -433,21 +433,21 @@ snapshots:
 
   pixi-action-ease@3.0.6:
     dependencies:
-      pixi.js: 8.10.2
+      pixi.js: 8.11.0
 
-  pixi-tagged-text-plus@0.0.1-next.2(pixi.js@8.10.2):
+  pixi-tagged-text-plus@0.0.1-next.2(pixi.js@8.11.0):
     dependencies:
       emoji-regex: 9.2.2
-      pixi.js: 8.10.2
+      pixi.js: 8.11.0
 
-  pixi.js@8.10.2:
+  pixi.js@8.11.0:
     dependencies:
       '@pixi/colord': 2.9.6
       '@types/css-font-loading-module': 0.0.12
       '@types/earcut': 3.0.0
-      '@webgpu/types': 0.1.63
+      '@webgpu/types': 0.1.64
       '@xmldom/xmldom': 0.8.10
-      earcut: 3.0.1
+      earcut: 3.0.2
       eventemitter3: 5.0.1
       gifuct-js: 2.1.2
       ismobilejs: 1.1.1
