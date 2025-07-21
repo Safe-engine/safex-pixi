@@ -1,14 +1,15 @@
-import { Button, CheckBox, List, RadioGroup, ScrollBox } from '@pixi/ui'
+import { Button, CheckBox, Input, List, RadioGroup, ScrollBox } from '@pixi/ui'
 import { EventManager, EventTypes, System } from 'entityx-ts'
 import { callFunc, easeBackIn, scaleTo, sequence } from 'pixi-action-ease'
 import { Text } from 'pixi.js'
 
-import { NodeComp } from '..'
+import { Color4B, NodeComp } from '..'
 import { GameWorld } from '../base'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
 import {
   ButtonComp,
   CheckBoxComp,
+  InputComp,
   LabelComp,
   LabelOutlineComp,
   LabelShadowComp,
@@ -85,11 +86,11 @@ export class GUISystem implements System {
       const view = new CheckBox({ style })
       component.node = entity.assign(new NodeComp(view, entity))
     })
-    // event_manager.subscribe(EventTypes.ComponentAdded, InputComp, ({ entity, component }) => {
-    //   const { bg, size = 48, fill } = component.props
-    //   const view = new Input({ bg, textStyle: { fontSize: size, fill } })
-    //   component.node = entity.assign(new NodeComp(view, entity))
-    // })
+    event_manager.subscribe(EventTypes.ComponentAdded, InputComp, ({ entity, component }) => {
+      const { bg, size = 48 } = component.props
+      const view = new Input({ bg, textStyle: { fontSize: size, fill: { color: Color4B(255, 255, 255, 255) } } })
+      component.node = entity.assign(new NodeComp(view, entity))
+    })
     event_manager.subscribe(EventTypes.ComponentAdded, LabelComp, ({ entity, component }) => {
       // console.log('ComponentAddedEvent LabelComp', component)
       const node = new Text()

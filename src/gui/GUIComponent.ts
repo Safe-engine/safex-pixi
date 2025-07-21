@@ -1,5 +1,5 @@
 import { CheckBox, CheckBoxOptions, Input, List, ProgressBar, RadioGroup, Slider, SliderOptions } from '@pixi/ui'
-import { Assets, Container, FillInput, Point, Text } from 'pixi.js'
+import { Assets, Container, Point, Text } from 'pixi.js'
 
 import { BaseComponentProps } from '..'
 import { ComponentX, NoRenderComponentX } from '../components/BaseComponent'
@@ -137,7 +137,7 @@ interface InputCompProps extends BaseComponentProps<InputComp> {
   maxLength?: Integer
   isPassword?: boolean
   bg?: string
-  fill?: FillInput
+  // fill?: FillInput
 }
 export class InputComp extends ComponentX<InputCompProps, Input> {
   get string() {

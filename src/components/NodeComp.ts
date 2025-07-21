@@ -27,6 +27,7 @@ export class NodeComp<C extends Container = Container> {
   name: string
   // private lastMove: { x: number; y: number }
   private _group = 0
+  private _active = true
 
   onTouchStart?: TouchEventCallback
   onTouchMove?: TouchEventCallback
@@ -183,10 +184,17 @@ export class NodeComp<C extends Container = Container> {
   }
 
   get active() {
+    if (!this._active) return false
+    let p = this.parent
+    while (p) {
+      if (!p.active) return false
+      p = p.parent
+    }
     return this.instance.visible && !this.instance.destroyed
   }
 
   set active(val: boolean) {
+    this._active = val
     this.instance.visible = val
   }
 
