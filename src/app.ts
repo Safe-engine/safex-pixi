@@ -9,20 +9,19 @@ import { RenderSystem } from './render/RenderSystem'
 
 export function startGame(defaultFont, designedResolution = { width: 720, height: 1280 }, assetManager: AssetsClass, id = 'gameCanvas') {
   const gameDiv = document.getElementById(id) as HTMLCanvasElement
+  const { width = 720, height = 1280 } = designedResolution
   const app = new Application({
-    width: 1080,
-    height: 1920,
+    width,
+    height,
     antialias: true,
     resolution: window.devicePixelRatio,
-    // canvas: gameDiv,
+    view: gameDiv,
   })
   Object.assign(app.view.style, {
     width: `${window.innerWidth}px`,
     height: `${window.innerHeight}px`,
     overflow: 'visible',
   })
-  gameDiv.appendChild(app.view as never)
-  const { width, height } = designedResolution
   app.renderer.resize(width, height)
   // app.stage.position.y = app.renderer.height / app.renderer.resolution
   // app.stage.scale.y = -1
