@@ -327,7 +327,7 @@ export class NodeComp<C extends Container = Container> {
 
   setScale(scaleX: number, scaleY?: number) {
     this.instance.scale.x = scaleX
-    this.instance.scale.x = scaleY || scaleX
+    this.instance.scale.y = scaleY || scaleX
   }
 
   runAction(act: Action) {
