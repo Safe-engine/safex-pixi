@@ -7,32 +7,26 @@ import { GUISystem } from './gui/GUISystem'
 import { NoRenderSystem } from './norender/NoRenderSystem'
 import { RenderSystem } from './render/RenderSystem'
 
-export async function startGame(
+export function startGame(
   defaultFont,
   designedResolution = { width: 720, height: 1280 },
   assetManager: AssetsClass,
   id = 'gameCanvas',
-): Promise<Application<Renderer>> {
-  const app = new Application()
-  await app.init({
+): Application<Renderer> {
+  const gameDiv = document.getElementById(id) as HTMLCanvasElement
+  const app = new Application({
+    width: 1080,
+    height: 1920,
     antialias: true,
     resolution: window.devicePixelRatio,
-    resizeTo: window,
-    eventFeatures: {
-      move: true,
-      /** disables the global move events which can be very expensive in large scenes */
-      globalMove: false,
-      click: true,
-      wheel: false,
-    },
-    canvas: document.getElementById(id) as HTMLCanvasElement,
+    canvas: gameDiv,
   })
-  // GameWorld.Instance.setup(NodeComp, app.stage)
   Object.assign(app.canvas.style, {
     width: `${window.innerWidth}px`,
     height: `${window.innerHeight}px`,
     overflow: 'visible',
   })
+  // gameDiv.appendChild(app.view as never)
   const { width, height } = designedResolution
   app.renderer.resize(width, height)
   // app.stage.position.y = app.renderer.height / app.renderer.resolution
