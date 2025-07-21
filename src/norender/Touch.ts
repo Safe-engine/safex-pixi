@@ -8,8 +8,8 @@ export class Touch {
     this.event = event
   }
 
-  getLocation() {
-    return this.event.global
+  getLocation(): ReturnType<typeof Vec2> {
+    return Vec2(this.event.global)
   }
   getLocationX() {
     return this.event.globalX
@@ -17,7 +17,7 @@ export class Touch {
   getLocationY() {
     return this.event.globalY
   }
-  getDelta() {
+  getDelta(): ReturnType<typeof Vec2> {
     return Vec2(this.event.movementX, this.event.movementY)
   }
   getDeltaX() {

@@ -1,6 +1,7 @@
 import { CheckBox, CheckBoxOptions, Input, List, ProgressBar, RadioGroup, Slider, SliderOptions } from '@pixi/ui'
 import { Assets, Container, FillInput, Point, Text } from 'pixi.js'
 
+import { BaseComponentProps } from '..'
 import { ComponentX, NoRenderComponentX } from '../components/BaseComponent'
 import { Color4B } from '../core/Color'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
@@ -10,10 +11,10 @@ export const FillType = {
   VERTICAL: 1,
   RADIAL: 2,
 }
-type Keys = keyof typeof FillType
-type Values = (typeof FillType)[Keys]
+// type Keys = keyof typeof FillType
+// type Values = (typeof FillType)[Keys]
 
-interface ButtonCompProps {
+interface ButtonCompProps extends BaseComponentProps<ButtonComp> {
   normalImage?: string
   selectedImage?: string
   disableImage?: string
@@ -24,10 +25,9 @@ export class ButtonComp extends NoRenderComponentX<ButtonCompProps> {
   // setOnPress(cb: (target: ButtonComp) => void) {
   //   this.onPress = cb
   // }
-
-  set enabled(val) {
-    this.node.instance.interactive = val
-  }
+  // set enabled(val) {
+  //   this.node.instance.interactive = val
+  // }
 }
 
 export class ProgressBarComp extends ComponentX<{}, ProgressBar> {
@@ -44,13 +44,12 @@ export class ProgressBarComp extends ComponentX<{}, ProgressBar> {
     this.node.instance.progress = val
   }
 }
-interface LabelCompProps {
+interface LabelCompProps extends BaseComponentProps<LabelComp> {
   font?: string
   string?: string
   size?: number
 }
 export class LabelComp extends ComponentX<LabelCompProps, Text> {
-
   get string() {
     return this.props.string
   }
@@ -92,21 +91,18 @@ interface ScrollViewProps {
   width: number
   height: number
 }
-export class ScrollView extends NoRenderComponentX<ScrollViewProps> {
+export class ScrollView extends NoRenderComponentX<ScrollViewProps> {}
 
-}
+export class BlockInputEventsComp extends NoRenderComponentX {}
 
-export class BlockInputEventsComp extends NoRenderComponentX { }
-
-interface ProgressTimerProps {
+interface ProgressTimerProps extends BaseComponentProps<ProgressTimerComp> {
   spriteFrame: string
   fillType?: number
   fillRange?: number
   fillCenter?: Point
   isReverse?: boolean
 }
-export class ProgressTimerComp extends ComponentX<ProgressTimerProps & { $ref?: ProgressTimerComp }, ProgressTimer> {
-
+export class ProgressTimerComp extends ComponentX<ProgressTimerProps, ProgressTimer> {
   getFillRange() {
     return this.node.instance.progress
   }
@@ -125,35 +121,35 @@ interface LabelOutlineCompProps {
   color: Color4B
   width: number
 }
-export class LabelOutlineComp extends NoRenderComponentX<LabelOutlineCompProps> {
+export class LabelOutlineComp extends NoRenderComponentX<LabelOutlineCompProps> {}
 
-}
-
-interface LabelShadowCompProps {
+interface LabelShadowCompProps extends BaseComponentProps<LabelShadowComp> {
   color: Color4B
   blur: number
   offset?: Point
 }
-export class LabelShadowComp extends NoRenderComponentX<LabelShadowCompProps> {
+export class LabelShadowComp extends NoRenderComponentX<LabelShadowCompProps> {}
 
+interface InputCompProps extends BaseComponentProps<InputComp> {
+  placeHolder?: string
+  font?: string
+  size?: Integer
+  maxLength?: Integer
+  isPassword?: boolean
+  bg?: string
+  fill?: FillInput
+}
+export class InputComp extends ComponentX<InputCompProps, Input> {
+  get string() {
+    return this.node.instance.value
+  }
 }
 
-export class InputComp extends ComponentX<{}, Input> {
-  bg: string
-  fill: FillInput
-  font: string
-  string: string
-  size = 64
-}
-
-export class ListComp extends ComponentX<{}, List> {
-}
+export class ListComp extends ComponentX<{}, List> {}
 export class SliderComp extends ComponentX<{}, Slider> {
   bg: string
   fill: SliderOptions['fill']
   slider: Container
 }
-export class RadioGroupComp extends ComponentX<{}, RadioGroup> {
-}
-export class CheckBoxComp extends ComponentX<{ style: CheckBoxOptions['style'] }, CheckBox> {
-}
+export class RadioGroupComp extends ComponentX<{}, RadioGroup> {}
+export class CheckBoxComp extends ComponentX<{ style: CheckBoxOptions['style'] }, CheckBox> {}
