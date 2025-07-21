@@ -1,22 +1,10 @@
-import {
-  Entity,
-  EntityManager,
-  EventManager,
-  EventTypes,
-  System
-} from 'entityx-ts'
+import { Entity, EntityManager, EventManager, EventTypes, System } from 'entityx-ts'
 import { Body, Box, Contact, Fixture, Manifold, Shape, Vec2, World } from 'planck'
 
 import { Graphics } from 'pixi.js'
 import { GameWorld, instantiate } from '../base'
 import { NodeComp } from '../components/NodeComp'
-import {
-  PhysicsBoxCollider,
-  PhysicsCircleCollider,
-  PhysicsCollider,
-  PhysicsPolygonCollider,
-  RigidBody,
-} from './PhysicsComponent'
+import { PhysicsBoxCollider, PhysicsCircleCollider, PhysicsCollider, PhysicsPolygonCollider, RigidBody } from './PhysicsComponent'
 import { PhysicsSprite } from './PhysicsSprite'
 
 Fixture.prototype.shouldCollide = function (other) {
@@ -76,17 +64,17 @@ export class PhysicsSystem implements System {
         isSensor: true,
       })
       const debugBox = new Graphics()
-      debugBox.rect(x, y, width, height)
-      debugBox.fill({ color: 0xff0000, alpha: 0.3 })
+      debugBox.drawRect(x, y, width, height)
+      // debugBox.fill({ color: 0xff0000, alpha: 0.3 })
       node.instance.addChild(debugBox)
       const physicsCollide = entity.assign(instantiate(PhysicsCollider, colliderProps))
       physicsCollide.instance = physicsNode
       physicsCollide.node = node
       box.node = node
     })
-    event_manager.subscribe(EventTypes.ComponentAdded, (PhysicsCircleCollider), () => { })
-    event_manager.subscribe(EventTypes.ComponentAdded, (PhysicsPolygonCollider), () => { })
-    event_manager.subscribe(EventTypes.ComponentRemoved, (NodeComp), () => {
+    event_manager.subscribe(EventTypes.ComponentAdded, PhysicsCircleCollider, () => { })
+    event_manager.subscribe(EventTypes.ComponentAdded, PhysicsPolygonCollider, () => { })
+    event_manager.subscribe(EventTypes.ComponentRemoved, NodeComp, () => {
       // log('ComponentRemovedEvent NodeComp', event);
       // const node = event.entity.getComponent(NodeComp)
       // if (node.instance instanceof Sprite) {
@@ -143,7 +131,7 @@ export class PhysicsSystem implements System {
   }
 
   contactBegin(contact: Contact) {
-    console.log('contactBegin');
+    console.log('contactBegin')
     const ett1: NodeComp = contact.getFixtureA().getBody().getUserData() as NodeComp
     const ett2: NodeComp = contact.getFixtureB().getBody().getUserData() as NodeComp
     // this.world.addPostStepCallback(() => {
@@ -166,15 +154,15 @@ export class PhysicsSystem implements System {
   }
 
   preSolve(contact: Contact, oldManifold: Manifold) {
-    console.log('preSolve');
+    console.log('preSolve')
   }
 
   postSolve(contact: Contact, contactImpulse) {
-    console.log('collisionPost');
+    console.log('collisionPost')
   }
 
   contactEnd(contact: Contact) {
-    console.log('collisionSeparate');
+    console.log('collisionSeparate')
     const ett1: Entity = contact.getFixtureA().getBody().getUserData() as Entity
     const ett2: Entity = contact.getFixtureB().getBody().getUserData() as Entity
     // const event1 = ett1.getComponent(NodeComp)

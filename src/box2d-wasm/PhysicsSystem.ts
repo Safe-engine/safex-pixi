@@ -58,7 +58,7 @@ export class PhysicsSystem implements System {
     const graphics = new Graphics()
     this.graphics = graphics
     graphics.zIndex = 1000
-    ;(event_manager.world as GameWorld).app.stage.addChild(graphics)
+      ; (event_manager.world as GameWorld).app.stage.addChild(graphics)
     // event_manager.subscribe(ComponentAddedEvent(RigidBody), this);
     event_manager.subscribe(EventTypes.ComponentAdded, BoxColliderPhysics, ({ entity, component }) => {
       console.log('ComponentAddedEvent BoxColliderPhysics', component)
@@ -107,8 +107,8 @@ export class PhysicsSystem implements System {
       physicsCollide.node = node
       box.node = node
     })
-    event_manager.subscribe(EventTypes.ComponentAdded, CircleColliderPhysics, () => {})
-    event_manager.subscribe(EventTypes.ComponentAdded, PolygonColliderPhysics, () => {})
+    event_manager.subscribe(EventTypes.ComponentAdded, CircleColliderPhysics, () => { })
+    event_manager.subscribe(EventTypes.ComponentAdded, PolygonColliderPhysics, () => { })
     event_manager.subscribe(EventTypes.ComponentRemoved, NodeComp, () => {
       // log('ComponentRemovedEvent NodeComp', event);
       // const node = event.entity.getComponent(NodeComp)
@@ -128,7 +128,7 @@ export class PhysicsSystem implements System {
       this.world.Step(clampedDelta, velocityIterations, positionIterations)
       this.graphics.clear()
       this.world.DebugDraw()
-      this.graphics.fill()
+      // this.graphics.fill()
       // this.graphics.stroke();
       // console.log('GetBodyCount', this.world.GetBodyCount());
     }

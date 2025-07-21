@@ -29,44 +29,48 @@ class _Vec2 {
   }
 
   add(value: Point | Vec2): _Vec2 {
-    return updatePoint(new Point(this.x, this.y).add(value))
+    return updatePoint(new Point(this.x + value.x, this.y + value.y))
   }
 
   addSelf(value: Point | Vec2): _Vec2 {
-    const nor = updatePoint(new Point(this.x, this.y).add(value))
+    const nor = this.add(value)
     this.x = nor.x
     this.y = nor.y
     return nor
   }
 
   sub(value: Point | Vec2): _Vec2 {
-    return updatePoint(new Point(this.x, this.y).subtract(value))
+    return updatePoint(new Point(this.x - value.x, this.y - value.y))
   }
 
   mul(multiply: number): _Vec2 {
-    return updatePoint(new Point(this.x, this.y).multiply(new Point(multiply, multiply)))
+    return updatePoint(new Point(this.x * multiply, this.y * multiply))
   }
 
   mulSelf(multiply: number): _Vec2 {
-    const nor = updatePoint(new Point(this.x, this.y).multiply(new Point(multiply, multiply)))
+    const nor = this.mul(multiply)
     this.x = nor.x
     this.y = nor.y
     return nor
   }
 
   mag(): number {
-    return new Point(this.x, this.y).magnitude()
+    return Math.sqrt(this.x * this.x + this.y * this.y)
   }
 
   normalizeSelf(): _Vec2 {
-    const nor = updatePoint(new Point(this.x, this.y).normalize())
+    const nor = this.normalize()
     this.x = nor.x
     this.y = nor.y
     return nor
   }
 
   normalize(): _Vec2 {
-    return updatePoint(new Point(this.x, this.y).normalize())
+    const mag = this.mag()
+    if (mag > 0) {
+      return Vec2(this.x / mag, this.y / mag)
+    }
+    return Vec2(0, 0)
   }
 
   public cross(other: Vec2) {

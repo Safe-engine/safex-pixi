@@ -99,8 +99,8 @@ export class GraphicsRender extends ComponentX<GraphicsRenderProps, Graphics> {
   drawCardinalSpline(points: Vec2[], color: Color4B) { }
   drawCatmullRom(points: Vec2[], color: Color4B) { }
   drawPoly(points: Vec2[], color?: Color4B, thickness?: Float) {
-    this.node.instance.poly(points, true)
-    this.node.instance.fill(color || this.props.fillColor)
+    this.node.instance.drawPolygon(points)
+    // this.node.instance.fill(color || this.props.fillColor)
   }
   drawSolidPoly(points: Vec2[], color: Color4B) { }
   drawDot(points: Vec2[], color: Color4B) { }

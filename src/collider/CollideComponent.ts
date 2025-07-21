@@ -1,8 +1,9 @@
-import { Graphics, Point, Rectangle, Size } from 'pixi.js'
+import { Graphics, Point, Rectangle } from 'pixi.js'
 
 import { GameWorld } from '..'
 import { NoRenderComponentX } from '../components/BaseComponent'
 import { NodeComp } from '../components/NodeComp'
+import { Size } from '../core/Size'
 import { v2 } from '../helper/utils'
 import { circleCircle, polygonCircle, polygonPolygon } from './helper/Intersection'
 import { getMax, getMin } from './helper/utils'
@@ -51,7 +52,6 @@ interface BoxColliderProps extends ColliderProps {
   height: number
 }
 export class BoxCollider extends Collider<BoxColliderProps> {
-
   get size(): Size {
     return this.props
   }
@@ -76,8 +76,8 @@ export class BoxCollider extends Collider<BoxColliderProps> {
       v2(x, y),
       v2(x, y + this.props.height),
       v2(x + this.props.width, y + this.props.height),
-      v2(x + this.props.width, y)
-    ].map(p => transform.apply(p))
+      v2(x + this.props.width, y),
+    ].map((p) => transform.apply(p))
     // console.log("_worldPoints", collider._worldPoints, rectTrs)
     // collider._worldPoints = collider._worldPoints.map(p => transform.apply(p))
     const listX = collider._worldPoints.map(({ x }) => x)
@@ -91,7 +91,7 @@ export class BoxCollider extends Collider<BoxColliderProps> {
       // console.log("drawing", JSON.stringify(collider._worldPoints))
       const drawList = collider._worldPoints
       // draw.clear()
-      draw.poly(drawList)
+      draw.drawPolygon(drawList)
       // draw.fill({ color: '#fff', alpha: 0.3 })
     }
   }
@@ -102,7 +102,6 @@ interface CircleColliderProps extends ColliderProps {
 }
 
 export class CircleCollider extends Collider<CircleColliderProps> {
-
   update(dt, draw: Graphics) {
     if (!this.node) {
       return
@@ -114,8 +113,8 @@ export class CircleCollider extends Collider<CircleColliderProps> {
     if (draw) {
       const { x } = collider._worldPosition
       const y = GameWorld.Instance.app.screen.height - collider._worldPosition.y
-      draw.rect(x, y, 2, 2)
-      draw.circle(x, y, collider._worldRadius)
+      draw.drawRect(x, y, 2, 2)
+      draw.drawCircle(x, y, collider._worldRadius)
     }
     collider._preAabb = cloneRect(collider._AABB)
     collider._AABB.x = collider._worldPosition.x - collider._worldRadius
@@ -128,12 +127,10 @@ export class CircleCollider extends Collider<CircleColliderProps> {
   }
 }
 
-
 interface PolygonColliderProps extends ColliderProps {
   points: Array<Point>
 }
 export class PolygonCollider extends Collider<PolygonColliderProps> {
-
   get points(): Point[] {
     const { x, y } = this.props.offset
     const pointsList = this.props.points.map((p) => v2(p.x + x, p.y + y))
@@ -154,7 +151,7 @@ export class PolygonCollider extends Collider<PolygonColliderProps> {
     // log(polyPoints);
     if (draw) {
       const drawList = collider._worldPoints.map(({ x, y }) => v2(x, GameWorld.Instance.app.screen.height - y))
-      draw.poly(drawList)
+      draw.drawPolygon(drawList)
     }
     const listX = collider._worldPoints.map(({ x }) => x)
     const listY = collider._worldPoints.map(({ y }) => y)

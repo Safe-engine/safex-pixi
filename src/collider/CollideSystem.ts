@@ -1,5 +1,5 @@
 import { EntityManager, EventManager, EventTypes, System } from 'entityx-ts'
-import { Color, Graphics } from 'pixi.js'
+import { Graphics } from 'pixi.js'
 
 import { GameWorld } from '../base'
 import { NodeComp } from '../components/NodeComp'
@@ -28,7 +28,7 @@ export class CollideSystem implements System {
     event_manager.subscribe(EventTypes.ComponentRemoved, PolygonCollider, this.onRemoveCollider.bind(this))
     if (this.enabledDebugDraw) {
       this.debugGraphics = new Graphics()
-      this.debugGraphics.setFillStyle({ color: new Color('white') })
+      // this.debugGraphics.setFillStyle({ color: new Color('white') })
       this.debugGraphics.width = 4
       this.debugGraphics.zIndex = 40
     }
@@ -92,7 +92,7 @@ export class CollideSystem implements System {
       // console.log('enabledDebugDraw', this.debugGraphics)
       // this.debugGraphics.width = 4
       // this.debugGraphics.circle(500, 600, 450)
-      this.debugGraphics.fill({ color: new Color('white'), alpha: 0.3 })
+      // this.debugGraphics.fill({ color: new Color('white'), alpha: 0.3 })
     }
     // console.log(this._contracts.length)
     this._contracts.forEach((contract) => {

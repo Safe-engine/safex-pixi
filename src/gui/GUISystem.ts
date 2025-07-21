@@ -105,14 +105,14 @@ export class GUISystem implements System {
       const { color, width } = component.props
       const node = entity.getComponent(NodeComp)
       if (node.instance instanceof Text) {
-        node.instance.style.stroke = { color, width }
+        // node.instance.style.stroke = { color, width }
       }
     })
     event_manager.subscribe(EventTypes.ComponentAdded, LabelShadowComp, ({ entity, component }) => {
       const { color, blur } = component.props
       const node = entity.getComponent(NodeComp)
       if (node.instance instanceof Text) {
-        node.instance.style.dropShadow = { color, blur, alpha: 1, angle: 0, distance: 0 }
+        // node.instance.style.dropShadow = { color, blur, alpha: 1, angle: 0, distance: 0 }
       }
     })
 

@@ -58,8 +58,8 @@ export const makeDebugDraw = (graphics: Graphics, pixelsPerMeter, box2D: typeof 
    * @returns {void}
    */
   const setCtxColor = (rgbStr: Color4B) => {
-    graphics.fillStyle = rgbStr
-    graphics.strokeStyle = { color: rgbStr }
+    // graphics.fillStyle = rgbStr
+    // graphics.strokeStyle = { color: rgbStr }
   }
 
   /**
@@ -74,7 +74,7 @@ export const makeDebugDraw = (graphics: Graphics, pixelsPerMeter, box2D: typeof 
     vertices.forEach((v) => {
       graphics.lineTo(v.x * pixelsPerMeter, v.y * pixelsPerMeter)
     })
-    graphics.fill()
+    // graphics.fill()
   }
 
   /**
@@ -100,7 +100,7 @@ export const makeDebugDraw = (graphics: Graphics, pixelsPerMeter, box2D: typeof 
       graphics.lineTo(center.x + x, center.y + y)
       angle += angleStep
     }
-    graphics.fill()
+    // graphics.fill()
   }
 
   /**
@@ -122,7 +122,7 @@ export const makeDebugDraw = (graphics: Graphics, pixelsPerMeter, box2D: typeof 
    */
   const drawPoint = (vertex, sizeMetres) => {
     const sizePixels = sizeMetres / pixelsPerMeter
-    graphics.rect(vertex.get_x() - sizePixels / 2, vertex.get_y() - sizePixels / 2, sizePixels, sizePixels)
+    graphics.drawRect(vertex.get_x() - sizePixels / 2, vertex.get_y() - sizePixels / 2, sizePixels, sizePixels)
   }
 
   /**
@@ -134,12 +134,12 @@ export const makeDebugDraw = (graphics: Graphics, pixelsPerMeter, box2D: typeof 
     const pos = transform.get_p()
     const rot = transform.get_q()
 
-    graphics.save()
-    graphics.translateTransform(pos.get_x(), pos.get_y())
-    graphics.scaleTransform(0.5, 0.5)
-    graphics.rotateTransform(rot.GetAngle())
-    // graphics.lineWidth *= 2;
-    graphics.restore()
+    // graphics.save()
+    // graphics.translateTransform(pos.get_x(), pos.get_y())
+    // graphics.scaleTransform(0.5, 0.5)
+    // graphics.rotateTransform(rot.GetAngle())
+    // // graphics.lineWidth *= 2;
+    // graphics.restore()
   }
 
   /** {@link Box2D.b2Vec2} is a struct of `float x, y` */

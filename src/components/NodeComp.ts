@@ -171,7 +171,7 @@ export class NodeComp<C extends Container = Container> {
 
   set color(val: ColorSource) {
     if (this.instance instanceof Sprite) this.instance.tint = val
-    if (this.instance instanceof Text) this.instance.style.fill = val
+    // if (this.instance instanceof Text) this.instance.style.fill = val
   }
 
   get opacity() {

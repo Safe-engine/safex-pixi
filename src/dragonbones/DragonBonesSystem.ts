@@ -25,7 +25,7 @@ export class DragonBonesSystem implements System {
       if (animation) {
         armatureDisplay.animation.play(animation, playTimes)
       }
-      component.node = entity.assign(new NodeComp(node, entity))
+      component.node = entity.assign(new NodeComp(node as any, entity))
     })
     // event_manager.subscribe(EventTypes.ComponentRemoved, DragonBones, ({ }) => { })
   }

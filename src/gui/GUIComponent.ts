@@ -1,5 +1,5 @@
 import { CheckBox, CheckBoxOptions, Input, List, ProgressBar, RadioGroup, Slider, SliderOptions } from '@pixi/ui'
-import { Assets, Container, FillInput, Point, Text } from 'pixi.js'
+import { Assets, Container, Point, Text } from 'pixi.js'
 
 import { BaseComponentProps } from '..'
 import { ComponentX, NoRenderComponentX } from '../components/BaseComponent'
@@ -91,9 +91,9 @@ interface ScrollViewProps {
   width: number
   height: number
 }
-export class ScrollView extends NoRenderComponentX<ScrollViewProps> {}
+export class ScrollView extends NoRenderComponentX<ScrollViewProps> { }
 
-export class BlockInputEventsComp extends NoRenderComponentX {}
+export class BlockInputEventsComp extends NoRenderComponentX { }
 
 interface ProgressTimerProps extends BaseComponentProps<ProgressTimerComp> {
   spriteFrame: string
@@ -121,14 +121,14 @@ interface LabelOutlineCompProps {
   color: Color4B
   width: number
 }
-export class LabelOutlineComp extends NoRenderComponentX<LabelOutlineCompProps> {}
+export class LabelOutlineComp extends NoRenderComponentX<LabelOutlineCompProps> { }
 
 interface LabelShadowCompProps extends BaseComponentProps<LabelShadowComp> {
   color: Color4B
   blur: number
   offset?: Point
 }
-export class LabelShadowComp extends NoRenderComponentX<LabelShadowCompProps> {}
+export class LabelShadowComp extends NoRenderComponentX<LabelShadowCompProps> { }
 
 interface InputCompProps extends BaseComponentProps<InputComp> {
   placeHolder?: string
@@ -137,7 +137,7 @@ interface InputCompProps extends BaseComponentProps<InputComp> {
   maxLength?: Integer
   isPassword?: boolean
   bg?: string
-  fill?: FillInput
+  fill?: any
 }
 export class InputComp extends ComponentX<InputCompProps, Input> {
   get string() {
@@ -145,11 +145,11 @@ export class InputComp extends ComponentX<InputCompProps, Input> {
   }
 }
 
-export class ListComp extends ComponentX<{}, List> {}
+export class ListComp extends ComponentX<{}, List> { }
 export class SliderComp extends ComponentX<{}, Slider> {
   bg: string
   fill: SliderOptions['fill']
   slider: Container
 }
-export class RadioGroupComp extends ComponentX<{}, RadioGroup> {}
-export class CheckBoxComp extends ComponentX<{ style: CheckBoxOptions['style'] }, CheckBox> {}
+export class RadioGroupComp extends ComponentX<{}, RadioGroup> { }
+export class CheckBoxComp extends ComponentX<{ style: CheckBoxOptions['style'] }, CheckBox> { }
