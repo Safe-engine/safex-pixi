@@ -13,11 +13,12 @@ Safex is an open-source game engine written in TypeScript, combining the power o
 - All components must be extends from `ComponentX` or `NoRenderComponentX`
 - `NoRenderComponentX` will append to component of parent node have `ComponentX`, `ComponentX` will be `addChild` to parent node
 - `node` property represent node, and can pass properties to assign
-- Example `<SpriteRender node={{ x: 5, y: 9 }} />`
+- Example `<SpriteRender node={{ xy: [5, 9] }} />`
 - `$ref` bind component with current class property as string
 - `$push` push component to list
-- `Array(2).map(i)` iteration repeat component 2 times
-- `Loading.listItems.map(item, i = 1)` iteration in static property
+- `$refNode` and `$pushNode` for `NodeComp` component from any component.
+- `Array(2).map(_, i)` iteration repeat component 2 times
+- `Loading.listItems.map(item, i = 1)` iteration in class static property
 - `listItems.map(item, i)` iteration in const variable
 
 ## Benefits
@@ -32,7 +33,7 @@ Safex is an open-source game engine written in TypeScript, combining the power o
 npm install @safe-engine/pixi
 ```
 
-# Quick start
+# Show case
 
 ```sh
   git clone https://github.com/Safe-engine/pixi-safe-engine-demo
@@ -40,18 +41,8 @@ npm install @safe-engine/pixi
 
 ## Basic Example
 
-```tsx game.ts
-import { addGameCanvasTo, loadScene, startGameSystems } from 'safex'
-async function start() {
-  await addGameCanvasTo('canvasId')
-  startGameSystems()
-  loadScene(GameScene)
-}
-start()
-```
-
 ```tsx GameScene.tsx
-import { SceneComponent, LabelComp, ButtonComp, SpriteRender, instantiate } from 'safex'
+import { SceneComponent, LabelComp, ButtonComp, SpriteRender, instantiate } from '@safe-engine/pixi'
 import ColliderSprite from './ColliderSprite'
 
 export class GameScene extends ComponentX {
@@ -79,8 +70,8 @@ export class GameScene extends ComponentX {
           // onTouchEnd={this.onTouchEnd}
           onTouchMove={this.onTouchMove}
         />
-        <LabelComp $ref={this.label} node={{ x: 106, y: 240 }} string="Hello safex" font={defaultFont} />
-        <SpriteRender $ref={this.sprite} node={{ x: 500, y: 600 }} spriteFrame={'path/to/sprite.png'}>
+        <LabelComp $ref={this.label} node={{ xy: [106, 240] }} string="Hello safex" font={defaultFont} />
+        <SpriteRender $ref={this.sprite} node={{ xy: [500, 600] }} spriteFrame={'path/to/sprite.png'}>
           <ButtonComp onPress={this.onPress} />
         </SpriteRender>
       </SceneComponent>
@@ -92,17 +83,17 @@ export class GameScene extends ComponentX {
 ## Collider Events
 
 ```tsx
-import { BoxCollider, Collider, ComponentX, SpriteRender } from 'safex'
+import { BoxCollider, Collider, ComponentX, SpriteRender } from '@safe-engine/pixi'
 import { sf_crash } from '../assets'
 
 export class ColliderSprite extends ComponentX {
   onCollisionEnter(other: Collider) {
-    console.log(other.tag)
+    console.log(other.props.tag)
   }
 
   render() {
     return (
-      <SpriteRender node={{ x: 640, y: 360 }} spriteFrame={sf_crash}>
+      <SpriteRender node={{ xy: [640, 360] }} spriteFrame={sf_crash}>
         <BoxCollider height={100} width={100}></BoxCollider>
       </SpriteRender>
     )
@@ -113,17 +104,17 @@ export class ColliderSprite extends ComponentX {
 ## Physics Events
 
 ```tsx
-import { PhysicsBoxCollider, PhysicsCollider, RigidBody, ComponentX, SpriteRender } from 'safex'
+import { PhysicsBoxCollider, PhysicsCollider, RigidBody, ComponentX, SpriteRender } from '@safe-engine/pixi'
 import { sf_crash } from '../assets'
 
 export class PhysicsCollider extends ComponentX {
-  onCollisionEnter(col: PhysicsCollider) {
+  onCollisionEnter(col: RigidBody) {
     console.log('onCollisionEnter', col)
   }
 
   render() {
     return (
-      <SpriteRender node={{ x: 640, y: 360 }} spriteFrame={sf_crash}>
+      <SpriteRender node={{ xy: [640, 360] }} spriteFrame={sf_crash}>
         <RigidBody type="static"></RigidBody>
         <PhysicsBoxCollider height={100} width={100}></PhysicsBoxCollider>
       </SpriteRender>
