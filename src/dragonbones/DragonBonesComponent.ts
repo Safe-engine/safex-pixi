@@ -1,3 +1,4 @@
+import { BaseComponentProps } from ".."
 import { ComponentX } from "../components/BaseComponent"
 interface DragonBonesData {
   atlas: string
@@ -5,7 +6,7 @@ interface DragonBonesData {
   texture: string
 }
 
-interface DragonBonesProps {
+interface DragonBonesProps extends BaseComponentProps<DragonBonesComp> {
   data: DragonBonesData
   skin?: string
   animation?: string
@@ -15,7 +16,7 @@ interface DragonBonesProps {
   onAnimationEnd?: (event: { name: string }) => void
   onAnimationComplete?: (event: { name: string }) => void
 }
-export class DragonBones extends ComponentX<DragonBonesProps> {
+export class DragonBonesComp extends ComponentX<DragonBonesProps> {
 
   setAnimation(name: string, playTimes = 0) {
     const skel: any = this.node.instance

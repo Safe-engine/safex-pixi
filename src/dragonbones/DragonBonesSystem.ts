@@ -4,11 +4,11 @@ import { EntityManager, EventManager, EventTypes, System } from 'entityx-ts';
 import { Assets } from 'pixi.js';
 import { GameWorld } from '../base';
 import { NodeComp } from '../components/NodeComp';
-import { DragonBones } from './DragonBonesComponent';
+import { DragonBonesComp } from './DragonBonesComponent';
 
 export class DragonBonesSystem implements System {
   configure(event_manager: EventManager<GameWorld>) {
-    event_manager.subscribe(EventTypes.ComponentAdded, DragonBones, ({ entity, component }) => {
+    event_manager.subscribe(EventTypes.ComponentAdded, DragonBonesComp, ({ entity, component }) => {
       const { data, animation, playTimes = 0 } = component.props
       const { skeleton, atlas, texture } = data
       const skeletonAsset = Assets.get(skeleton)
