@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "lib": ["ES2020", "dom"],
+    "lib": [
+      "ES2020",
+      "dom"
+    ],
     "outDir": "dist",
     "target": "ES6",
     "declaration": true,
@@ -11,8 +14,17 @@
     "strict": false,
     "module": "ESNext",
     "moduleResolution": "node",
-    "types": ["node"],
+    "types": [
+      "node"
+    ],
+    "typeRoots": [
+      "./node_modules/@types",
+      "./@types",
+    ],
     "noEmit": false
   },
-  "exclude": ["node_modules", "dist"]
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

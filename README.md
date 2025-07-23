@@ -104,18 +104,19 @@ export class ColliderSprite extends ComponentX {
 ## Physics Events
 
 ```tsx
-import { PhysicsBoxCollider, PhysicsCollider, RigidBody, ComponentX, SpriteRender } from '@safe-engine/pixi'
+import { ComponentX, SpriteRender } from '@safe-engine/pixi'
+import { DynamicBody, PhysicsBoxCollider, RigidBody } from '@safe-engine/pixi/dist/box2d-wasm'
 import { sf_crash } from '../assets'
 
 export class PhysicsCollider extends ComponentX {
-  onCollisionEnter(col: RigidBody) {
-    console.log('onCollisionEnter', col)
+  onBeginContact(other: RigidBody) {
+    console.log('onBeginContact', other)
   }
 
   render() {
     return (
       <SpriteRender node={{ xy: [640, 360] }} spriteFrame={sf_crash}>
-        <RigidBody type="static"></RigidBody>
+        <RigidBody type={DynamicBody} onBeginContact={this.onBeginContact}></RigidBody>
         <PhysicsBoxCollider height={100} width={100}></PhysicsBoxCollider>
       </SpriteRender>
     )

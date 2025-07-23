@@ -1,21 +1,7 @@
-import { Constructor, EntityManager, EventManager, EventReceive, EventTypes, System } from 'entityx-ts';
-import { Point } from 'pixi.js';
-import { EnhancedComponent, GameWorld } from '../base';
+import { Constructor, EntityManager, EventManager, EventReceive, EventTypes, System } from 'entityx-ts'
+import { EnhancedComponent, GameWorld } from '../base'
 
-import { NodeComp } from '../components/NodeComp';
-
-export function v2(x: number | { x: number, y: number } = 0, y = 0) {
-  if (typeof x === 'object' && 'x' in x && 'y' in x) {
-    return new Point(x.x, x.y)
-  }
-  return new Point(x, y)
-}
-
-export function getDistance(point1: Point, point2: Point) {
-  const dx = point2.x - point1.x;
-  const dy = point2.y - point1.y;
-  return Math.sqrt(dx * dx + dy * dy);
-}
+import { NodeComp } from '../components/NodeComp'
 
 export function registerSystem<T extends EnhancedComponent<any>>(component: Constructor<T>) {
   if (GameWorld.Instance.systems.isRegistered(`${component.name}System`)) {

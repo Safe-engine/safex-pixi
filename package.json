@@ -1,15 +1,16 @@
 {
   "name": "@safe-engine/pixi",
-  "version": "8.4.8",
+  "version": "8.5.1",
   "description": "safex pixi plugin",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "@types"
+  ],
   "scripts": {
-    "export": "safex build -p ios",
-    "start": "parcel src/index.html -p 8080",
-    "dev": "parcel src/index.html -p 8080 --no-cache",
-    "build": "tsc & copyfiles -f ./src/@types/* ./dist/@types",
+    "build": "tsc",
     "fix": "eslint ./src --ext .ts --fix"
   },
   "keywords": [],
@@ -18,9 +19,7 @@
   "dependencies": {
     "@esotericsoftware/spine-core": "^4.2.87",
     "@pixi/ui": "^2.2.4",
-    "@types/node": "^24.0.15",
     "box2d-wasm": "^7.0.0",
-    "copyfiles": "^2.4.1",
     "dragonbones-pixijs": "^1.0.5",
     "entityx-ts": "^2.2.1",
     "pixi-action-ease": "^3.2.3",

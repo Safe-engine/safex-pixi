@@ -1,9 +1,8 @@
-import { Graphics, Point, Rectangle, Size } from 'pixi.js'
+import { Graphics, Rectangle, Size } from 'pixi.js'
 
-import { GameWorld } from '..'
+import { GameWorld, Vec2 } from '..'
 import { NoRenderComponentX } from '../components/BaseComponent'
 import { NodeComp } from '../components/NodeComp'
-import { v2 } from '../helper/utils'
 import { circleCircle, polygonCircle, polygonPolygon } from './helper/Intersection'
 import { getMax, getMin } from './helper/utils'
 
@@ -19,22 +18,21 @@ function cloneRect(origin: Rectangle) {
   return new Rectangle(origin.x, origin.y, origin.width, origin.height)
 }
 interface ColliderProps {
-  offset?: Point
+  offset?: Vec2
   tag?: number
-  enabled?: boolean
   onCollisionEnter?: (other: Collider) => void
   onCollisionExit?: (other: Collider) => void
   onCollisionStay?: (other: Collider) => void
 }
 
 export class Collider<T = ColliderProps> extends NoRenderComponentX<T> {
-  _worldPoints: Point[] = []
-  _worldPosition: Point
+  _worldPoints: Vec2[] = []
+  _worldPosition: Vec2
   _worldRadius
   _AABB: Rectangle = new Rectangle(0, 0, 0, 0)
   _preAabb: Rectangle = new Rectangle(0, 0, 0, 0)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  update(dt: number, draw?: Graphics) { }
+
+  // update(dt: number, draw?: Graphics) { }
   getAABB() {
     return this._AABB
   }
@@ -51,7 +49,6 @@ interface BoxColliderProps extends ColliderProps {
   height: number
 }
 export class BoxCollider extends Collider<BoxColliderProps> {
-
   get size(): Size {
     return this.props
   }
@@ -65,7 +62,7 @@ export class BoxCollider extends Collider<BoxColliderProps> {
     if (!this.node) {
       return
     }
-    const { x, y } = this.props.offset || v2()
+    const { x, y } = this.props.offset || Vec2()
     // const hw = this.width * 0.5
     // const hh = this.height * 0.5
     const transform = getNodeToWorldTransformAR(this.node)
@@ -73,11 +70,11 @@ export class BoxCollider extends Collider<BoxColliderProps> {
     // const dy = y - hh
     const collider = this.getComponent(Collider)
     collider._worldPoints = [
-      v2(x, y),
-      v2(x, y + this.props.height),
-      v2(x + this.props.width, y + this.props.height),
-      v2(x + this.props.width, y)
-    ].map(p => transform.apply(p))
+      Vec2(x, y),
+      Vec2(x, y + this.props.height),
+      Vec2(x + this.props.width, y + this.props.height),
+      Vec2(x + this.props.width, y),
+    ].map((p) => transform.apply(p))
     // console.log("_worldPoints", collider._worldPoints, rectTrs)
     // collider._worldPoints = collider._worldPoints.map(p => transform.apply(p))
     const listX = collider._worldPoints.map(({ x }) => x)
@@ -102,7 +99,6 @@ interface CircleColliderProps extends ColliderProps {
 }
 
 export class CircleCollider extends Collider<CircleColliderProps> {
-
   update(dt, draw: Graphics) {
     if (!this.node) {
       return
@@ -128,19 +124,17 @@ export class CircleCollider extends Collider<CircleColliderProps> {
   }
 }
 
-
 interface PolygonColliderProps extends ColliderProps {
-  points: Array<Point>
+  points: Array<Vec2>
 }
 export class PolygonCollider extends Collider<PolygonColliderProps> {
-
-  get points(): Point[] {
+  get points(): Vec2[] {
     const { x, y } = this.props.offset
-    const pointsList = this.props.points.map((p) => v2(p.x + x, p.y + y))
+    const pointsList = this.props.points.map((p) => Vec2(p.x + x, p.y + y))
     return pointsList
   }
 
-  set points(points: Point[]) {
+  set points(points: Vec2[]) {
     this.props.points = points
   }
 
@@ -153,7 +147,7 @@ export class PolygonCollider extends Collider<PolygonColliderProps> {
     collider._worldPoints = this.points.map((p) => transform.apply(p))
     // log(polyPoints);
     if (draw) {
-      const drawList = collider._worldPoints.map(({ x, y }) => v2(x, GameWorld.Instance.app.screen.height - y))
+      const drawList = collider._worldPoints.map(({ x, y }) => Vec2(x, GameWorld.Instance.app.screen.height - y))
       draw.poly(drawList)
     }
     const listX = collider._worldPoints.map(({ x }) => x)
