@@ -56,54 +56,53 @@ export class SpriteRender extends ComponentX<SpriteRenderProps, Sprite> {
     // }
   }
 }
-enum PointType {
-  Circle,
-  Rect,
-}
 interface GraphicsRenderProps extends BaseComponentProps<GraphicsRender> {
   lineWidth?: number
   strokeColor?: Color4B
   fillColor?: Color4B
 }
 export class GraphicsRender extends ComponentX<GraphicsRenderProps, Graphics> {
-  drawPoint(position: Vec2, pointSize: Float, color: Color4B, pointType = PointType.Rect) { }
+  // drawPoint(_pointType = PointType.Rect) {}
   // drawPoints(points: Vec2[], color: Color4B) {
   // }
-  drawLine(origin: Vec2, destination: Vec2, color: Color4B, thickness: Float) { }
-  drawRect(origin: Vec2, destination: Vec2, color: Color4B) {
+  // drawLine() {}
+  drawRect(origin: Vec2, destination: Vec2, color?: Color4B) {
     const { x, y } = origin
     const width = destination.x - x
     const height = destination.y - y
     this.node.instance.rect(x, y, width, height)
-    this.node.instance.fill(color)
+    this.node.instance.stroke(color || this.props.strokeColor)
   }
-  drawSolidRect(origin: Vec2, destination: Vec2, color: Color4B) { }
-  drawCircle(
-    center: Vec2,
-    radius: Float,
-    angle?: Float,
-    segments?: Integer,
-    drawLineToCenter?: boolean,
-    scaleX?: Float,
-    scaleY?: Float,
-    color?: Color4B,
-    thickness?: Float,
-  ) {
+  drawSolidRect(origin: Vec2, destination: Vec2, color?: Color4B) {
+    const { x, y } = origin
+    const width = destination.x - x
+    const height = destination.y - y
+    this.node.instance.rect(x, y, width, height)
+    this.node.instance.fill(color || this.props.fillColor)
+  }
+  drawCircle(center: Vec2, radius: Float, color?: Color4B) {
+    const { x, y } = center
+    this.node.instance.circle(x, y, radius)
+    this.node.instance.stroke(color || this.props.strokeColor)
+  }
+  drawSolidCircle(center: Vec2, radius: Float, color?: Color4B) {
     const { x, y } = center
     this.node.instance.circle(x, y, radius)
     this.node.instance.fill(color)
   }
-  drawSolidCircle(origin: Vec2, destination: Vec2, color: Color4B) { }
-  drawQuadBezier(origin: Vec2, destination: Vec2, color: Color4B) { }
-  drawCubicBezier(origin: Vec2, destination: Vec2, color: Color4B) { }
-  drawCardinalSpline(points: Vec2[], color: Color4B) { }
-  drawCatmullRom(points: Vec2[], color: Color4B) { }
-  drawPoly(points: Vec2[], color?: Color4B, thickness?: Float) {
+  // drawQuadBezier() {}
+  // drawCubicBezier() {}
+  // drawCardinalSpline() {}
+  // drawCatmullRom() {}
+  drawPoly(points: Vec2[], color?: Color4B) {
+    this.node.instance.poly(points, true)
+    this.node.instance.stroke(color || this.props.strokeColor)
+  }
+  drawSolidPoly(points: Vec2[], color?: Color4B) {
     this.node.instance.poly(points, true)
     this.node.instance.fill(color || this.props.fillColor)
   }
-  drawSolidPoly(points: Vec2[], color: Color4B) { }
-  drawDot(points: Vec2[], color: Color4B) { }
+  // drawDot() {}
   drawSegment(from: Vec2, to: Vec2, thickness?: Float, color?: Color4B) {
     this.node.instance.moveTo(from.x, from.y)
     this.node.instance.lineTo(to.x, to.y)
@@ -124,9 +123,9 @@ export class GraphicsRender extends ComponentX<GraphicsRenderProps, Graphics> {
   }
 }
 
-interface MaskRenderProps extends BaseComponentProps<MaskRender>{
+interface MaskRenderProps extends BaseComponentProps<MaskRender> {
   type?: number
   segments?: number
   inverted?: boolean
 }
-export class MaskRender extends ComponentX<MaskRenderProps> { }
+export class MaskRender extends ComponentX<MaskRenderProps> {}
