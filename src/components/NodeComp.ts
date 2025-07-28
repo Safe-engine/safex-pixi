@@ -34,6 +34,14 @@ export class NodeComp<C extends Container = Container> {
   onTouchEnd?: TouchEventCallback
   onTouchCancel?: TouchEventCallback
 
+  constructor(instance: C, entity: Entity) {
+    this.entity = entity
+    this.instance = instance
+    this.instance.eventMode = 'static'
+    this.anchorX = 0.5
+    this.anchorY = 0.5
+  }
+
   setOnTouchStart(cb: TouchEventCallback) {
     this.onTouchStart = cb
     this.instance.on('touchstart', (event) => {
@@ -64,12 +72,6 @@ export class NodeComp<C extends Container = Container> {
       const { global } = event
       this.onTouchCancel({ location: updatePoint(global) })
     })
-  }
-
-  constructor(instance: C, entity: Entity) {
-    this.entity = entity
-    this.instance = instance
-    this.instance.eventMode = 'static'
   }
 
   get uuid() {
@@ -130,7 +132,7 @@ export class NodeComp<C extends Container = Container> {
 
   get anchorX() {
     if (this.instance instanceof Sprite || this.instance instanceof Text) return this.instance.anchor.x
-    return 0
+    return 0.5
   }
 
   set anchorX(val: number) {
@@ -139,7 +141,7 @@ export class NodeComp<C extends Container = Container> {
 
   get anchorY() {
     if (this.instance instanceof Sprite || this.instance instanceof Text) return this.instance.anchor.y
-    return 0
+    return 0.5
   }
 
   set anchorY(val: number) {
