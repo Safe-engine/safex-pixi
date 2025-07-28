@@ -29,15 +29,16 @@
 
 declare global {
   // var require: any;
-  var PIXI: any;
+  var PIXI: any
 }
 
 if (typeof window !== 'undefined' && window.PIXI) {
-  const prevRequire = window.require;
-  (window as any).require = (x: string) => {
-    if (prevRequire) return prevRequire(x);
-    else if (x.startsWith("@pixi/") || x.startsWith("pixi.js")) return window.PIXI;
-  };
+  const prevRequire = (window as any).require
+  ;(window as any).require = (x: string) => {
+    if (prevRequire) return prevRequire(x)
+    else if (x.startsWith('@pixi/') || x.startsWith('pixi.js')) return window.PIXI
+  }
 }
 
 export { };
+

@@ -1,6 +1,6 @@
 import { Constructor, Entity } from 'entityx-ts'
 import { Action, actionManager, Animation } from 'pixi-action-ease'
-import { Color, ColorSource, Container, Point, Sprite, Text } from 'pixi.js'
+import { ColorSource, Container, Point, Sprite, Text } from 'pixi.js'
 
 import { ComponentType, EnhancedComponent, instantiate } from '../base'
 import { updatePoint, Vec2 } from '../core'
@@ -77,11 +77,11 @@ export class NodeComp<C extends Container = Container> {
   }
 
   get position(): Vec2 {
-    return this.getPosition()
+    return updatePoint(this.instance.position)
   }
 
   set position(val: Vec2) {
-    this.setPosition(val.x, val.y)
+    this.instance.position = val
   }
 
   get posX() {
@@ -101,7 +101,7 @@ export class NodeComp<C extends Container = Container> {
   }
 
   set xy(val: [number, number]) {
-    this.setPosition(val[0], val[1])
+    this.position = Vec2(val[0], val[1])
   }
 
   get scale() {
@@ -257,35 +257,15 @@ export class NodeComp<C extends Container = Container> {
   }
 
   convertToNodeSpace(point: Vec2) {
-    return this.instance.toLocal(point)
+    return updatePoint(this.instance.toLocal(point))
   }
 
   convertToNodeSpaceAR(point: Vec2) {
-    return this.instance.toLocal(point)
+    return updatePoint(this.instance.toLocal(point))
   }
 
   convertToWorldSpaceAR(point: Vec2) {
-    return this.instance.toGlobal(point)
-  }
-
-  getPosition(): Vec2 {
-    return updatePoint(this.instance.position)
-  }
-
-  setPosition(x: number | Point, y?: number) {
-    if (typeof x !== 'number') {
-      this.instance.position = Vec2(x.x, x.y)
-    } else {
-      this.instance.position = Vec2(x, y)
-    }
-  }
-
-  setRotation(deg: number) {
-    this.instance.rotation = deg
-  }
-
-  getRotation() {
-    return this.instance.rotation
+    return updatePoint(this.instance.toGlobal(point))
   }
 
   // setAnchorPoint(point: number | cc.Point, y?: number) {
@@ -320,15 +300,6 @@ export class NodeComp<C extends Container = Container> {
   //     this.instance.stencil = stencil
   //   }
   // }
-
-  setColor(color: Color) {
-    if (this.instance instanceof Sprite) (this.instance as Sprite).tint = color
-  }
-
-  setScale(scaleX: number, scaleY?: number) {
-    this.instance.scale.x = scaleX
-    this.instance.scale.y = scaleY || scaleX
-  }
 
   runAction(act: Action) {
     const animation = actionManager.runAction(this.instance as any, act)
