@@ -3,6 +3,7 @@ import { CollideSystem, enabledDebugDraw } from './CollideSystem'
 
 export * from './CollideComponent'
 export * from './CollideSystem'
+export * from './helper/Intersection'
 
 export function setupCollider(colliderMatrix?, debug = false) {
   GameWorld.Instance.systems.add(CollideSystem)
