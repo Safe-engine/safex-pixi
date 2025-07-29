@@ -1,5 +1,4 @@
 import { EventManager, EventTypes, System } from 'entityx-ts'
-// import { Touch } from '../../polyfills'
 import { Container } from 'pixi.js'
 
 import { NodeComp } from '../components/NodeComp'
@@ -18,31 +17,30 @@ export class NoRenderSystem implements System {
       const nodeComp = ett.getComponent(NodeComp)
       touchComp.node = nodeComp
       const container: Container = nodeComp.instance
+      container.eventMode = 'static'
       if (touchComp.props.onTouchStart) {
-        container.on('pointerdown', (event) => {
+        container.on('touchstart', (event) => {
           touchComp.props.onTouchStart(new Touch(event), nodeComp)
         })
       }
       if (touchComp.props.onTouchMove) {
-        container.on('pointermove', (event) => {
+        container.on('touchmove', (event) => {
           touchComp.props.onTouchMove(new Touch(event), nodeComp)
         })
       }
       if (touchComp.props.onTouchEnd) {
-        container.on('pointerup', (event) => {
+        container.on('touchend', (event) => {
           touchComp.props.onTouchEnd(new Touch(event), nodeComp)
         })
       }
-      if (touchComp.props.onTouchEnd) {
-        container.on('pointercancel', (event) => {
-          touchComp.props.onTouchEnd(new Touch(event), nodeComp)
+      if (touchComp.props.onTouchCancel) {
+        container.on('touchcancel', (event) => {
+          touchComp.props.onTouchCancel(new Touch(event), nodeComp)
         })
       }
     })
     event_manager.subscribe(EventTypes.ComponentRemoved, TouchEventRegister, ({ component }) => {
-      console.log('ComponentRemovedEvent TouchEventRegister', event)
-      // const ett = event.entity
-      // const nodeComp = ett.getComponent(NodeComp)
+      console.log('ComponentRemovedEvent TouchEventRegister', component)
       const touchComp = component as TouchEventRegister
       const container: Container = touchComp.node.instance
       if (touchComp.props.onTouchStart) {

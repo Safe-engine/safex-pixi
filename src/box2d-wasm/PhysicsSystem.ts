@@ -153,7 +153,7 @@ export class PhysicsSystem implements System {
       const [x = 0, y = 0] = offset
       const zero = new b2Vec2(0, 0)
       const position = new b2Vec2(node.posX, node.posY)
-      const { width, height } = node.getContentSize()
+      const { width, height } = node.contentSize
       const { scaleX, scaleY, anchorX, anchorY } = node
 
       const bd = new b2BodyDef()
@@ -203,7 +203,7 @@ export class PhysicsSystem implements System {
     this.world.SetContactListener(listener)
   }
 
-  update(entities: EntityManager, events: EventManager, dt: number) {
+  update(entities: EntityManager, _events: EventManager, dt: number) {
     if (this.world) {
       const { getPointer } = box2D
       for (const entt of entities.entities_with_components(RigidBody)) {

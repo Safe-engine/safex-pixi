@@ -1,11 +1,11 @@
 import { NoRenderComponentX } from '../components/BaseComponent'
-import { EventCallbackType, EventMap, NodeComp } from '../components/NodeComp'
+import { NodeComp } from '../components/NodeComp'
 import { Touch } from './Touch'
 
-// export class Touch extends FederatedPointerEvent {
-// declare getLocation: () => Vec2
-// declare getDelta: () => Vec2
-// }
+export type EventCallbackType = (...args) => void
+export interface EventMap {
+  [key: string]: [EventCallbackType]
+}
 
 export type TouchEventCallback = (touch?: Touch, node?: NodeComp) => void
 

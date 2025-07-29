@@ -1,77 +1,28 @@
-import { Constructor, Entity } from 'entityx-ts'
+import { ComponentType, Constructor, Entity } from 'entityx-ts'
 import { Action, actionManager, Animation } from 'pixi-action-ease'
 import { ColorSource, Container, Point, Sprite, Text } from 'pixi.js'
 
-import { ComponentType, EnhancedComponent, instantiate } from '../base'
+import { EnhancedComponent, instantiate } from '..'
 import { updatePoint, Vec2 } from '../core'
 import { Size } from '../core/Size'
 import { ProgressBarComp } from '../gui/GUIComponent'
 import { ExtraDataComp } from '../norender/NoRenderComponent'
 
-export type EventCallbackType = (...args) => void
-export interface EventMap {
-  [key: string]: [EventCallbackType]
-}
-
-type TouchEventCallback = (target: { location: Vec2 }) => void
-
 export class NodeComp<C extends Container = Container> {
   entity: Entity
   instance: C
-  events: EventMap = {}
-  data: { [key: string]: any } = {}
   parent: NodeComp
   children: NodeComp[] = []
   actionsList: Animation[] = []
-  // offset: cc.Point = cc.v2(0, 0);
   name: string
-  // private lastMove: { x: number; y: number }
   private _group = 0
   private _active = true
-
-  onTouchStart?: TouchEventCallback
-  onTouchMove?: TouchEventCallback
-  onTouchEnd?: TouchEventCallback
-  onTouchCancel?: TouchEventCallback
 
   constructor(instance: C, entity: Entity) {
     this.entity = entity
     this.instance = instance
-    this.instance.eventMode = 'static'
     this.anchorX = 0.5
     this.anchorY = 0.5
-  }
-
-  setOnTouchStart(cb: TouchEventCallback) {
-    this.onTouchStart = cb
-    this.instance.on('touchstart', (event) => {
-      const { global } = event
-      this.onTouchStart({ location: updatePoint(global) })
-    })
-  }
-
-  setOnTouchMove(cb: TouchEventCallback) {
-    this.onTouchMove = cb
-    this.instance.on('touchmove', (event) => {
-      const { global } = event
-      this.onTouchMove({ location: updatePoint(global) })
-    })
-  }
-
-  setOnTouchEnd(cb: TouchEventCallback) {
-    this.onTouchEnd = cb
-    this.instance.on('touchend', (event) => {
-      const { global } = event
-      this.onTouchEnd({ location: updatePoint(global) })
-    })
-  }
-
-  setOnTouchCancel(cb: TouchEventCallback) {
-    this.onTouchCancel = cb
-    this.instance.on('touchcancel', (event) => {
-      const { global } = event
-      this.onTouchCancel({ location: updatePoint(global) })
-    })
   }
 
   get uuid() {
@@ -221,7 +172,7 @@ export class NodeComp<C extends Container = Container> {
   }
 
   set height(val) {
-    this.instance.height = val
+    this.instance.setSize(this.width, val)
   }
 
   get zIndex() {
@@ -286,22 +237,13 @@ export class NodeComp<C extends Container = Container> {
   //   return box
   // }
 
-  getContentSize(): Size {
-    return this.instance.boundsArea
+  get contentSize(): Size {
+    return this.instance.getSize()
   }
 
-  // setContentSize(size: cc.Size | number, height?: number) {
-  //   this.instance.setContentSize(size, height)
-  //   if (this.instance instanceof cc.ClippingNode) {
-  //     const hw = ((size as any).width || size) * 0.5
-  //     const hh = ((size as any).height || height) * 0.5
-  //     const stencil = new cc.DrawNode()
-  //     const rectangle = [cc.p(-hw, -hh), cc.p(hw, -hh), cc.p(hw, hh), cc.p(-hw, hh)]
-  //     stencil.drawPoly(rectangle, cc.Color.WHITE, 0, cc.Color.WHITE)
-  //     // stencil.drawDot(cc.p(-height * 0.5, -height * 0.5), height, cc.Color.WHITE);
-  //     this.instance.stencil = stencil
-  //   }
-  // }
+  set contentSize(size: Size) {
+    this.instance.setSize(size)
+  }
 
   runAction(act: Action) {
     const animation = actionManager.runAction(this.instance as any, act)
@@ -364,25 +306,6 @@ export class NodeComp<C extends Container = Container> {
     this.children.forEach((child) => {
       child.removeFromParent()
     })
-  }
-
-  on(name: string, callback: EventCallbackType, target?: any) {
-    const bound = target ? callback.bind(target) : callback
-    if (this.events[name]) {
-      this.events[name].push(bound)
-    } else {
-      this.events[name] = [bound]
-    }
-  }
-
-  off(name: string) {
-    this.events[name] = undefined
-  }
-
-  emit(name: string, ...params: any) {
-    if (this.events[name]) {
-      this.events[name].forEach((fc) => fc(...params))
-    }
   }
 
   resolveComponent(component: EnhancedComponent<object, NodeComp>) {
