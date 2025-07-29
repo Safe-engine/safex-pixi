@@ -2,7 +2,6 @@ import { actionManager } from 'pixi-action-ease'
 import { Application, AssetsClass, Renderer } from 'pixi.js'
 
 import { GameWorld } from './base'
-import { CollideSystem } from './collider'
 import { GUISystem } from './gui/GUISystem'
 import { NoRenderSystem } from './norender/NoRenderSystem'
 import { RenderSystem } from './render/RenderSystem'
@@ -75,12 +74,9 @@ function startGameLoop(world: GameWorld) {
 function initWorld(defaultFont?: string) {
   const world = GameWorld.Instance
   world.systems.add(RenderSystem)
-  world.systems.add(CollideSystem)
   world.systems.add(GUISystem)
   world.systems.add(NoRenderSystem)
-  world.listUpdate.push(CollideSystem)
   world.systems.configureOnce(RenderSystem)
-  world.systems.configureOnce(CollideSystem)
   world.systems.configureOnce(GUISystem)
   world.systems.configureOnce(NoRenderSystem)
   if (defaultFont) {
