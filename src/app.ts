@@ -26,7 +26,6 @@ export async function startGame(
     },
     canvas: document.getElementById(id) as HTMLCanvasElement,
   })
-  // GameWorld.Instance.setup(NodeComp, app.stage)
   Object.assign(app.canvas.style, {
     width: `${window.innerWidth}px`,
     height: `${window.innerHeight}px`,
@@ -53,24 +52,6 @@ function startGameLoop(world: GameWorld) {
   // app.ticker.speed = 0.5
 }
 
-// const systemsList = [RenderSystem, GUISystem, SpineSystem, DragonBonesSystem, CollideSystem, NoRenderSystem]
-// export function startGameSystems(list = []) {
-//   const world = GameWorld.Instance
-//   systemsList.forEach(system => {
-//     world.systems.add(system)
-//     world.systems.configureOnce(system)
-//   })
-//   world.listUpdate.push(CollideSystem)
-//   // world.listUpdate.push(PhysicsSystem)
-//   list.forEach(system => {
-//     world.systems.add(system)
-//     world.systems.configureOnce(system)
-//     world.listUpdate.push(system)
-//   })
-//   startGameLoop(world)
-//   // console.log('startGameLoop', world.listUpdate)
-// }
-
 function initWorld(defaultFont?: string) {
   const world = GameWorld.Instance
   world.systems.add(RenderSystem)
@@ -83,5 +64,4 @@ function initWorld(defaultFont?: string) {
     const guiSystem = world.systems.get(GUISystem)
     guiSystem.defaultFont = defaultFont
   }
-  // startGameLoop(world, app)
 }
