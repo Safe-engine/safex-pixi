@@ -24,17 +24,16 @@ export class GUISystem implements System {
   configure(event_manager: EventManager<GameWorld>) {
     event_manager.subscribe(EventTypes.ComponentAdded, ButtonComp, ({ entity, component }) => {
       const nodeComp = entity.getComponent(NodeComp)
-      // const { normalImage, selectedImage, disableImage, texType, zoomScale } = button
-      // console.log('onPress.ButtonComp', component)
+      const { zoomScale = 1.2 } = component.props
       const button = new Button(nodeComp.instance)
-      // node.setZoomScale(zoomScale - 1)
       component.node = nodeComp
-      // component.node = entity.assign(new NodeComp(node, entity))
+      const lastScaleX = nodeComp.scaleX
+      const lastScaleY = nodeComp.scaleY
       button.onPress.connect(() => {
         if (!component.enabled) return
         // console.log('onPress.connect')
-        const scale = scaleTo(0.5, 1.2)
-        const scaleDown = scaleTo(0.5, 1)
+        const scale = scaleTo(0.3, zoomScale * lastScaleX, lastScaleY * zoomScale)
+        const scaleDown = scaleTo(0.3, lastScaleX, lastScaleY)
         const seq = sequence(
           scale,
           callFunc(() => {
