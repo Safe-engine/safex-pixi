@@ -129,11 +129,11 @@ export class NodeComp<C extends Container = Container> {
   }
 
   get opacity() {
-    return this.instance.alpha
+    return Math.round(this.instance.alpha * 255)
   }
 
   set opacity(val: number) {
-    this.instance.alpha = val
+    this.instance.alpha = val / 255
   }
 
   get active() {
