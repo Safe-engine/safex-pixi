@@ -19,22 +19,22 @@ export class NoRenderSystem implements System {
       const container: Container = nodeComp.instance
       container.eventMode = 'static'
       if (touchComp.props.onTouchStart) {
-        container.on('touchstart', (event) => {
+        container.on('pointerdown', (event) => {
           touchComp.props.onTouchStart(new Touch(event), nodeComp)
         })
       }
       if (touchComp.props.onTouchMove) {
-        container.on('touchmove', (event) => {
+        container.on('pointermove', (event) => {
           touchComp.props.onTouchMove(new Touch(event), nodeComp)
         })
       }
       if (touchComp.props.onTouchEnd) {
-        container.on('touchend', (event) => {
+        container.on('pointerup', (event) => {
           touchComp.props.onTouchEnd(new Touch(event), nodeComp)
         })
       }
       if (touchComp.props.onTouchCancel) {
-        container.on('touchcancel', (event) => {
+        container.on('pointercancel', (event) => {
           touchComp.props.onTouchCancel(new Touch(event), nodeComp)
         })
       }
@@ -44,16 +44,16 @@ export class NoRenderSystem implements System {
       const touchComp = component as TouchEventRegister
       const container: Container = touchComp.node.instance
       if (touchComp.props.onTouchStart) {
-        container.removeListener('touchstart')
+        container.removeListener('pointerdown')
       }
       if (touchComp.props.onTouchMove) {
-        container.removeListener('touchmove')
+        container.removeListener('pointermove')
       }
       if (touchComp.props.onTouchEnd) {
-        container.removeListener('touchend')
+        container.removeListener('pointerup')
       }
       if (touchComp.props.onTouchEnd) {
-        container.removeListener('touchcancel')
+        container.removeListener('pointercancel')
       }
     })
   }
