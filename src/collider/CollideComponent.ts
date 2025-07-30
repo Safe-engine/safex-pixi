@@ -1,6 +1,6 @@
 import { Graphics, Rectangle, Size } from 'pixi.js'
 
-import { GameWorld, Vec2 } from '..'
+import { BaseComponentProps, GameWorld, Vec2 } from '..'
 import { NoRenderComponentX } from '../components/BaseComponent'
 import { NodeComp } from '../components/NodeComp'
 import { circleCircle, polygonCircle, polygonPolygon } from './helper/Intersection'
@@ -17,8 +17,7 @@ function getNodeToWorldTransformAR(node: NodeComp) {
 function cloneRect(origin: Rectangle) {
   return new Rectangle(origin.x, origin.y, origin.width, origin.height)
 }
-interface ColliderProps {
-  offset?: Vec2
+interface ColliderProps extends BaseComponentProps<Collider> {
   tag?: number
   onCollisionEnter?: (other: Collider) => void
   onCollisionExit?: (other: Collider) => void
@@ -44,7 +43,8 @@ export class Collider<T = ColliderProps> extends NoRenderComponentX<T> {
   }
 }
 
-interface BoxColliderProps extends ColliderProps {
+interface BoxColliderProps extends BaseComponentProps<BoxCollider> {
+  offset?: [number, number]
   width: number
   height: number
 }
@@ -62,7 +62,7 @@ export class BoxCollider extends Collider<BoxColliderProps> {
     if (!this.node) {
       return
     }
-    const { x, y } = this.props.offset || Vec2()
+    const [x, y] = this.props.offset || [0, 0]
     // const hw = this.width * 0.5
     // const hh = this.height * 0.5
     const transform = getNodeToWorldTransformAR(this.node)
@@ -94,7 +94,8 @@ export class BoxCollider extends Collider<BoxColliderProps> {
   }
 }
 
-interface CircleColliderProps extends ColliderProps {
+interface CircleColliderProps extends BaseComponentProps<CircleCollider> {
+  offset?: [number, number]
   radius: number
 }
 
@@ -105,8 +106,9 @@ export class CircleCollider extends Collider<CircleColliderProps> {
     }
     const transform = getNodeToWorldTransformAR(this.node)
     const collider = this.getComponent(Collider)
+    const [x, y] = this.props.offset || [0, 0]
     collider._worldRadius = this.props.radius * this.node.scaleX
-    collider._worldPosition = transform.apply(this.props.offset)
+    collider._worldPosition = transform.apply(Vec2(x, y))
     if (draw) {
       const { x } = collider._worldPosition
       const y = GameWorld.Instance.app.screen.height - collider._worldPosition.y
@@ -124,12 +126,14 @@ export class CircleCollider extends Collider<CircleColliderProps> {
   }
 }
 
-interface PolygonColliderProps extends ColliderProps {
+interface PolygonColliderProps extends BaseComponentProps<PolygonCollider> {
+  offset?: [number, number]
   points: Array<Vec2>
 }
+
 export class PolygonCollider extends Collider<PolygonColliderProps> {
   get points(): Vec2[] {
-    const { x, y } = this.props.offset
+    const [x, y] = this.props.offset || [0, 0]
     const pointsList = this.props.points.map((p) => Vec2(p.x + x, p.y + y))
     return pointsList
   }
