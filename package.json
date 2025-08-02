@@ -1,6 +1,6 @@
 {
   "name": "@safe-engine/pixi",
-  "version": "8.5.6",
+  "version": "8.5.7",
   "description": "safex pixi plugin",
   "type": "module",
   "main": "dist/index.js",
@@ -17,17 +17,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@esotericsoftware/spine-core": "^4.2.87",
-    "@pixi/ui": "^2.2.4",
+    "@esotericsoftware/spine-core": "^4.2.88",
+    "@pixi/ui": "^2.2.7",
     "box2d-wasm": "^7.0.0",
     "dragonbones-pixijs": "^1.0.5",
     "entityx-ts": "^2.2.1",
-    "pixi-action-ease": "^3.2.3",
+    "pixi-action-ease": "^3.2.5",
     "pixi-tagged-text-plus": "0.0.1-next.2",
     "pixi.js": "8.11.0",
     "planck": "^1.4.2"
   },
   "devDependencies": {
-    "typescript": "^5.8.3"
+    "typescript": "^5.9.2"
   }
 }
