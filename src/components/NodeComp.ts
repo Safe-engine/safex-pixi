@@ -308,12 +308,13 @@ export class NodeComp<C extends Container = Container> {
     })
   }
 
-  resolveComponent(component: EnhancedComponent<object, NodeComp>) {
+  resolveComponent(component: EnhancedComponent<object, NodeComp> & { start?: () => void }) {
     // console.log(component.constructor.name, (component.constructor as any).hasRender)
     if ((component.constructor as any).hasRender) {
       this.addChild(component.node)
     } else {
       this.addComponent(component)
+      if (component.start) component.start()
       if (component instanceof ProgressBarComp) {
         this.addChild(component.node)
       }
