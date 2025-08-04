@@ -6,14 +6,14 @@ import { EnhancedComponent, instantiate } from '..'
 import { updatePoint, Vec2 } from '../core'
 import { Size } from '../core/Size'
 import { ProgressBarComp } from '../gui/GUIComponent'
-import { ExtraDataComp } from '../norender/NoRenderComponent'
+import { EventRegister, ExtraDataComp } from '../norender/NoRenderComponent'
 
 export class NodeComp<C extends Container = Container> {
   entity: Entity
   instance: C
   parent: NodeComp
   children: NodeComp[] = []
-  actionsList: Animation[] = []
+  private actionsList: Animation[] = []
   name: string
   private _group = 0
   private _active = true
@@ -335,5 +335,13 @@ export class NodeComp<C extends Container = Container> {
     } else {
       data.setData(key, value)
     }
+  }
+
+  get event() {
+    const _event = this.getComponent(EventRegister)
+    if (!_event) {
+      return this.addComponent(instantiate(EventRegister))
+    }
+    return _event
   }
 }

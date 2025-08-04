@@ -10,7 +10,7 @@ export interface EventMap {
 export type TouchEventCallback = (touch?: Touch, node?: NodeComp) => void
 
 export class EventRegister extends NoRenderComponentX {
-  events: EventMap = {}
+  private events: EventMap = {}
 
   on(name: string, callback: EventCallbackType, target?: any) {
     const bound = target ? callback.bind(target) : callback
