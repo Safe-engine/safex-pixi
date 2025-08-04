@@ -1,8 +1,8 @@
-import { Graphics, Sprite, Texture } from 'pixi.js'
+import { Assets, Graphics, Point, Sprite, Text, Texture } from 'pixi.js'
 
 import { BaseComponentProps, Color4B, Vec2 } from '..'
-import { ComponentX } from '../components/BaseComponent'
-import { LoadingBarMode } from '../core/LoadingBar'
+import { ComponentX, NoRenderComponentX } from '../components/BaseComponent'
+import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
 import { SpriteTypes } from './RenderSystem'
 
 export class NodeRender extends ComponentX {
@@ -128,4 +128,81 @@ interface MaskRenderProps extends BaseComponentProps<MaskRender> {
   segments?: number
   inverted?: boolean
 }
-export class MaskRender extends ComponentX<MaskRenderProps> {}
+export class MaskRender extends ComponentX<MaskRenderProps> { }
+
+interface LabelCompProps extends BaseComponentProps<LabelComp> {
+  font?: string
+  string?: string
+  size?: number
+}
+export class LabelComp extends ComponentX<LabelCompProps, Text> {
+  get string() {
+    return this.props.string
+  }
+
+  set string(val: string) {
+    this.props.string = val
+    if (!this.node) return
+    if (this.node.instance instanceof Text) {
+      this.node.instance.text = val
+    }
+  }
+
+  get size() {
+    return this.props.size
+  }
+  set size(val) {
+    this.props.size = val
+    if (!this.node) return
+    if (this.node.instance instanceof Text) {
+      this.node.instance.style.fontSize = val
+    }
+  }
+
+  get font() {
+    return this.props.font
+  }
+
+  set font(val: string) {
+    this.props.font = val
+    if (!this.node) return
+    // console.log('set font', val, Assets.get(val))
+    if (this.node.instance instanceof Text) {
+      if (Assets.get(val)) this.node.instance.style.fontFamily = Assets.get(val).family
+    }
+  }
+}
+interface ProgressTimerProps extends BaseComponentProps<ProgressTimerComp> {
+  spriteFrame: string
+  fillType?: number
+  fillRange?: number
+  fillCenter?: Point
+  isReverse?: boolean
+}
+export class ProgressTimerComp extends ComponentX<ProgressTimerProps, ProgressTimer> {
+  getFillRange() {
+    return this.node.instance.progress
+  }
+
+  setFillStart(val: number) {
+    this.node.instance.fillCenter.x = val
+  }
+
+  setFillRange(val: number) {
+    // console.log('setFillRange', this.node.instance);
+    this.node.instance.progress = val
+  }
+}
+
+interface LabelOutlineCompProps {
+  color: Color4B
+  width: number
+}
+export class LabelOutlineComp extends NoRenderComponentX<LabelOutlineCompProps> { }
+
+interface LabelShadowCompProps extends BaseComponentProps<LabelShadowComp> {
+  color: Color4B
+  blur: number
+  offset?: Point
+}
+export class LabelShadowComp extends NoRenderComponentX<LabelShadowCompProps> { }

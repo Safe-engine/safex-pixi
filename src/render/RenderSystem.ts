@@ -1,8 +1,18 @@
 import { EventManager, EventTypes, System } from 'entityx-ts'
-import { Container, Graphics, Sprite } from 'pixi.js'
+import { Container, Graphics, Sprite, Text } from 'pixi.js'
 
 import { NodeComp } from '..'
-import { GraphicsRender, MaskRender, NodeRender, SpriteRender } from './RenderComponent'
+import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
+import {
+  GraphicsRender,
+  LabelComp,
+  LabelOutlineComp,
+  LabelShadowComp,
+  MaskRender,
+  NodeRender,
+  ProgressTimerComp,
+  SpriteRender,
+} from './RenderComponent'
 
 export enum SpriteTypes {
   SIMPLE,
@@ -14,6 +24,7 @@ export enum SpriteTypes {
 }
 
 export class RenderSystem implements System {
+  defaultFont: string
   configure(event_manager: EventManager) {
     event_manager.subscribe(EventTypes.ComponentAdded, NodeRender, ({ entity }) => {
       const nodeRenderComp = entity.getComponent(NodeRender)
@@ -50,6 +61,41 @@ export class RenderSystem implements System {
       // console.log('GraphicsRender', component);
       const node = new Graphics()
       component.node = entity.assign(new NodeComp(node, entity))
+    })
+    event_manager.subscribe(EventTypes.ComponentAdded, ProgressTimerComp, ({ entity, component }) => {
+      // console.log(component, '.progress')
+      const { spriteFrame, fillCenter, fillRange = 0 } = component.props
+      const node = new ProgressTimer(LoadingBarMode.BAR, spriteFrame)
+      if (fillCenter) {
+        node.fillCenter = fillCenter
+      }
+      node.progress = fillRange * 100
+      component.node = entity.assign(new NodeComp(node, entity))
+    })
+    event_manager.subscribe(EventTypes.ComponentAdded, LabelComp, ({ entity, component }) => {
+      // console.log('ComponentAddedEvent LabelComp', component)
+      const node = new Text()
+      // node.texture.rotate = 8
+      node.style.fill = '#fff'
+      component.node = entity.assign(new NodeComp(node, entity))
+      const { string = '', font = this.defaultFont, size = 64 } = component.props
+      if (font) component.font = font
+      component.size = size
+      component.string = string
+    })
+    event_manager.subscribe(EventTypes.ComponentAdded, LabelOutlineComp, ({ entity, component }) => {
+      const { color, width } = component.props
+      const node = entity.getComponent(NodeComp)
+      if (node.instance instanceof Text) {
+        node.instance.style.stroke = { color, width }
+      }
+    })
+    event_manager.subscribe(EventTypes.ComponentAdded, LabelShadowComp, ({ entity, component }) => {
+      const { color, blur } = component.props
+      const node = entity.getComponent(NodeComp)
+      if (node.instance instanceof Text) {
+        node.instance.style.dropShadow = { color, blur, alpha: 1, angle: 0, distance: 0 }
+      }
     })
     event_manager.subscribe(EventTypes.ComponentRemoved, NodeComp, ({ component }) => {
       if (component) {

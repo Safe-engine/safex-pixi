@@ -2,7 +2,6 @@ import { actionManager } from 'pixi-action-ease'
 import { Application, AssetsClass, Renderer } from 'pixi.js'
 
 import { GameWorld } from './base'
-import { GUISystem } from './gui/GUISystem'
 import { NoRenderSystem } from './norender/NoRenderSystem'
 import { RenderSystem } from './render/RenderSystem'
 
@@ -55,13 +54,11 @@ function startGameLoop(world: GameWorld) {
 function initWorld(defaultFont?: string) {
   const world = GameWorld.Instance
   world.systems.add(RenderSystem)
-  world.systems.add(GUISystem)
   world.systems.add(NoRenderSystem)
   world.systems.configureOnce(RenderSystem)
-  world.systems.configureOnce(GUISystem)
   world.systems.configureOnce(NoRenderSystem)
   if (defaultFont) {
-    const guiSystem = world.systems.get(GUISystem)
-    guiSystem.defaultFont = defaultFont
+    const fontSystem = world.systems.get(RenderSystem)
+    fontSystem.defaultFont = defaultFont
   }
 }
