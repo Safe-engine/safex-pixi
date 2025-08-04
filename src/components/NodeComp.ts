@@ -229,13 +229,10 @@ export class NodeComp<C extends Container = Container> {
   //   return this.instance.getAnchorPoint()
   // }
 
-  // getBoundingBox() {
-  //   const box = this.instance.getBoundingBox()
-  //   box.contains = function (point) {
-  //     return this.x <= point.x && this.x + this.width >= point.x && this.y <= point.y && this.y + this.height >= point.y
-  //   }
-  //   return box
-  // }
+  getBoundingBox() {
+    const box = this.instance.getBounds()
+    return box
+  }
 
   get contentSize(): Size {
     return this.instance.getSize()

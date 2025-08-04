@@ -1,8 +1,9 @@
 import { EventManager, EventTypes, System } from 'entityx-ts'
 import { Container } from 'pixi.js'
 
+import { scaleTo } from 'pixi-action-ease'
 import { NodeComp } from '../components/NodeComp'
-import { ExtraDataComp, TouchEventRegister } from './NoRenderComponent'
+import { ButtonComp, ExtraDataComp, TouchEventRegister } from './NoRenderComponent'
 import { Touch } from './Touch'
 
 export class NoRenderSystem implements System {
@@ -55,6 +56,30 @@ export class NoRenderSystem implements System {
       if (touchComp.props.onTouchEnd) {
         container.removeListener('pointercancel')
       }
+    })
+    event_manager.subscribe(EventTypes.ComponentAdded, ButtonComp, ({ entity, component: button }) => {
+      const nodeComp = entity.getComponent(NodeComp)
+      const { zoomScale = 1.2 } = button.props
+      button.node = nodeComp
+      const lastScaleX = nodeComp.scaleX
+      const lastScaleY = nodeComp.scaleY
+      const touchComp = entity.assign(new TouchEventRegister())
+      touchComp.props.onTouchStart = function (touch) {
+        const p = touch.getLocation()
+        // console.log('onTouchBegan', p, lastScaleX, lastScaleY)
+        const rect = nodeComp.getBoundingBox()
+        const { x, y } = nodeComp.parent.convertToNodeSpace(p)
+        if (rect.containsPoint(x, y) && button.enabled && nodeComp.active) {
+          const scale = scaleTo(0.3, zoomScale * lastScaleX, lastScaleY * zoomScale)
+          nodeComp.runAction(scale)
+          button.props.onPress(button)
+        }
+      }
+      touchComp.props.onTouchEnd = function () {
+        const scale = scaleTo(0.3, lastScaleX, lastScaleY)
+        nodeComp.runAction(scale)
+      }
+      touchComp.props.onTouchCancel = touchComp.props.onTouchEnd
     })
   }
 

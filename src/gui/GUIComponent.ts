@@ -13,22 +13,6 @@ export const FillType = {
 // type Keys = keyof typeof FillType
 // type Values = (typeof FillType)[Keys]
 
-interface ButtonCompProps extends BaseComponentProps<ButtonComp> {
-  normalImage?: string
-  selectedImage?: string
-  disableImage?: string
-  zoomScale?: number
-  onPress: (target: ButtonComp) => void
-}
-export class ButtonComp extends NoRenderComponentX<ButtonCompProps> {
-  // setOnPress(cb: (target: ButtonComp) => void) {
-  //   this.onPress = cb
-  // }
-  // set enabled(val) {
-  //   this.node.instance.interactive = val
-  // }
-}
-
 export class ProgressBarComp extends ComponentX<{}, ProgressBar> {
   mode = LoadingBarMode.BAR
   isReverse: boolean
@@ -48,9 +32,9 @@ interface ScrollViewProps {
   width: number
   height: number
 }
-export class ScrollView extends NoRenderComponentX<ScrollViewProps> { }
+export class ScrollView extends NoRenderComponentX<ScrollViewProps> {}
 
-export class BlockInputEventsComp extends NoRenderComponentX { }
+export class BlockInputEventsComp extends NoRenderComponentX {}
 
 interface InputCompProps extends BaseComponentProps<InputComp> {
   placeHolder?: string
@@ -67,11 +51,11 @@ export class InputComp extends ComponentX<InputCompProps, Input> {
   }
 }
 
-export class ListComp extends ComponentX<{}, List> { }
+export class ListComp extends ComponentX<{}, List> {}
 export class SliderComp extends ComponentX<{}, Slider> {
   bg: string
   fill: SliderOptions['fill']
   slider: Container
 }
-export class RadioGroupComp extends ComponentX<{}, RadioGroup> { }
-export class CheckBoxComp extends ComponentX<{ style: CheckBoxOptions['style'] }, CheckBox> { }
+export class RadioGroupComp extends ComponentX<{}, RadioGroup> {}
+export class CheckBoxComp extends ComponentX<{ style: CheckBoxOptions['style'] }, CheckBox> {}

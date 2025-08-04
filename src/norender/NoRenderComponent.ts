@@ -1,3 +1,4 @@
+import { BaseComponentProps } from '..'
 import { NoRenderComponentX } from '../components/BaseComponent'
 import { NodeComp } from '../components/NodeComp'
 import { Touch } from './Touch'
@@ -58,3 +59,12 @@ export class ExtraDataComp extends NoRenderComponentX<ExtraDataProps> {
     this.data[key] = val
   }
 }
+
+interface ButtonCompProps extends BaseComponentProps<ButtonComp> {
+  normalImage?: string
+  selectedImage?: string
+  disableImage?: string
+  zoomScale?: number
+  onPress: (target: ButtonComp) => void
+}
+export class ButtonComp extends NoRenderComponentX<ButtonCompProps> {}
