@@ -2,6 +2,7 @@ import { EventManager, EventTypes, System } from 'entityx-ts'
 import { Container } from 'pixi.js'
 
 import { scaleTo } from 'pixi-action-ease'
+import { instantiate } from '..'
 import { NodeComp } from '../components/NodeComp'
 import { ButtonComp, ExtraDataComp, TouchEventRegister } from './NoRenderComponent'
 import { Touch } from './Touch'
@@ -19,6 +20,7 @@ export class NoRenderSystem implements System {
       touchComp.node = nodeComp
       const container: Container = nodeComp.instance
       container.eventMode = 'static'
+      container.interactive = true
       if (touchComp.props.onTouchStart) {
         container.on('pointerdown', (event) => {
           touchComp.props.onTouchStart(new Touch(event), nodeComp)
@@ -63,23 +65,29 @@ export class NoRenderSystem implements System {
       button.node = nodeComp
       const lastScaleX = nodeComp.scaleX
       const lastScaleY = nodeComp.scaleY
-      const touchComp = entity.assign(new TouchEventRegister())
-      touchComp.props.onTouchStart = function (touch) {
-        const p = touch.getLocation()
-        // console.log('onTouchBegan', p, lastScaleX, lastScaleY)
-        const rect = nodeComp.getBoundingBox()
-        const { x, y } = nodeComp.parent.convertToNodeSpace(p)
-        if (rect.containsPoint(x, y) && button.enabled && nodeComp.active) {
-          const scale = scaleTo(0.3, zoomScale * lastScaleX, lastScaleY * zoomScale)
+
+      const touchComp = instantiate(TouchEventRegister, {
+        onTouchStart: function (touch) {
+          const p = touch.getLocation()
+          // console.log('onTouchBegan', p, lastScaleX, lastScaleY)
+          const rect = nodeComp.getBoundingBox()
+          const { x, y } = nodeComp.parent.convertToNodeSpace(p)
+          if (rect.containsPoint(x, y) && button.enabled && nodeComp.active) {
+            const scale = scaleTo(0.3, zoomScale * lastScaleX, lastScaleY * zoomScale)
+            nodeComp.runAction(scale)
+            button.props.onPress(button)
+          }
+        },
+        onTouchEnd: function () {
+          const scale = scaleTo(0.3, lastScaleX, lastScaleY)
           nodeComp.runAction(scale)
-          button.props.onPress(button)
-        }
-      }
-      touchComp.props.onTouchEnd = function () {
-        const scale = scaleTo(0.3, lastScaleX, lastScaleY)
-        nodeComp.runAction(scale)
-      }
-      touchComp.props.onTouchCancel = touchComp.props.onTouchEnd
+        },
+        onTouchCancel: function () {
+          nodeComp.scaleX = lastScaleX
+          nodeComp.scaleY = lastScaleY
+        },
+      })
+      entity.assign(touchComp)
     })
   }
 
