@@ -99,6 +99,9 @@ class _Vec2 {
   public distance(other: _Vec2) {
     return this.sub(other).mag()
   }
+  clone() {
+    return Vec2(this.x, this.y)
+  }
 }
 export type Vec2 = _Vec2
 export function Vec2(x?: number | object, y?: number): Vec2 {
