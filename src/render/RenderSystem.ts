@@ -3,16 +3,7 @@ import { Container, Graphics, Sprite, Text } from 'pixi.js'
 
 import { NodeComp } from '..'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
-import {
-  GraphicsRender,
-  LabelComp,
-  LabelOutlineComp,
-  LabelShadowComp,
-  MaskRender,
-  NodeRender,
-  ProgressTimerComp,
-  SpriteRender,
-} from './RenderComponent'
+import { GraphicsRender, LabelComp, MaskRender, NodeRender, ProgressTimerComp, SpriteRender } from './RenderComponent'
 
 export enum SpriteTypes {
   SIMPLE,
@@ -78,23 +69,17 @@ export class RenderSystem implements System {
       // node.texture.rotate = 8
       node.style.fill = '#fff'
       component.node = entity.assign(new NodeComp(node, entity))
-      const { string = '', font = this.defaultFont, size = 64 } = component.props
+      const { string = '', font = this.defaultFont, size = 64, outline, shadow } = component.props
       if (font) component.font = font
       component.size = size
       component.string = string
-    })
-    event_manager.subscribe(EventTypes.ComponentAdded, LabelOutlineComp, ({ entity, component }) => {
-      const { color, width } = component.props
-      const node = entity.getComponent(NodeComp)
-      if (node.instance instanceof Text) {
-        node.instance.style.stroke = { color, width }
+      if (outline) {
+        const [color, width] = outline
+        node.style.stroke = { color, width }
       }
-    })
-    event_manager.subscribe(EventTypes.ComponentAdded, LabelShadowComp, ({ entity, component }) => {
-      const { color, blur } = component.props
-      const node = entity.getComponent(NodeComp)
-      if (node.instance instanceof Text) {
-        node.instance.style.dropShadow = { color, blur, alpha: 1, angle: 0, distance: 0 }
+      if (shadow) {
+        const [color, blur] = shadow
+        node.style.dropShadow = { color, blur, alpha: 1, angle: 0, distance: 0 }
       }
     })
     event_manager.subscribe(EventTypes.ComponentRemoved, NodeComp, ({ component }) => {

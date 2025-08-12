@@ -1,7 +1,7 @@
 import { Assets, Graphics, Point, Sprite, Text, Texture } from 'pixi.js'
 
 import { BaseComponentProps, Color4B, Vec2 } from '..'
-import { ComponentX, NoRenderComponentX } from '../components/BaseComponent'
+import { ComponentX } from '../components/BaseComponent'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
 import { SpriteTypes } from './RenderSystem'
 
@@ -128,12 +128,14 @@ interface MaskRenderProps extends BaseComponentProps<MaskRender> {
   segments?: number
   inverted?: boolean
 }
-export class MaskRender extends ComponentX<MaskRenderProps> { }
+export class MaskRender extends ComponentX<MaskRenderProps> {}
 
 interface LabelCompProps extends BaseComponentProps<LabelComp> {
   font?: string
   string?: string
   size?: number
+  outline?: [Color4B, number]
+  shadow?: [Color4B, number]
 }
 export class LabelComp extends ComponentX<LabelCompProps, Text> {
   get string() {
@@ -193,16 +195,3 @@ export class ProgressTimerComp extends ComponentX<ProgressTimerProps, ProgressTi
     this.node.instance.progress = val
   }
 }
-
-interface LabelOutlineCompProps {
-  color: Color4B
-  width: number
-}
-export class LabelOutlineComp extends NoRenderComponentX<LabelOutlineCompProps> { }
-
-interface LabelShadowCompProps extends BaseComponentProps<LabelShadowComp> {
-  color: Color4B
-  blur: number
-  offset?: Point
-}
-export class LabelShadowComp extends NoRenderComponentX<LabelShadowCompProps> { }
