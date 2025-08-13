@@ -254,13 +254,13 @@ export class NodeComp<C extends Container = Container> {
     this.actionsList = []
   }
 
-  pauseAllActions() {
+  pauseAllActionsAndSchedule() {
     this.actionsList.forEach((anim: Animation) => {
       anim.isPause = true
     })
   }
 
-  resumeAllActions() {
+  resumeAllActionsAndSchedule() {
     this.actionsList.forEach((anim: Animation) => {
       anim.isPause = false
     })
