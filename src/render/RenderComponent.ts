@@ -182,15 +182,15 @@ interface ProgressTimerProps extends BaseComponentProps<ProgressTimerComp> {
   isReverse?: boolean
 }
 export class ProgressTimerComp extends ComponentX<ProgressTimerProps, ProgressTimer> {
-  getFillRange() {
+  get fillRange() {
     return this.node.instance.progress
   }
 
-  setFillStart(val: number) {
+  set fillStart(val: number) {
     this.node.instance.fillCenter.x = val
   }
 
-  setFillRange(val: number) {
+  set fillRange(val: number) {
     // console.log('setFillRange', this.node.instance);
     this.node.instance.progress = val
   }
