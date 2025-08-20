@@ -39,4 +39,12 @@ export class DragonBonesComp extends ComponentX<DragonBonesProps, PixiArmatureDi
     armatureDisplay.debugDraw = false
     this.node.instance = armatureDisplay
   }
+
+  setFLipX(isFlipX: boolean) {
+    this.node.instance.armature.flipX = isFlipX
+  }
+
+  setTimeScale(timeScale: Float) {
+    this.node.instance.animation.timeScale = timeScale
+  }
 }
