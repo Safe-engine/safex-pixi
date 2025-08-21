@@ -29,7 +29,6 @@ export function registerSystem<T extends EnhancedComponent<any>>(component: Cons
     }
   }
   Object.defineProperty(NewSystem, 'name', { value: `${component.name}System` })
-  GameWorld.Instance.systems.addThenConfigure(NewSystem)
-  GameWorld.Instance.listUpdate.push(NewSystem)
+  GameWorld.Instance.addSystemAndUpdate(NewSystem)
   return NewSystem
 }
