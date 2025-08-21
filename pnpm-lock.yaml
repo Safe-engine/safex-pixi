@@ -9,11 +9,11 @@ importers:
   .:
     dependencies:
       '@esotericsoftware/spine-core':
-        specifier: ^4.2.88
-        version: 4.2.88
+        specifier: ^4.2.89
+        version: 4.2.89
       '@pixi/ui':
         specifier: ^2.2.7
-        version: 2.2.7(pixi.js@8.11.0)
+        version: 2.2.7(pixi.js@8.12.0)
       box2d-wasm:
         specifier: ^7.0.0
         version: 7.0.0
@@ -21,17 +21,17 @@ importers:
         specifier: ^1.0.5
         version: 1.0.5
       entityx-ts:
-        specifier: ^2.2.1
-        version: 2.2.1
+        specifier: ^2.3.1
+        version: 2.3.1
       pixi-action-ease:
         specifier: ^3.2.5
         version: 3.2.5
       pixi-tagged-text-plus:
         specifier: 0.0.1-next.2
-        version: 0.0.1-next.2(pixi.js@8.11.0)
+        version: 0.0.1-next.2(pixi.js@8.12.0)
       pixi.js:
-        specifier: 8.11.0
-        version: 8.11.0
+        specifier: 8.12.0
+        version: 8.12.0
       planck:
         specifier: ^1.4.2
         version: 1.4.2(stage-js@1.0.0-alpha.16)
@@ -42,8 +42,8 @@ importers:
 
 packages:
 
-  '@esotericsoftware/spine-core@4.2.88':
-    resolution: {integrity: sha512-czGaGkdq1PMoDTOKHR4KlDe7UYm6/VMdX7+QB0ShcoeN1GvDcmNb6SSFMimeYEsyfgEFNqzXc8KlCSyxnFLN1Q==}
+  '@esotericsoftware/spine-core@4.2.89':
+    resolution: {integrity: sha512-6OiGCW318GF7A7wZMfd2kq9SwnabHQ2kQvpQVr8QUW8oGbLn1QW/BxP5kGlnfnBm+BSfKNKoKInQL68GjJ6W7g==}
 
   '@pixi/colord@2.9.6':
     resolution: {integrity: sha512-nezytU2pw587fQstUu1AsJZDVEynjskwOL+kibwcdxsMBFqPsFFNA7xl0ii/gXuDi6M0xj3mfRJj8pBSc2jCfA==}
@@ -65,8 +65,8 @@ packages:
   '@webgpu/types@0.1.64':
     resolution: {integrity: sha512-84kRIAGV46LJTlJZWxShiOrNL30A+9KokD7RB3dRCIqODFjodS5tCD5yyiZ8kIReGVZSDfA3XkkwyyOIF6K62A==}
 
-  '@xmldom/xmldom@0.8.10':
-    resolution: {integrity: sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==}
+  '@xmldom/xmldom@0.8.11':
+    resolution: {integrity: sha512-cQzWCtO6C8TQiYl1ruKNn2U6Ao4o4WBBcbL61yJl84x+j5sOWWFU9X7DpND8XZG3daDppSsigMdfAIl2upQBRw==}
     engines: {node: '>=10.0.0'}
 
   box2d-wasm@7.0.0:
@@ -81,8 +81,8 @@ packages:
   emoji-regex@9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
 
-  entityx-ts@2.2.1:
-    resolution: {integrity: sha512-Z9uRGfmhcosgKZ1kAPM9MeZjiyym6Wg3fM4oDxn/0Lx4OfnZ4lhaoz7EnKb5p8ierBd90MJiGW/qVJ/4LxOmBg==}
+  entityx-ts@2.3.1:
+    resolution: {integrity: sha512-y4wEkwO44+xwtFU1R2Nq4+xiUowp8TH91EFd2RXEDu4C11SXeU8L3x3S3ORZy7pSoIUdQ4TaxkgiRuitk/XFMQ==}
 
   eventemitter3@5.0.1:
     resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
@@ -107,8 +107,8 @@ packages:
     peerDependencies:
       pixi.js: ^8
 
-  pixi.js@8.11.0:
-    resolution: {integrity: sha512-dyuThzncsgEgJZnvd/A/5x6IkUERbK+phXqUQrI+0C6WE+8xqGH5VChRTLecemhgZF0kQ+gZOM3tJTX9937xpg==}
+  pixi.js@8.12.0:
+    resolution: {integrity: sha512-or7vrH7WajLevu/JnGMdD80JaSpTlXfjwCLtzhg2BL60LWPf1pF0w08Qleiqr1Saj012gevguM//+6HzzVlnfA==}
 
   planck@1.4.2:
     resolution: {integrity: sha512-mNbhnV3g8X2rwGxzcesjmN8BDA6qfXgQxXVMkWau9MCRlQY0RLNEkyHlVp6yFy/X6qrzAXyNONCnZ1cGDLrNew==}
@@ -133,13 +133,13 @@ packages:
 
 snapshots:
 
-  '@esotericsoftware/spine-core@4.2.88': {}
+  '@esotericsoftware/spine-core@4.2.89': {}
 
   '@pixi/colord@2.9.6': {}
 
-  '@pixi/ui@2.2.7(pixi.js@8.11.0)':
+  '@pixi/ui@2.2.7(pixi.js@8.12.0)':
     dependencies:
-      pixi.js: 8.11.0
+      pixi.js: 8.12.0
       tweedle.js: 2.1.0
       typed-signals: 2.5.0
 
@@ -151,7 +151,7 @@ snapshots:
 
   '@webgpu/types@0.1.64': {}
 
-  '@xmldom/xmldom@0.8.10': {}
+  '@xmldom/xmldom@0.8.11': {}
 
   box2d-wasm@7.0.0:
     dependencies:
@@ -159,13 +159,13 @@ snapshots:
 
   dragonbones-pixijs@1.0.5:
     dependencies:
-      pixi.js: 8.11.0
+      pixi.js: 8.12.0
 
   earcut@3.0.2: {}
 
   emoji-regex@9.2.2: {}
 
-  entityx-ts@2.2.1: {}
+  entityx-ts@2.3.1: {}
 
   eventemitter3@5.0.1: {}
 
@@ -181,18 +181,18 @@ snapshots:
 
   pixi-action-ease@3.2.5: {}
 
-  pixi-tagged-text-plus@0.0.1-next.2(pixi.js@8.11.0):
+  pixi-tagged-text-plus@0.0.1-next.2(pixi.js@8.12.0):
     dependencies:
       emoji-regex: 9.2.2
-      pixi.js: 8.11.0
+      pixi.js: 8.12.0
 
-  pixi.js@8.11.0:
+  pixi.js@8.12.0:
     dependencies:
       '@pixi/colord': 2.9.6
       '@types/css-font-loading-module': 0.0.12
       '@types/earcut': 3.0.0
       '@webgpu/types': 0.1.64
-      '@xmldom/xmldom': 0.8.10
+      '@xmldom/xmldom': 0.8.11
       earcut: 3.0.2
       eventemitter3: 5.0.1
       gifuct-js: 2.1.2

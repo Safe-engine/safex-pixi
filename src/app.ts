@@ -53,12 +53,10 @@ function startGameLoop(world: GameWorld) {
 
 function initWorld(defaultFont?: string) {
   const world = GameWorld.Instance
-  world.systems.add(RenderSystem)
-  world.systems.add(NoRenderSystem)
-  world.systems.configureOnce(RenderSystem)
-  world.systems.configureOnce(NoRenderSystem)
+  const fontSystem = world.systems.add(RenderSystem)
   if (defaultFont) {
-    const fontSystem = world.systems.get(RenderSystem)
     fontSystem.defaultFont = defaultFont
   }
+  world.systems.add(NoRenderSystem)
+  world.systems.configure()
 }
