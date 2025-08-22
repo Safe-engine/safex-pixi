@@ -1,5 +1,5 @@
 import { BaseComponentProps, Vec2 } from '..'
-import { NoRenderComponentX } from '../components/BaseComponent'
+import { ComponentX } from '../components/BaseComponent'
 import { PhysicsSprite } from './PhysicsSprite'
 import { box2D } from './PhysicsSystem'
 
@@ -17,7 +17,7 @@ interface RigidBodyProps {
   onPostSolve?: (other: RigidBody, oldManifold?) => void
 }
 
-export class RigidBody extends NoRenderComponentX<RigidBodyProps> {
+export class RigidBody extends ComponentX<RigidBodyProps> {
   body: Box2D.b2Body
   physicSprite: PhysicsSprite
   set linearVelocity(vel: Vec2) {
@@ -71,7 +71,7 @@ interface BoxColliderPhysicsProps {
   height: number
   offset?: [number, number]
 }
-export class PhysicsBoxCollider extends NoRenderComponentX<BoxColliderPhysicsProps & BaseComponentProps<PhysicsBoxCollider>> {
+export class PhysicsBoxCollider extends ComponentX<BoxColliderPhysicsProps & BaseComponentProps<PhysicsBoxCollider>> {
   // set onCollisionEnter(val) {
   //   const phys1 = this.getComponent(PhysicsCollider)
   //   phys1._onCollisionEnter = val
@@ -85,9 +85,9 @@ interface CircleColliderPhysicsProps {
   radius: number
   offset?: [number, number]
 }
-export class PhysicsCircleCollider extends NoRenderComponentX<CircleColliderPhysicsProps & BaseComponentProps<PhysicsCircleCollider>> { }
+export class PhysicsCircleCollider extends ComponentX<CircleColliderPhysicsProps & BaseComponentProps<PhysicsCircleCollider>> { }
 interface PolygonColliderPhysicsProps {
   points: Array<Vec2> | [number, number][]
   offset?: [number, number]
 }
-export class PhysicsPolygonCollider extends NoRenderComponentX<PolygonColliderPhysicsProps & BaseComponentProps<PhysicsPolygonCollider>> { }
+export class PhysicsPolygonCollider extends ComponentX<PolygonColliderPhysicsProps & BaseComponentProps<PhysicsPolygonCollider>> { }

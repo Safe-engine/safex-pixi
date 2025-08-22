@@ -1,6 +1,6 @@
 import { PixiArmatureDisplay, PixiFactory } from 'dragonbones-pixijs'
 import { Assets, BaseComponentProps } from '..'
-import { ComponentX } from '../components/BaseComponent'
+import { ComponentX, render } from '../components/BaseComponent'
 interface DragonBonesData {
   atlas: string
   skeleton: string
@@ -49,3 +49,4 @@ export class DragonBonesComp extends ComponentX<DragonBonesProps, PixiArmatureDi
     this.node.instance.animation.timeScale = timeScale
   }
 }
+Object.defineProperty(DragonBonesComp.prototype, 'render', { value: render })

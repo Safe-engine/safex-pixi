@@ -1,5 +1,5 @@
 import { BaseComponentProps } from '..'
-import { NoRenderComponentX } from '../components/BaseComponent'
+import { ComponentX } from '../components/BaseComponent'
 import { NodeComp } from '../components/NodeComp'
 import { Touch } from './Touch'
 
@@ -10,7 +10,7 @@ export interface EventMap {
 
 export type TouchEventCallback = (touch?: Touch, node?: NodeComp) => void
 
-export class EventRegister extends NoRenderComponentX {
+export class EventRegister extends ComponentX {
   private events: EventMap = {}
 
   on(name: string, callback: EventCallbackType, target?: any) {
@@ -40,7 +40,7 @@ interface TouchEventProps {
   onTouchEnd?: TouchEventCallback
   onTouchCancel?: TouchEventCallback
 }
-export class TouchEventRegister extends NoRenderComponentX<TouchEventProps> {
+export class TouchEventRegister extends ComponentX<TouchEventProps> {
   listener: EventListener
   touch: Touch
 }
@@ -49,7 +49,7 @@ interface ExtraDataProps {
   key: string
   value: any
 }
-export class ExtraDataComp extends NoRenderComponentX<ExtraDataProps> {
+export class ExtraDataComp extends ComponentX<ExtraDataProps> {
   data: { [key: string]: any } = {}
 
   getData<T>(key: string): T {
@@ -67,4 +67,4 @@ interface ButtonCompProps extends BaseComponentProps<ButtonComp> {
   zoomScale?: number
   onPress: (target: ButtonComp) => void
 }
-export class ButtonComp extends NoRenderComponentX<ButtonCompProps> {}
+export class ButtonComp extends ComponentX<ButtonCompProps> { }

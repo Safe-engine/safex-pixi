@@ -3,15 +3,13 @@ import { EnhancedComponent, GameWorld } from '../base'
 
 import { NodeComp } from './NodeComp'
 
-export class NoRenderComponentX<Props = {}, C extends Container = Container> extends EnhancedComponent<Props, NodeComp<C>> {
+export class ComponentX<Props = object, C extends Container = Container> extends EnhancedComponent<Props, NodeComp<C>> {
+  render?(): this
 }
 
-export class ComponentX<Props = {}, C extends Container = Container> extends EnhancedComponent<Props, NodeComp<C>> {
-  static hasRender = true
-  render?(): this {
-    const world = GameWorld.Instance
-    const root = world.entities.create()
-    const comp = root.assign(this)
-    return comp
-  }
+export function render() {
+  const world = GameWorld.Instance
+  const root = world.entities.create()
+  const comp = root.assign(this)
+  return comp
 }

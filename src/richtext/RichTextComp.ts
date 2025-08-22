@@ -1,6 +1,6 @@
 import TaggedText from 'pixi-tagged-text-plus'
 import { BaseComponentProps } from '..'
-import { ComponentX } from '../components/BaseComponent'
+import { ComponentX, render } from '../components/BaseComponent'
 import {
   generateStringFromStyledElements,
   generateStylesFromStyledElements,
@@ -48,3 +48,4 @@ export class RichTextComp extends ComponentX<RichTextCompProps, TaggedText> {
     this.node.instance.setStyleForTag('root', { color: '#fff', fontFamily: font })
   }
 }
+Object.defineProperty(RichTextComp.prototype, 'render', { value: render })

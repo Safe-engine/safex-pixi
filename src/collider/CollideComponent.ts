@@ -1,7 +1,7 @@
 import { Graphics, Rectangle, Size } from 'pixi.js'
 
 import { BaseComponentProps, GameWorld, Vec2 } from '..'
-import { NoRenderComponentX } from '../components/BaseComponent'
+import { ComponentX } from '../components/BaseComponent'
 import { NodeComp } from '../components/NodeComp'
 import { circleCircle, polygonCircle, polygonPolygon } from './helper/Intersection'
 import { getMax, getMin } from './helper/utils'
@@ -24,7 +24,7 @@ interface ColliderProps extends BaseComponentProps<Collider> {
   onCollisionStay?: (other: Collider) => void
 }
 
-export class Collider<T = ColliderProps> extends NoRenderComponentX<T> {
+export class Collider<T = ColliderProps> extends ComponentX<T> {
   _worldPoints: Vec2[] = []
   _worldPosition: Vec2
   _worldRadius

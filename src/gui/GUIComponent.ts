@@ -2,7 +2,7 @@ import { CheckBox, CheckBoxOptions, Input, List, ProgressBar, RadioGroup, Slider
 import { Container } from 'pixi.js'
 
 import { BaseComponentProps } from '..'
-import { ComponentX, NoRenderComponentX } from '../components/BaseComponent'
+import { ComponentX, render } from '../components/BaseComponent'
 import { LoadingBarMode } from '../core/LoadingBar'
 
 export const FillType = {
@@ -32,9 +32,9 @@ interface ScrollViewProps {
   width: number
   height: number
 }
-export class ScrollView extends NoRenderComponentX<ScrollViewProps> {}
+export class ScrollView extends ComponentX<ScrollViewProps> { }
 
-export class BlockInputEventsComp extends NoRenderComponentX {}
+export class BlockInputEventsComp extends ComponentX { }
 
 interface InputCompProps extends BaseComponentProps<InputComp> {
   placeHolder?: string
@@ -51,11 +51,17 @@ export class InputComp extends ComponentX<InputCompProps, Input> {
   }
 }
 
-export class ListComp extends ComponentX<{}, List> {}
+export class ListComp extends ComponentX<{}, List> { }
 export class SliderComp extends ComponentX<{}, Slider> {
   bg: string
   fill: SliderOptions['fill']
   slider: Container
 }
-export class RadioGroupComp extends ComponentX<{}, RadioGroup> {}
-export class CheckBoxComp extends ComponentX<{ style: CheckBoxOptions['style'] }, CheckBox> {}
+export class RadioGroupComp extends ComponentX<{}, RadioGroup> { }
+export class CheckBoxComp extends ComponentX<{ style: CheckBoxOptions['style'] }, CheckBox> { }
+
+Object.defineProperty(RadioGroupComp.prototype, 'render', { value: render })
+Object.defineProperty(CheckBoxComp.prototype, 'render', { value: render })
+Object.defineProperty(ListComp.prototype, 'render', { value: render })
+Object.defineProperty(SliderComp.prototype, 'render', { value: render })
+Object.defineProperty(InputComp.prototype, 'render', { value: render })

@@ -1,7 +1,7 @@
 import { Assets, Graphics, Point, Sprite, Text, Texture } from 'pixi.js'
 
 import { BaseComponentProps, Color4B, Vec2 } from '..'
-import { ComponentX } from '../components/BaseComponent'
+import { ComponentX, render } from '../components/BaseComponent'
 import { LoadingBarMode, ProgressTimer } from '../core/LoadingBar'
 import { SpriteTypes } from './RenderSystem'
 
@@ -128,7 +128,7 @@ interface MaskRenderProps extends BaseComponentProps<MaskRender> {
   segments?: number
   inverted?: boolean
 }
-export class MaskRender extends ComponentX<MaskRenderProps> {}
+export class MaskRender extends ComponentX<MaskRenderProps> { }
 
 interface LabelCompProps extends BaseComponentProps<LabelComp> {
   font?: string
@@ -195,3 +195,10 @@ export class ProgressTimerComp extends ComponentX<ProgressTimerProps, ProgressTi
     this.node.instance.progress = val
   }
 }
+
+Object.defineProperty(ProgressTimerComp.prototype, 'render', { value: render })
+Object.defineProperty(LabelComp.prototype, 'render', { value: render })
+Object.defineProperty(NodeRender.prototype, 'render', { value: render })
+Object.defineProperty(SpriteRender.prototype, 'render', { value: render })
+Object.defineProperty(MaskRender.prototype, 'render', { value: render })
+Object.defineProperty(GraphicsRender.prototype, 'render', { value: render })

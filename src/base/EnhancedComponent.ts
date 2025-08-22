@@ -2,7 +2,7 @@ import { Constructor } from 'entityx-ts'
 import { BaseComponentProps } from '..'
 import { NodeComp } from '../components/NodeComp'
 
-export class EnhancedComponent<Props = {}, N extends NodeComp<any> = NodeComp<any>> {
+export class EnhancedComponent<Props = object, N extends NodeComp<any> = NodeComp<any>> {
   props: Props = {} as any
   enabled = true
   constructor(data?: BaseComponentProps<EnhancedComponent> & Props) {

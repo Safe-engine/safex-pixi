@@ -1,6 +1,6 @@
 import { Body, BodyType, Vec2 } from 'planck'
 
-import { NoRenderComponentX } from '../components/BaseComponent'
+import { ComponentX } from '../components/BaseComponent'
 import { PhysicsSprite } from './PhysicsSprite'
 
 interface RigidBodyProps {
@@ -10,7 +10,7 @@ interface RigidBodyProps {
   friction?: Float
   gravityScale?: Float
 }
-export class RigidBody extends NoRenderComponentX<RigidBodyProps> {
+export class RigidBody extends ComponentX<RigidBodyProps> {
   body: Body
   // set linearVelocity(vel: Vec2) {
   //   if (!this.node) {
@@ -37,9 +37,7 @@ interface PhysicsMaterialProps {
   restitution?: number
   density?: number
 }
-export class PhysicsMaterial extends NoRenderComponentX<PhysicsMaterialProps> {
-
-}
+export class PhysicsMaterial extends ComponentX<PhysicsMaterialProps> { }
 
 interface ColliderPhysicsProps {
   tag?: number
@@ -50,7 +48,7 @@ interface ColliderPhysicsProps {
   onCollisionStay?: (other: PhysicsCollider) => void
 }
 
-export class PhysicsCollider<T extends ColliderPhysicsProps = ColliderPhysicsProps> extends NoRenderComponentX<T, PhysicsSprite['node']> {
+export class PhysicsCollider<T extends ColliderPhysicsProps = ColliderPhysicsProps> extends ComponentX<T, PhysicsSprite['node']> {
   enabled = true
   instance: PhysicsSprite
 }
@@ -60,12 +58,10 @@ interface BoxColliderPhysicsProps extends ColliderPhysicsProps {
   height: number
 }
 export class PhysicsBoxCollider extends PhysicsCollider<BoxColliderPhysicsProps> {
-
   // set onCollisionEnter(val) {
   //   const phys1 = this.getComponent(PhysicsCollider)
   //   phys1._onCollisionEnter = val
   // }
-
   // get onCollisionEnter() {
   //   const phys1 = this.getComponent(PhysicsCollider)
   //   return phys1._onCollisionEnter
@@ -74,10 +70,8 @@ export class PhysicsBoxCollider extends PhysicsCollider<BoxColliderPhysicsProps>
 interface CircleColliderPhysicsProps extends ColliderPhysicsProps {
   radius: number
 }
-export class PhysicsCircleCollider extends PhysicsCollider<CircleColliderPhysicsProps> {
-}
+export class PhysicsCircleCollider extends PhysicsCollider<CircleColliderPhysicsProps> { }
 interface PolygonColliderPhysicsProps extends ColliderPhysicsProps {
   points: Array<Vec2>
 }
-export class PhysicsPolygonCollider extends PhysicsCollider<PolygonColliderPhysicsProps> {
-}
+export class PhysicsPolygonCollider extends PhysicsCollider<PolygonColliderPhysicsProps> { }
