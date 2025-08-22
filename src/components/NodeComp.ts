@@ -187,8 +187,12 @@ export class NodeComp<C extends Container = Container> {
     return this.children.length
   }
 
-  addComponent<T extends ComponentType>(instance): T {
-    return this.entity.assign(instance)
+  addComponent<T extends ComponentType>(instance: T & { render?: any; start?: () => void }): T {
+    this.entity.assign(instance)
+    if (!instance.render) {
+      if (instance.start) instance.start()
+    }
+    return instance
   }
 
   getComponent<T extends Constructor<ComponentType>>(component: T): InstanceType<T> {
@@ -306,8 +310,8 @@ export class NodeComp<C extends Container = Container> {
   }
 
   resolveComponent(component: EnhancedComponent<object, NodeComp> & { start?: () => void }) {
-    // console.log(component.constructor.name, (component.constructor as any).hasRender)
-    if ((component.constructor as any).hasRender) {
+    // console.log(component.constructor.name, (component as any).render)
+    if ((component as any).render) {
       this.addChild(component.node)
     } else {
       this.addComponent(component)
