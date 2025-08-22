@@ -42,7 +42,7 @@ npm install @safe-engine/pixi
 ## Basic Example
 
 ```tsx GameScene.tsx
-import { SceneComponent, LabelComp, ButtonComp, SpriteRender, instantiate } from '@safe-engine/pixi'
+import { SceneComponent, LabelComp, ButtonComp, SpriteRender, instantiate, Touch } from '@safe-engine/pixi'
 import ColliderSprite from './ColliderSprite'
 
 export class GameScene extends ComponentX {
@@ -54,11 +54,11 @@ export class GameScene extends ComponentX {
     this.label.string = 'Pressed'
   }
 
-  onTouchMove(event: FederatedPointerEvent) {
-    console.log('onTouchMove', event.global)
+  onTouchMove(event: Touch) {
+    console.log('onTouchMove', event.getLocation())
     const sprite = instantiate(ColliderSprite)
-    sprite.node.x = event.global.x
-    sprite.node.y = event.global.y
+    sprite.node.posX = event.getLocationX()
+    sprite.node.posY = event.getLocationY()
     this.node.addChild(sprite)
   }
 
@@ -66,8 +66,6 @@ export class GameScene extends ComponentX {
     return (
       <SceneComponent>
         <TouchEventRegister
-          // onTouchStart={this.onTouchStart}
-          // onTouchEnd={this.onTouchEnd}
           onTouchMove={this.onTouchMove}
         />
         <LabelComp $ref={this.label} node={{ xy: [106, 240] }} string="Hello safex" font={defaultFont} />
@@ -83,7 +81,8 @@ export class GameScene extends ComponentX {
 ## Collider Events
 
 ```tsx
-import { BoxCollider, Collider, ComponentX, SpriteRender } from '@safe-engine/pixi'
+import { ComponentX, SpriteRender } from '@safe-engine/pixi'
+import { BoxCollider } from '@safe-engine/pixi/dist/collider'
 import { sf_crash } from '../assets'
 
 export class ColliderSprite extends ComponentX {
@@ -94,7 +93,7 @@ export class ColliderSprite extends ComponentX {
   render() {
     return (
       <SpriteRender node={{ xy: [640, 360] }} spriteFrame={sf_crash}>
-        <BoxCollider height={100} width={100}></BoxCollider>
+        <BoxCollider height={100} width={100} onCollisionEnter={this.onCollisionEnter} />
       </SpriteRender>
     )
   }

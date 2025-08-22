@@ -11,10 +11,10 @@ export function enabledDebugDraw(enable = true) {
 }
 
 export class CollideSystem implements System {
-  listColliders: Collider[] = []
-  _contracts: Contract[] = []
-  removeColliders: Collider[] = []
-  debugGraphics: Graphics
+  private listColliders: Collider[] = []
+  private _contracts: Contract[] = []
+  private removeColliders: Collider[] = []
+  private debugGraphics: Graphics
   enabledDebugDraw = true
   enabled = true
   colliderMatrix = [[true]]
@@ -152,14 +152,14 @@ export class CollideSystem implements System {
     this.removeColliders.push(colliderPhysics)
   }
   onAddCollider({ entity, component }) {
-    console.log('ComponentAddedEvent', component)
+    // console.log('ComponentAddedEvent', component)
     const collider = entity.assign(new Collider(component))
     collider.node = entity.getComponent(NodeComp)
     component.node = entity.getComponent(NodeComp)
     this.addCollider(collider)
   }
-  onRemoveCollider({ entity, component }) {
-    console.log('ComponentRemovedEvent', component)
+  onRemoveCollider({ entity }) {
+    // console.log('ComponentRemovedEvent', component)
     const collider = entity.getComponent(Collider)
     this.removeCollider(collider)
   }
