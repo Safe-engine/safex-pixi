@@ -9,7 +9,7 @@ import { DragonBonesComp } from './DragonBonesComponent'
 export class DragonBonesSystem implements System {
   configure(event_manager: EventManager<GameWorld>) {
     event_manager.subscribe(EventTypes.ComponentAdded, DragonBonesComp, ({ entity, component }) => {
-      const { data, animation, playTimes = 0 } = component.props
+      const { data, animation, playTimes = 0, isFlipX } = component.props
       const { skeleton, atlas, texture } = data
       const skeletonAsset = Assets.get(skeleton)
       const atlasAsset = Assets.get(atlas)
@@ -26,6 +26,9 @@ export class DragonBonesSystem implements System {
         armatureDisplay.animation.play(animation, playTimes)
       }
       component.node = entity.assign(new NodeComp(node, entity))
+      if (isFlipX) {
+        component.setFLipX(isFlipX)
+      }
     })
     // event_manager.subscribe(EventTypes.ComponentRemoved, DragonBones, ({ }) => { })
   }

@@ -13,6 +13,7 @@ interface DragonBonesProps extends BaseComponentProps<DragonBonesComp> {
   animation?: string
   playTimes?: number
   timeScale?: number
+  isFlipX?: boolean
   onAnimationStart?: (event: { name: string }) => void
   onAnimationEnd?: (event: { name: string }) => void
   onAnimationComplete?: (event: { name: string }) => void
