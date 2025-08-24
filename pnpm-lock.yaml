@@ -1,192 +1,141 @@
-lockfileVersion: '9.0'
+lockfileVersion: '6.0'
 
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false
+dependencies:
+  '@esotericsoftware/spine-core':
+    specifier: ^4.2.89
+    version: 4.2.89
+  '@pixi/ui':
+    specifier: ^2.2.7
+    version: 2.2.7(pixi.js@8.12.0)
+  box2d-wasm:
+    specifier: ^7.0.0
+    version: 7.0.0
+  dragonbones-pixijs:
+    specifier: ^1.0.5
+    version: 1.0.5
+  entityx-ts:
+    specifier: ^2.3.1
+    version: 2.3.1
+  pixi-action-ease:
+    specifier: ^3.2.5
+    version: 3.2.5
+  pixi-tagged-text-plus:
+    specifier: 0.0.1-next.2
+    version: 0.0.1-next.2(pixi.js@8.12.0)
+  pixi.js:
+    specifier: 8.12.0
+    version: 8.12.0
+  planck:
+    specifier: ^1.4.2
+    version: 1.4.2(stage-js@1.0.0-alpha.17)
 
-importers:
-
-  .:
-    dependencies:
-      '@esotericsoftware/spine-core':
-        specifier: ^4.2.89
-        version: 4.2.89
-      '@pixi/ui':
-        specifier: ^2.2.7
-        version: 2.2.7(pixi.js@8.12.0)
-      box2d-wasm:
-        specifier: ^7.0.0
-        version: 7.0.0
-      dragonbones-pixijs:
-        specifier: ^1.0.5
-        version: 1.0.5
-      entityx-ts:
-        specifier: ^2.3.1
-        version: 2.3.1
-      pixi-action-ease:
-        specifier: ^3.2.5
-        version: 3.2.5
-      pixi-tagged-text-plus:
-        specifier: 0.0.1-next.2
-        version: 0.0.1-next.2(pixi.js@8.12.0)
-      pixi.js:
-        specifier: 8.12.0
-        version: 8.12.0
-      planck:
-        specifier: ^1.4.2
-        version: 1.4.2(stage-js@1.0.0-alpha.16)
-    devDependencies:
-      typescript:
-        specifier: ^5.9.2
-        version: 5.9.2
+devDependencies:
+  typescript:
+    specifier: ^5.9.2
+    version: 5.9.2
 
 packages:
 
-  '@esotericsoftware/spine-core@4.2.89':
+  /@esotericsoftware/spine-core@4.2.89:
     resolution: {integrity: sha512-6OiGCW318GF7A7wZMfd2kq9SwnabHQ2kQvpQVr8QUW8oGbLn1QW/BxP5kGlnfnBm+BSfKNKoKInQL68GjJ6W7g==}
+    dev: false
 
-  '@pixi/colord@2.9.6':
+  /@pixi/colord@2.9.6:
     resolution: {integrity: sha512-nezytU2pw587fQstUu1AsJZDVEynjskwOL+kibwcdxsMBFqPsFFNA7xl0ii/gXuDi6M0xj3mfRJj8pBSc2jCfA==}
+    dev: false
 
-  '@pixi/ui@2.2.7':
+  /@pixi/ui@2.2.7(pixi.js@8.12.0):
     resolution: {integrity: sha512-YMVx3WImhOc/8Navqj+d4SKVNAjyuHecvMGFIdh8NPIfzwgV3MoxIkwswHcuGpxQAljG1psMbMHVIAEKznN9oA==}
     peerDependencies:
       pixi.js: ^8.6.2
-
-  '@types/css-font-loading-module@0.0.12':
-    resolution: {integrity: sha512-x2tZZYkSxXqWvTDgveSynfjq/T2HyiZHXb00j/+gy19yp70PHCizM48XFdjBCWH7eHBD0R5i/pw9yMBP/BH5uA==}
-
-  '@types/earcut@3.0.0':
-    resolution: {integrity: sha512-k/9fOUGO39yd2sCjrbAJvGDEQvRwRnQIZlBz43roGwUZo5SHAmyVvSFyaVVZkicRVCaDXPKlbxrUcBuJoSWunQ==}
-
-  '@types/emscripten@1.40.1':
-    resolution: {integrity: sha512-sr53lnYkQNhjHNN0oJDdUm5564biioI5DuOpycufDVK7D3y+GR3oUswe2rlwY1nPNyusHbrJ9WoTyIHl4/Bpwg==}
-
-  '@webgpu/types@0.1.64':
-    resolution: {integrity: sha512-84kRIAGV46LJTlJZWxShiOrNL30A+9KokD7RB3dRCIqODFjodS5tCD5yyiZ8kIReGVZSDfA3XkkwyyOIF6K62A==}
-
-  '@xmldom/xmldom@0.8.11':
-    resolution: {integrity: sha512-cQzWCtO6C8TQiYl1ruKNn2U6Ao4o4WBBcbL61yJl84x+j5sOWWFU9X7DpND8XZG3daDppSsigMdfAIl2upQBRw==}
-    engines: {node: '>=10.0.0'}
-
-  box2d-wasm@7.0.0:
-    resolution: {integrity: sha512-6KbPoYDjm259fTh/3dw/HgP0tbqIBtKTNy2shtphWjMYgHOlYpmygHSLl6qOT79ObSiscVdkL8bYuH95bbLSSw==}
-
-  dragonbones-pixijs@1.0.5:
-    resolution: {integrity: sha512-HlaZPceIqtwCDln0YSOJw90cEMSeDxJfvbJtKGetuPNCdkvMfbCETlOO54Vh802C/OAXIfKySpaOCmN8Gi6v0A==}
-
-  earcut@3.0.2:
-    resolution: {integrity: sha512-X7hshQbLyMJ/3RPhyObLARM2sNxxmRALLKx1+NVFFnQ9gKzmCrxm9+uLIAdBcvc8FNLpctqlQ2V6AE92Ol9UDQ==}
-
-  emoji-regex@9.2.2:
-    resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
-
-  entityx-ts@2.3.1:
-    resolution: {integrity: sha512-y4wEkwO44+xwtFU1R2Nq4+xiUowp8TH91EFd2RXEDu4C11SXeU8L3x3S3ORZy7pSoIUdQ4TaxkgiRuitk/XFMQ==}
-
-  eventemitter3@5.0.1:
-    resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
-
-  gifuct-js@2.1.2:
-    resolution: {integrity: sha512-rI2asw77u0mGgwhV3qA+OEgYqaDn5UNqgs+Bx0FGwSpuqfYn+Ir6RQY5ENNQ8SbIiG/m5gVa7CD5RriO4f4Lsg==}
-
-  ismobilejs@1.1.1:
-    resolution: {integrity: sha512-VaFW53yt8QO61k2WJui0dHf4SlL8lxBofUuUmwBo0ljPk0Drz2TiuDW4jo3wDcv41qy/SxrJ+VAzJ/qYqsmzRw==}
-
-  js-binary-schema-parser@2.0.3:
-    resolution: {integrity: sha512-xezGJmOb4lk/M1ZZLTR/jaBHQ4gG/lqQnJqdIv4721DMggsa1bDVlHXNeHYogaIEHD9vCRv0fcL4hMA+Coarkg==}
-
-  parse-svg-path@0.1.2:
-    resolution: {integrity: sha512-JyPSBnkTJ0AI8GGJLfMXvKq42cj5c006fnLz6fXy6zfoVjJizi8BNTpu8on8ziI1cKy9d9DGNuY17Ce7wuejpQ==}
-
-  pixi-action-ease@3.2.5:
-    resolution: {integrity: sha512-CnqkM/3+nt3Bis/gWkYJ7VrV/HylTUOqs1AKf1KZ0PkZU1VVTm+2sL3rPVhZKRkQ5PWfvEwOtUTfbg1gHUXZXw==}
-
-  pixi-tagged-text-plus@0.0.1-next.2:
-    resolution: {integrity: sha512-8TTA5bBwwbrU7d6kmlY+aVS1FYpVw1jE2PKJxMp9bVBlw4YEQBNVtk3M5TXglxqRHTTYxVE6qNxhWShPrMqTSA==}
-    peerDependencies:
-      pixi.js: ^8
-
-  pixi.js@8.12.0:
-    resolution: {integrity: sha512-or7vrH7WajLevu/JnGMdD80JaSpTlXfjwCLtzhg2BL60LWPf1pF0w08Qleiqr1Saj012gevguM//+6HzzVlnfA==}
-
-  planck@1.4.2:
-    resolution: {integrity: sha512-mNbhnV3g8X2rwGxzcesjmN8BDA6qfXgQxXVMkWau9MCRlQY0RLNEkyHlVp6yFy/X6qrzAXyNONCnZ1cGDLrNew==}
-    engines: {node: '>=14.0'}
-    peerDependencies:
-      stage-js: ^1.0.0-alpha.12
-
-  stage-js@1.0.0-alpha.16:
-    resolution: {integrity: sha512-Sh4Ovo++zy8hZyEyYNDvkk7V8BLHlQUe195YI6fb3gTJQODcvzip72OeIiIhFiWsEyllDun3aeXnBCujD3ZlTg==}
-    engines: {node: '>=18.0'}
-
-  tweedle.js@2.1.0:
-    resolution: {integrity: sha512-0ReQgVjepoZkE6t0upWNgCRbplHkQJQYk1LStXugwSR728GLFmGDRuaQJlxeC/iBlxud6+P1RdODjaO25vHAqw==}
-
-  typed-signals@2.5.0:
-    resolution: {integrity: sha512-m9lHc3eBCJerXYdx+G0uWZihyUXdqTzzgOdqiDDsoUo75WjhFJH6vP5/6w/xhyu04zoxHUqgYhf9FEt85dk/Ng==}
-
-  typescript@5.9.2:
-    resolution: {integrity: sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-
-snapshots:
-
-  '@esotericsoftware/spine-core@4.2.89': {}
-
-  '@pixi/colord@2.9.6': {}
-
-  '@pixi/ui@2.2.7(pixi.js@8.12.0)':
     dependencies:
       pixi.js: 8.12.0
       tweedle.js: 2.1.0
       typed-signals: 2.5.0
+    dev: false
 
-  '@types/css-font-loading-module@0.0.12': {}
+  /@types/css-font-loading-module@0.0.12:
+    resolution: {integrity: sha512-x2tZZYkSxXqWvTDgveSynfjq/T2HyiZHXb00j/+gy19yp70PHCizM48XFdjBCWH7eHBD0R5i/pw9yMBP/BH5uA==}
+    dev: false
 
-  '@types/earcut@3.0.0': {}
+  /@types/earcut@3.0.0:
+    resolution: {integrity: sha512-k/9fOUGO39yd2sCjrbAJvGDEQvRwRnQIZlBz43roGwUZo5SHAmyVvSFyaVVZkicRVCaDXPKlbxrUcBuJoSWunQ==}
+    dev: false
 
-  '@types/emscripten@1.40.1': {}
+  /@types/emscripten@1.40.1:
+    resolution: {integrity: sha512-sr53lnYkQNhjHNN0oJDdUm5564biioI5DuOpycufDVK7D3y+GR3oUswe2rlwY1nPNyusHbrJ9WoTyIHl4/Bpwg==}
+    dev: false
 
-  '@webgpu/types@0.1.64': {}
+  /@webgpu/types@0.1.64:
+    resolution: {integrity: sha512-84kRIAGV46LJTlJZWxShiOrNL30A+9KokD7RB3dRCIqODFjodS5tCD5yyiZ8kIReGVZSDfA3XkkwyyOIF6K62A==}
+    dev: false
 
-  '@xmldom/xmldom@0.8.11': {}
+  /@xmldom/xmldom@0.8.11:
+    resolution: {integrity: sha512-cQzWCtO6C8TQiYl1ruKNn2U6Ao4o4WBBcbL61yJl84x+j5sOWWFU9X7DpND8XZG3daDppSsigMdfAIl2upQBRw==}
+    engines: {node: '>=10.0.0'}
+    dev: false
 
-  box2d-wasm@7.0.0:
+  /box2d-wasm@7.0.0:
+    resolution: {integrity: sha512-6KbPoYDjm259fTh/3dw/HgP0tbqIBtKTNy2shtphWjMYgHOlYpmygHSLl6qOT79ObSiscVdkL8bYuH95bbLSSw==}
     dependencies:
       '@types/emscripten': 1.40.1
+    dev: false
 
-  dragonbones-pixijs@1.0.5:
+  /dragonbones-pixijs@1.0.5:
+    resolution: {integrity: sha512-HlaZPceIqtwCDln0YSOJw90cEMSeDxJfvbJtKGetuPNCdkvMfbCETlOO54Vh802C/OAXIfKySpaOCmN8Gi6v0A==}
     dependencies:
       pixi.js: 8.12.0
+    dev: false
 
-  earcut@3.0.2: {}
+  /earcut@3.0.2:
+    resolution: {integrity: sha512-X7hshQbLyMJ/3RPhyObLARM2sNxxmRALLKx1+NVFFnQ9gKzmCrxm9+uLIAdBcvc8FNLpctqlQ2V6AE92Ol9UDQ==}
+    dev: false
 
-  emoji-regex@9.2.2: {}
+  /emoji-regex@9.2.2:
+    resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
+    dev: false
 
-  entityx-ts@2.3.1: {}
+  /entityx-ts@2.3.1:
+    resolution: {integrity: sha512-y4wEkwO44+xwtFU1R2Nq4+xiUowp8TH91EFd2RXEDu4C11SXeU8L3x3S3ORZy7pSoIUdQ4TaxkgiRuitk/XFMQ==}
+    dev: false
 
-  eventemitter3@5.0.1: {}
+  /eventemitter3@5.0.1:
+    resolution: {integrity: sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA==}
+    dev: false
 
-  gifuct-js@2.1.2:
+  /gifuct-js@2.1.2:
+    resolution: {integrity: sha512-rI2asw77u0mGgwhV3qA+OEgYqaDn5UNqgs+Bx0FGwSpuqfYn+Ir6RQY5ENNQ8SbIiG/m5gVa7CD5RriO4f4Lsg==}
     dependencies:
       js-binary-schema-parser: 2.0.3
+    dev: false
 
-  ismobilejs@1.1.1: {}
+  /ismobilejs@1.1.1:
+    resolution: {integrity: sha512-VaFW53yt8QO61k2WJui0dHf4SlL8lxBofUuUmwBo0ljPk0Drz2TiuDW4jo3wDcv41qy/SxrJ+VAzJ/qYqsmzRw==}
+    dev: false
 
-  js-binary-schema-parser@2.0.3: {}
+  /js-binary-schema-parser@2.0.3:
+    resolution: {integrity: sha512-xezGJmOb4lk/M1ZZLTR/jaBHQ4gG/lqQnJqdIv4721DMggsa1bDVlHXNeHYogaIEHD9vCRv0fcL4hMA+Coarkg==}
+    dev: false
 
-  parse-svg-path@0.1.2: {}
+  /parse-svg-path@0.1.2:
+    resolution: {integrity: sha512-JyPSBnkTJ0AI8GGJLfMXvKq42cj5c006fnLz6fXy6zfoVjJizi8BNTpu8on8ziI1cKy9d9DGNuY17Ce7wuejpQ==}
+    dev: false
 
-  pixi-action-ease@3.2.5: {}
+  /pixi-action-ease@3.2.5:
+    resolution: {integrity: sha512-CnqkM/3+nt3Bis/gWkYJ7VrV/HylTUOqs1AKf1KZ0PkZU1VVTm+2sL3rPVhZKRkQ5PWfvEwOtUTfbg1gHUXZXw==}
+    dev: false
 
-  pixi-tagged-text-plus@0.0.1-next.2(pixi.js@8.12.0):
+  /pixi-tagged-text-plus@0.0.1-next.2(pixi.js@8.12.0):
+    resolution: {integrity: sha512-8TTA5bBwwbrU7d6kmlY+aVS1FYpVw1jE2PKJxMp9bVBlw4YEQBNVtk3M5TXglxqRHTTYxVE6qNxhWShPrMqTSA==}
+    peerDependencies:
+      pixi.js: ^8
     dependencies:
       emoji-regex: 9.2.2
       pixi.js: 8.12.0
+    dev: false
 
-  pixi.js@8.12.0:
+  /pixi.js@8.12.0:
+    resolution: {integrity: sha512-or7vrH7WajLevu/JnGMdD80JaSpTlXfjwCLtzhg2BL60LWPf1pF0w08Qleiqr1Saj012gevguM//+6HzzVlnfA==}
     dependencies:
       '@pixi/colord': 2.9.6
       '@types/css-font-loading-module': 0.0.12
@@ -198,15 +147,32 @@ snapshots:
       gifuct-js: 2.1.2
       ismobilejs: 1.1.1
       parse-svg-path: 0.1.2
+    dev: false
 
-  planck@1.4.2(stage-js@1.0.0-alpha.16):
+  /planck@1.4.2(stage-js@1.0.0-alpha.17):
+    resolution: {integrity: sha512-mNbhnV3g8X2rwGxzcesjmN8BDA6qfXgQxXVMkWau9MCRlQY0RLNEkyHlVp6yFy/X6qrzAXyNONCnZ1cGDLrNew==}
+    engines: {node: '>=14.0'}
+    peerDependencies:
+      stage-js: ^1.0.0-alpha.12
     dependencies:
-      stage-js: 1.0.0-alpha.16
+      stage-js: 1.0.0-alpha.17
+    dev: false
 
-  stage-js@1.0.0-alpha.16: {}
+  /stage-js@1.0.0-alpha.17:
+    resolution: {integrity: sha512-AzlMO+t51v6cFvKZ+Oe9DJnL1OXEH5s9bEy6di5aOrUpcP7PCzI/wIeXF0u3zg0L89gwnceoKxrLId0ZpYnNXw==}
+    engines: {node: '>=18.0'}
+    dev: false
 
-  tweedle.js@2.1.0: {}
+  /tweedle.js@2.1.0:
+    resolution: {integrity: sha512-0ReQgVjepoZkE6t0upWNgCRbplHkQJQYk1LStXugwSR728GLFmGDRuaQJlxeC/iBlxud6+P1RdODjaO25vHAqw==}
+    dev: false
 
-  typed-signals@2.5.0: {}
+  /typed-signals@2.5.0:
+    resolution: {integrity: sha512-m9lHc3eBCJerXYdx+G0uWZihyUXdqTzzgOdqiDDsoUo75WjhFJH6vP5/6w/xhyu04zoxHUqgYhf9FEt85dk/Ng==}
+    dev: false
 
-  typescript@5.9.2: {}
+  /typescript@5.9.2:
+    resolution: {integrity: sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    dev: true
