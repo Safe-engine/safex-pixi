@@ -10,7 +10,7 @@ Safex is an open-source game engine written in TypeScript, combining the power o
 - **Powered by PixiJS:** Utilize PixiJS for high-performance 2D rendering.
 - **Component-based Architecture:** Easily manage game elements such as scenes, sprites, and animations.
 - **Asset Loading Support:** Quickly load images, sounds, and spritesheets.
-- All components must be extends from `ComponentX` and in `.tsx` ext
+- All components must be extends from `ComponentX` or call `registerSystem(${className})`
 - `node` property represent node, and can pass properties to assign
 - Example `<SpriteRender node={{ xy: [5, 9] }} />`
 - `$ref` bind component with current class property as string
