@@ -19,14 +19,11 @@ export const KinematicBody = 1
 export const StaticBody = 0
 export let box2D: typeof Box2D
 
-export async function initBox2d(wasmUrl) {
+export async function initBox2d(wasmUrl?) {
   if (wasmUrl) {
     box2D = await Box2DFactory({
-      locateFile: (path: string) => {
-        if (path.endsWith(".wasm")) {
-          return wasmUrl;
-        }
-        return path;
+      locateFile: () => {
+        return wasmUrl;
       }
     })
     return
