@@ -41,6 +41,7 @@ export class ProgressTimer extends Container {
     super()
     const texture = Texture.from(spriteFrame)
     this.spriteComp = Sprite.from(texture)
+    this.spriteComp.anchor = this.fillCenter
     this.graphics = new Graphics()
     this.mode = mode || LoadingBarMode.BAR
     this.graphics.fill(0xffffff)
@@ -48,8 +49,8 @@ export class ProgressTimer extends Container {
     this.spriteComp.mask = this.graphics
     this.addChild(this.graphics)
     this.addChild(this.spriteComp)
-    // this.graphics.x = -this.spriteComp.width * this.fillCenter.x
-    // this.graphics.y = -this.spriteComp.height * this.fillCenter.y
+    this.graphics.x = -this.spriteComp.width * this.fillCenter.x
+    this.graphics.y = -this.spriteComp.height * this.fillCenter.y
   }
 
   set progress(val: number) {
