@@ -23,8 +23,8 @@ export async function initBox2d(wasmUrl?) {
   if (wasmUrl) {
     box2D = await Box2DFactory({
       locateFile: () => {
-        return wasmUrl;
-      }
+        return wasmUrl
+      },
     })
     return
   }
