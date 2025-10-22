@@ -3,8 +3,8 @@ import { Collider } from '../CollideComponent'
 import { CollideSystem } from '../CollideSystem'
 
 export function shouldCollider(colA: Collider, colB: Collider) {
-  const groupA = colA.node.group
-  const groupB = colB.node.group
+  const groupA = colA.props.tag
+  const groupB = colB.props.tag
   if (groupA === undefined || groupB === undefined) {
     return true
   }

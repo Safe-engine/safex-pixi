@@ -18,7 +18,7 @@ export class EnhancedComponent<Props = object, N extends NodeComp<any> = NodeCom
   }
   node: N
 
-  addComponent<T extends EnhancedComponent>(instance): T {
+  addComponent<T extends EnhancedComponent>(instance: T): T {
     return this.node.addComponent(instance)
   }
   getComponent<T extends ComponentType>(component: Constructor<T>): T {

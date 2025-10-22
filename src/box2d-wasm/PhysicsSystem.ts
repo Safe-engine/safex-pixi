@@ -90,7 +90,7 @@ export class PhysicsSystem implements System {
       const position = new b2Vec2(node.posX, node.posY)
       const square = new b2PolygonShape()
       const [x = 0, y = 0] = offset
-      square.SetAsBox(width / 2, height / 2, new b2Vec2(node.width / 2 + x, node.height / 2 + y), 0)
+      square.SetAsBox(width / 2, height / 2, new b2Vec2(node.w / 2 + x, node.h / 2 + y), 0)
       const fixtureDef = new b2FixtureDef()
       fixtureDef.set_shape(square)
       fixtureDef.set_density(density)

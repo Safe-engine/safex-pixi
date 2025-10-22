@@ -1,5 +1,5 @@
 import { PixiFactory } from 'dragonbones-pixijs'
-import { EntityManager, EventManager, EventTypes, System } from 'entityx-ts'
+import { EventManager, EventTypes, System } from 'entityx-ts'
 
 import { Assets } from 'pixi.js'
 import { GameWorld } from '../base'
@@ -9,7 +9,7 @@ import { DragonBonesComp } from './DragonBonesComponent'
 export class DragonBonesSystem implements System {
   configure(event_manager: EventManager<GameWorld>) {
     event_manager.subscribe(EventTypes.ComponentAdded, DragonBonesComp, ({ entity, component }) => {
-      const { data, animation, playTimes = 0, isFlipX } = component.props
+      const { data, animation, playTimes = 0, isFlipX, timeScale = 1 } = component.props
       const { skeleton, atlas, texture } = data
       const skeletonAsset = Assets.get(skeleton)
       const atlasAsset = Assets.get(atlas)
@@ -22,6 +22,7 @@ export class DragonBonesSystem implements System {
       const armatureDisplay = factory.buildArmatureDisplay(armatureName, atlasAsset.name)!
       armatureDisplay.debugDraw = false
       const node = armatureDisplay
+      node.armature.animation.timeScale = timeScale
       if (animation) {
         armatureDisplay.animation.play(animation, playTimes)
       }
@@ -33,6 +34,6 @@ export class DragonBonesSystem implements System {
     // event_manager.subscribe(EventTypes.ComponentRemoved, DragonBones, ({ }) => { })
   }
 
-  update(entities: EntityManager, events: EventManager<GameWorld>, dt: number)
-  update() {}
+  // update(entities: EntityManager, events: EventManager<GameWorld>, dt: number)
+  // update() { }
 }

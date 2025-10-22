@@ -15,7 +15,6 @@ export class NodeComp<C extends Container = Container> {
   children: NodeComp[] = []
   private actionsList: Animation[] = []
   name: string
-  private _group = 0
   private _active = true
 
   constructor(instance: C, entity: Entity) {
@@ -151,28 +150,20 @@ export class NodeComp<C extends Container = Container> {
     this.instance.visible = val
   }
 
-  get group() {
-    return this._group
-  }
-
-  set group(val: number) {
-    this._group = val
-  }
-
-  get width() {
+  get w() {
     return this.instance.width
   }
 
-  set width(val) {
+  set w(val) {
     this.instance.width = val
   }
 
-  get height() {
+  get h() {
     return this.instance.height
   }
 
-  set height(val) {
-    this.instance.setSize(this.width, val)
+  set h(val) {
+    this.instance.height = val
   }
 
   get zIndex() {
@@ -218,11 +209,15 @@ export class NodeComp<C extends Container = Container> {
   }
 
   convertToNodeSpaceAR(point: Vec2) {
-    return updatePoint(this.instance.toLocal(point))
+    return this.convertToNodeSpace(point)
+  }
+
+  convertToWorldSpace(point: Vec2) {
+    return updatePoint(this.instance.toGlobal(point))
   }
 
   convertToWorldSpaceAR(point: Vec2) {
-    return updatePoint(this.instance.toGlobal(point))
+    return this.convertToWorldSpace(point)
   }
 
   // setAnchorPoint(point: number | cc.Point, y?: number) {

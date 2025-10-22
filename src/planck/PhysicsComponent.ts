@@ -9,6 +9,7 @@ interface RigidBodyProps {
   restitution?: Float
   friction?: Float
   gravityScale?: Float
+  tag?: Integer
 }
 export class RigidBody extends ComponentX<RigidBodyProps> {
   body: Body
