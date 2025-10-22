@@ -1,4 +1,4 @@
-import { NodeComp } from "../components/NodeComp"
+import { NodeComp } from '../components/NodeComp'
 
 export class NodePool {
   items: NodeComp[] = []

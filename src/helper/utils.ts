@@ -22,7 +22,7 @@ export function registerSystem<T extends EnhancedComponent<any>>(component: Cons
       for (const entt of entities.entities_with_components(component)) {
         const comp = entt.getComponent(component)
         // console.log('comp', comp.constructor.name, typeof comp['update'] === 'function')
-        if (comp.node.active && typeof comp['update'] === 'function') {
+        if (comp.node.active && comp.enabled && typeof comp['update'] === 'function') {
           comp['update'](dt)
         }
       }

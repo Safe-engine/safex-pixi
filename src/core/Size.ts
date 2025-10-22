@@ -1,7 +1,6 @@
 class _Size {
   width: number
   height: number
-  static ZERO
   constructor(width = 0, height = 0) {
     if (!(this instanceof _Size)) {
       return new _Size(width, height)

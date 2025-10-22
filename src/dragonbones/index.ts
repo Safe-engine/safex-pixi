@@ -5,5 +5,5 @@ export * from './DragonBonesComponent'
 export * from './DragonBonesSystem'
 
 export function setupDragonBones() {
-  GameWorld.Instance.addSystemAndUpdate(DragonBonesSystem)
+  GameWorld.Instance.systems.addThenConfigure(DragonBonesSystem)
 }
