@@ -1,6 +1,6 @@
 {
   "name": "@safe-engine/pixi",
-  "version": "8.8.2",
+  "version": "8.8.3",
   "description": "safex pixi plugin",
   "type": "module",
   "main": "dist/index.js",
@@ -20,7 +20,6 @@
     "@esotericsoftware/spine-core": "^4.2.94",
     "@pixi/ui": "^2.2.7",
     "box2d-wasm": "^7.0.0",
-    "dragonbones-pixijs": "^1.0.5",
     "entityx-ts": "^2.3.1",
     "pixi-action-ease": "^3.2.5",
     "pixi-tagged-text-plus": "0.0.1-next.2",

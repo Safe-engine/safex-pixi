@@ -1,6 +1,6 @@
-import { PixiArmatureDisplay, PixiFactory } from 'dragonbones-pixijs'
 import { Assets, BaseComponentProps } from '..'
 import { ComponentX, render } from '../components/BaseComponent'
+import { PixiArmatureDisplay, PixiFactory } from './db-pixi'
 interface DragonBonesData {
   atlas: string
   skeleton: string

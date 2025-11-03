@@ -1,10 +1,10 @@
-import { PixiFactory } from 'dragonbones-pixijs'
 import { EventManager, EventTypes, System } from 'entityx-ts'
 
 import { Assets } from 'pixi.js'
 import { GameWorld } from '../base'
 import { NodeComp } from '../components/NodeComp'
 import { DragonBonesComp } from './DragonBonesComponent'
+import { PixiFactory } from './db-pixi'
 
 export class DragonBonesSystem implements System {
   configure(event_manager: EventManager<GameWorld>) {

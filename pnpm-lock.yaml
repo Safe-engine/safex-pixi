@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@cocos/dragonbones-js':
+        specifier: ^1.0.2
+        version: 1.0.2
       '@esotericsoftware/spine-core':
         specifier: ^4.2.94
         version: 4.2.94
@@ -17,9 +20,6 @@ importers:
       box2d-wasm:
         specifier: ^7.0.0
         version: 7.0.0
-      dragonbones-pixijs:
-        specifier: ^1.0.5
-        version: 1.0.5
       entityx-ts:
         specifier: ^2.3.1
         version: 2.3.1
@@ -430,6 +430,9 @@ packages:
     resolution: {integrity: sha512-v9kIhKwjeZThiWrLmj0y17CWoyddASLj9O2yvbZkbvw/N3rWOYy9zkV66ursAoVr0mV15bL8g0c4QZUE6cdDoQ==}
     engines: {node: '>=0.1.95'}
     hasBin: true
+
+  '@cocos/dragonbones-js@1.0.2':
+    resolution: {integrity: sha512-QeTxZwLr4OeOZDo7ENJfdmwmv9mb68iNNGXUSGqazy/kHTXpBwe2thWvYwxJyM+8+RTsVFkyEhxRkCIfulfN7g==}
 
   '@electron/get@2.0.3':
     resolution: {integrity: sha512-Qkzpg2s9GnVV2I2BjRksUi43U5e6+zaQMcjoJy0C+C5oxaKl+fmckGDQFtRpZpZV0NQekuZZ+tGz7EA9TVnQtQ==}
@@ -1906,9 +1909,6 @@ packages:
     resolution: {integrity: sha512-yxJ2mFy/sibVQlu5qHjOkf9J3K6zgmCxgJ94u2EdvDOV09H+32LtRswEcUsmUWN72pVLOEnTSRaIVVzVQgS0dg==}
     engines: {node: '>=8'}
     deprecated: Use your platform's native DOMException instead
-
-  dragonbones-pixijs@1.0.5:
-    resolution: {integrity: sha512-HlaZPceIqtwCDln0YSOJw90cEMSeDxJfvbJtKGetuPNCdkvMfbCETlOO54Vh802C/OAXIfKySpaOCmN8Gi6v0A==}
 
   dts-bundle-generator@9.5.1:
     resolution: {integrity: sha512-DxpJOb2FNnEyOzMkG11sxO2dmxPjthoVWxfKqWYJ/bI/rT1rvTMktF5EKjAYrRZu6Z6t3NhOUZ0sZ5ZXevOfbA==}
@@ -5019,6 +5019,8 @@ snapshots:
       exec-sh: 0.3.6
       minimist: 1.2.8
 
+  '@cocos/dragonbones-js@1.0.2': {}
+
   '@electron/get@2.0.3':
     dependencies:
       debug: 4.4.3(supports-color@5.5.0)
@@ -6713,10 +6715,6 @@ snapshots:
   domexception@2.0.1:
     dependencies:
       webidl-conversions: 5.0.0
-
-  dragonbones-pixijs@1.0.5:
-    dependencies:
-      pixi.js: 8.12.0
 
   dts-bundle-generator@9.5.1:
     dependencies:
