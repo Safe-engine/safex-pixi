@@ -1,5 +1,5 @@
 import { actionManager } from 'pixi-action-ease'
-import { Application, Assets, AssetsClass, Renderer, Texture } from 'pixi.js'
+import { Application, Assets, AssetsClass, Renderer } from 'pixi.js'
 
 import { GameWorld } from './base'
 import { NoRenderSystem } from './norender/NoRenderSystem'
@@ -65,7 +65,11 @@ export function loadAll(assets: any, cb?: (progress: number) => void) {
   const fontBundle = {}
   Object.values(assets).forEach((value: any) => {
     if (value.skeleton) {
-      allAssets.push(value.skeleton, value.atlas, value.texture)
+      allAssets.push(value.skeleton)
+    } else if (value.atlas) {
+      allAssets.push(value.atlas)
+    } else if (value.texture) {
+      allAssets.push(value.texture)
     } else if (value.endsWith('.ttf')) {
       fontBundle[value] = value
     } else {
@@ -74,6 +78,6 @@ export function loadAll(assets: any, cb?: (progress: number) => void) {
   })
   Assets.addBundle('fonts', fontBundle)
   return Promise.all([Assets.loadBundle('fonts')]).then(async () => {
-    await Assets.load<Texture>(allAssets, cb)
+    await Assets.load(allAssets, cb)
   })
 }
