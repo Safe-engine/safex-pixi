@@ -68,8 +68,11 @@ export function loadAll(assets: any, cb?: (progress: number) => void) {
       allAssets.push(value.skeleton)
     } else if (value.atlas) {
       allAssets.push(value.atlas)
-    } else if (value.texture) {
-      allAssets.push(value.texture)
+      if (value.texture) {
+        allAssets.push(value.texture)
+      } else {
+        allAssets.push(value.atlas.replace('.atlas', '.png'))
+      }
     } else if (value.endsWith('.ttf')) {
       fontBundle[value] = value
     } else {
