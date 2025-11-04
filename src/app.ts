@@ -62,25 +62,17 @@ function initWorld(defaultFont?: string) {
 
 export function loadAll(assets: any, cb?: (progress: number) => void) {
   const allAssets = []
-  const fontBundle = {}
   Object.values(assets).forEach((value: any) => {
     if (value.skeleton) {
-      allAssets.push(value.skeleton)
-    } else if (value.atlas) {
-      allAssets.push(value.atlas)
+      allAssets.push(value.skeleton, value.atlas)
       if (value.texture) {
         allAssets.push(value.texture)
       } else {
         allAssets.push(value.atlas.replace('.atlas', '.png'))
       }
-    } else if (value.endsWith('.ttf')) {
-      fontBundle[value] = value
     } else {
       allAssets.push(value)
     }
   })
-  Assets.addBundle('fonts', fontBundle)
-  return Promise.all([Assets.loadBundle('fonts')]).then(async () => {
-    await Assets.load(allAssets, cb)
-  })
+  return Assets.load(allAssets, cb)
 }
