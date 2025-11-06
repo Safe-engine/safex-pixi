@@ -1,6 +1,6 @@
 {
   "name": "@safe-engine/pixi",
-  "version": "8.8.5",
+  "version": "8.8.6",
   "description": "safex pixi plugin",
   "type": "module",
   "main": "dist/index.js",
@@ -18,6 +18,7 @@
   "license": "ISC",
   "dependencies": {
     "@esotericsoftware/spine-core": "^4.2.94",
+    "@pixi/tilemap": "^5.0.2",
     "@pixi/ui": "^2.2.7",
     "box2d-wasm": "^7.0.0",
     "entityx-ts": "^2.3.1",
