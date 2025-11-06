@@ -57,7 +57,7 @@ export class PhysicsSystem implements System {
     const { b2BodyDef, b2FixtureDef, b2PolygonShape, b2CircleShape, b2Vec2, b2World, pointsToVec2Array, getPointer } = box2D as typeof Box2D
     const gravity = new b2Vec2(0, 10)
     this.world = new b2World(gravity)
-    console.log('configure world', (event_manager.world as GameWorld).app)
+    // console.log('configure world', (event_manager.world as GameWorld).app)
     // event_manager.world.physicsManager = this
     const graphics = new Graphics()
     this.graphics = graphics
