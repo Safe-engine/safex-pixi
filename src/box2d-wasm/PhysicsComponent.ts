@@ -39,6 +39,7 @@ export class RigidBody extends ComponentX<RigidBodyProps> {
     if (!this.node) {
       return
     }
+    // console.log('applyLinearImpulseToCenter', box2D)
     this.body.ApplyForceToCenter(new box2D.b2Vec2(vel.x, vel.y), true)
   }
 
