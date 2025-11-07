@@ -1,7 +1,7 @@
 import { Tilemap } from '@pixi/tilemap'
 import { Assets, BaseComponentProps, GameWorld, NodeComp, Vec2 } from '..'
 import { ComponentX } from '../components/BaseComponent'
-import { loadIsometricMap } from './tield'
+import { loadIsometricMap, tileToPixel } from './tield'
 
 interface TiledMapCompProps extends BaseComponentProps<TiledMapComp> {
   mapFile: string
@@ -9,13 +9,10 @@ interface TiledMapCompProps extends BaseComponentProps<TiledMapComp> {
 
 export class TiledMapComp extends ComponentX<TiledMapCompProps, Tilemap> {
   mapData: any
-  getPositionAt(x: number, ty: number) {
-    const mapData = this.mapData
-    const tx = x + 1
-    // Chuyển sang toạ độ isometric
-    const screenX = (tx - ty) * (mapData.tilewidth / 2)
-    const screenY = (tx + ty) * (mapData.tileheight / 2)
-    return Vec2(screenX, screenY)
+
+  getPositionAt(tx: number, ty: number) {
+    const pos = tileToPixel(this.mapData, tx + 1, ty)
+    return Vec2(pos)
   }
 
   render() {
