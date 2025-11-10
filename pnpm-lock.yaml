@@ -24,8 +24,8 @@ importers:
         specifier: ^2.3.1
         version: 2.3.1
       pixi-action-ease:
-        specifier: ^3.3.1
-        version: 3.3.1
+        specifier: ^3.3.2
+        version: 3.3.2
       pixi-tagged-text-plus:
         specifier: 0.0.1-next.2
         version: 0.0.1-next.2(pixi.js@8.12.0)
@@ -3676,8 +3676,8 @@ packages:
     resolution: {integrity: sha512-o8mkY4E/+LNUf6LzX96ht6k6CEDi65k9G2rjMtBe9Oo+VPKSvl+0GKHuH/AlG+GA5LPG/i5hrekkxUc3s2HU+Q==}
     hasBin: true
 
-  pixi-action-ease@3.3.1:
-    resolution: {integrity: sha512-ai7w01yYUyFMI2T3PApp86QY8GE8bz9JSCXIi8l+4zaCxYNn8HSVokAB4HYuR8Ox4BRy7xZScCtQkQieroZ+kQ==}
+  pixi-action-ease@3.3.2:
+    resolution: {integrity: sha512-OD8DUuGX2IfjAToGDSnkKbKS9OuMzJQCP3MUP7oJOj+N3O9Oknyg5rQNCnmBYNP7qK1w6hSJLnzG+8zlNKS/Kg==}
 
   pixi-tagged-text-plus@0.0.1-next.2:
     resolution: {integrity: sha512-8TTA5bBwwbrU7d6kmlY+aVS1FYpVw1jE2PKJxMp9bVBlw4YEQBNVtk3M5TXglxqRHTTYxVE6qNxhWShPrMqTSA==}
@@ -8996,7 +8996,7 @@ snapshots:
     dependencies:
       pngjs: 6.0.0
 
-  pixi-action-ease@3.3.1: {}
+  pixi-action-ease@3.3.2: {}
 
   pixi-tagged-text-plus@0.0.1-next.2(pixi.js@8.12.0):
     dependencies:

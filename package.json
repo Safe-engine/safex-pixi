@@ -1,6 +1,6 @@
 {
   "name": "@safe-engine/pixi",
-  "version": "8.9.1",
+  "version": "8.9.2",
   "description": "safex pixi plugin",
   "type": "module",
   "main": "dist/index.js",
@@ -22,7 +22,7 @@
     "@pixi/ui": "^2.2.7",
     "box2d-wasm": "^7.0.0",
     "entityx-ts": "^2.3.1",
-    "pixi-action-ease": "^3.3.1",
+    "pixi-action-ease": "^3.3.2",
     "pixi-tagged-text-plus": "0.0.1-next.2",
     "pixi.js": "8.12.0",
     "planck": "^1.4.2"
