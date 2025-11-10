@@ -8,12 +8,12 @@ importers:
 
   .:
     dependencies:
-      '@cocos/dragonbones-js':
-        specifier: ^1.0.2
-        version: 1.0.2
       '@esotericsoftware/spine-core':
-        specifier: ^4.2.94
-        version: 4.2.94
+        specifier: ^4.2.95
+        version: 4.2.95
+      '@pixi/tilemap':
+        specifier: ^5.0.2
+        version: 5.0.2(pixi.js@8.12.0)
       '@pixi/ui':
         specifier: ^2.2.7
         version: 2.2.7(pixi.js@8.12.0)
@@ -24,8 +24,8 @@ importers:
         specifier: ^2.3.1
         version: 2.3.1
       pixi-action-ease:
-        specifier: ^3.2.5
-        version: 3.2.5
+        specifier: ^3.3.1
+        version: 3.3.1
       pixi-tagged-text-plus:
         specifier: 0.0.1-next.2
         version: 0.0.1-next.2(pixi.js@8.12.0)
@@ -431,9 +431,6 @@ packages:
     engines: {node: '>=0.1.95'}
     hasBin: true
 
-  '@cocos/dragonbones-js@1.0.2':
-    resolution: {integrity: sha512-QeTxZwLr4OeOZDo7ENJfdmwmv9mb68iNNGXUSGqazy/kHTXpBwe2thWvYwxJyM+8+RTsVFkyEhxRkCIfulfN7g==}
-
   '@electron/get@2.0.3':
     resolution: {integrity: sha512-Qkzpg2s9GnVV2I2BjRksUi43U5e6+zaQMcjoJy0C+C5oxaKl+fmckGDQFtRpZpZV0NQekuZZ+tGz7EA9TVnQtQ==}
     engines: {node: '>=12'}
@@ -635,8 +632,8 @@ packages:
     resolution: {integrity: sha512-sB5uyeq+dwCWyPi31B2gQlVlo+j5brPlWx4yZBrEaRo/nhdDE8Xke1gsGgtiBdaBTxuTkceLVuVt/pclrasb0A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@esotericsoftware/spine-core@4.2.94':
-    resolution: {integrity: sha512-VzW3sipqJMdpehVPxP6F3KKb9PtvV7J2D64+8NRbZ7+TwIdgycLgrYN8rD+/bAtTEx1XuLUmimKLOhR+243dFw==}
+  '@esotericsoftware/spine-core@4.2.95':
+    resolution: {integrity: sha512-5YrlUxeH+wemDVzQogiOKHaBdnLRnyQcb3FOC59g2payoE1636pGB6GZIW5MV9cmMV+MaEIpSrAg26MrnGaQlw==}
 
   '@euberdeveloper/eslint-plugin@2.7.0':
     resolution: {integrity: sha512-IyZfysHjYCSU6Ty86imkCZmZ5diTAOKn7DlEmEO1yHhFjvVk+xFr0ApjTD7TyIQolnBPixZNw477V7mq86llcw==}
@@ -939,6 +936,11 @@ packages:
     peerDependencies:
       jest: ^26.6.2
 
+  '@pixi/tilemap@5.0.2':
+    resolution: {integrity: sha512-J+K1eU7uB58WPVD33d7usXrhKA03IGq3IfPvXBFr1027Bb9ScxrGhH0NomR9VpVVUPiHkK7FcTGuOtJMVGAv6A==}
+    peerDependencies:
+      pixi.js: '>=8.5.0'
+
   '@pixi/ui@2.2.7':
     resolution: {integrity: sha512-YMVx3WImhOc/8Navqj+d4SKVNAjyuHecvMGFIdh8NPIfzwgV3MoxIkwswHcuGpxQAljG1psMbMHVIAEKznN9oA==}
     peerDependencies:
@@ -1071,8 +1073,8 @@ packages:
   '@types/earcut@3.0.0':
     resolution: {integrity: sha512-k/9fOUGO39yd2sCjrbAJvGDEQvRwRnQIZlBz43roGwUZo5SHAmyVvSFyaVVZkicRVCaDXPKlbxrUcBuJoSWunQ==}
 
-  '@types/emscripten@1.41.4':
-    resolution: {integrity: sha512-ECf0qTibhAi2Z0K6FIY96CvBTVkVIuVunOfbTUgbaAmGmbwsc33dbK9KZPROWsmzHotddy6C5pIqYqOmsBoJEw==}
+  '@types/emscripten@1.41.5':
+    resolution: {integrity: sha512-cMQm7pxu6BxtHyqJ7mQZ2kXWV5SLmugybFdHCBbJ5eHzOo6VhBckEgAT3//rP5FwPHNPeEiq4SmQ5ucBwsOo4Q==}
 
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
@@ -3674,8 +3676,8 @@ packages:
     resolution: {integrity: sha512-o8mkY4E/+LNUf6LzX96ht6k6CEDi65k9G2rjMtBe9Oo+VPKSvl+0GKHuH/AlG+GA5LPG/i5hrekkxUc3s2HU+Q==}
     hasBin: true
 
-  pixi-action-ease@3.2.5:
-    resolution: {integrity: sha512-CnqkM/3+nt3Bis/gWkYJ7VrV/HylTUOqs1AKf1KZ0PkZU1VVTm+2sL3rPVhZKRkQ5PWfvEwOtUTfbg1gHUXZXw==}
+  pixi-action-ease@3.3.1:
+    resolution: {integrity: sha512-ai7w01yYUyFMI2T3PApp86QY8GE8bz9JSCXIi8l+4zaCxYNn8HSVokAB4HYuR8Ox4BRy7xZScCtQkQieroZ+kQ==}
 
   pixi-tagged-text-plus@0.0.1-next.2:
     resolution: {integrity: sha512-8TTA5bBwwbrU7d6kmlY+aVS1FYpVw1jE2PKJxMp9bVBlw4YEQBNVtk3M5TXglxqRHTTYxVE6qNxhWShPrMqTSA==}
@@ -5019,8 +5021,6 @@ snapshots:
       exec-sh: 0.3.6
       minimist: 1.2.8
 
-  '@cocos/dragonbones-js@1.0.2': {}
-
   '@electron/get@2.0.3':
     dependencies:
       debug: 4.4.3(supports-color@5.5.0)
@@ -5195,7 +5195,7 @@ snapshots:
       '@eslint/core': 0.16.0
       levn: 0.4.1
 
-  '@esotericsoftware/spine-core@4.2.94': {}
+  '@esotericsoftware/spine-core@4.2.95': {}
 
   '@euberdeveloper/eslint-plugin@2.7.0(typescript@5.9.2)':
     dependencies:
@@ -5635,6 +5635,10 @@ snapshots:
       - ts-node
       - utf-8-validate
 
+  '@pixi/tilemap@5.0.2(pixi.js@8.12.0)':
+    dependencies:
+      pixi.js: 8.12.0
+
   '@pixi/ui@2.2.7(pixi.js@8.12.0)':
     dependencies:
       pixi.js: 8.12.0
@@ -5779,7 +5783,7 @@ snapshots:
 
   '@types/earcut@3.0.0': {}
 
-  '@types/emscripten@1.41.4': {}
+  '@types/emscripten@1.41.5': {}
 
   '@types/estree@1.0.8': {}
 
@@ -6314,7 +6318,7 @@ snapshots:
 
   box2d-wasm@7.0.0:
     dependencies:
-      '@types/emscripten': 1.41.4
+      '@types/emscripten': 1.41.5
 
   brace-expansion@1.1.12:
     dependencies:
@@ -8992,7 +8996,7 @@ snapshots:
     dependencies:
       pngjs: 6.0.0
 
-  pixi-action-ease@3.2.5: {}
+  pixi-action-ease@3.3.1: {}
 
   pixi-tagged-text-plus@0.0.1-next.2(pixi.js@8.12.0):
     dependencies:
