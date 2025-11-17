@@ -1,5 +1,5 @@
-import { Tilemap } from '@pixi/tilemap'
-import { Assets, Rectangle, Texture } from 'pixi.js'
+import { Assets, Rectangle, Sprite, Texture } from 'pixi.js'
+import { TiledMapContainer, TiledMapLayer } from './TiledMapContainer'
 
 export function tileToPixel(map, tx, ty) {
   const tw = map.tilewidth
@@ -42,9 +42,14 @@ export function loadIsometricMap(mapUrl: string) {
   const cols = tileset.columns
   const firstGid = tileset.firstgid
 
-  const tilemap = new Tilemap(baseTexture)
+  const tilemap = new TiledMapContainer()
+  // tilemap.mapData = mapData
   for (const layer of mapData.layers) {
     if (layer.type !== 'tilelayer') continue
+    const tileLayer = new TiledMapLayer()
+    tileLayer.mapData = mapData
+    tilemap.layers.set(layer.name, tileLayer)
+    tilemap.addChild(tileLayer)
     const data = layer.data
     for (let i = 0; i < data.length; i++) {
       const gid = data[i]
@@ -58,7 +63,10 @@ export function loadIsometricMap(mapUrl: string) {
       const ty = Math.floor(i / mapData.width)
       const { x, y } = tileToPixel(mapData, tx, ty)
       const texture = new Texture({ source: baseTexture, frame: new Rectangle(frameX, frameY, tileW, tileH) })
-      tilemap.tile(texture, x, y)
+      const sprite = new Sprite(texture)
+      sprite.x = x
+      sprite.y = y
+      tileLayer.addChild(sprite)
     }
   }
   return tilemap

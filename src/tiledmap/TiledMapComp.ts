@@ -1,22 +1,21 @@
-import { Tilemap } from '@pixi/tilemap'
-import { Assets, BaseComponentProps, GameWorld, NodeComp, Vec2 } from '..'
+import { BaseComponentProps, GameWorld, NodeComp } from '..'
 import { ComponentX } from '../components/BaseComponent'
-import { loadIsometricMap, tileToPixel } from './tield'
+import { loadIsometricMap } from './tield'
+import { TiledMapContainer } from './TiledMapContainer'
 
 interface TiledMapCompProps extends BaseComponentProps<TiledMapComp> {
   mapFile: string
 }
 
-export class TiledMapComp extends ComponentX<TiledMapCompProps, Tilemap> {
-  mapData: any
-
-  getPositionAt(tx: number, ty: number) {
-    const pos = tileToPixel(this.mapData, tx + 1, ty)
-    return Vec2(pos)
+export class TiledMapComp extends ComponentX<TiledMapCompProps, TiledMapContainer> {
+  getLayer(layerName: string) {
+    return this.node.instance.getLayer(layerName)
+  }
+  getObjectGroup(layerName: string) {
+    return this.node.instance.getObjectGroup(layerName)
   }
 
   render() {
-    this.mapData = Assets.get(this.props.mapFile)
     const tiledMap = loadIsometricMap(this.props.mapFile)
     const world = GameWorld.Instance
     const entity = world.entities.create()
