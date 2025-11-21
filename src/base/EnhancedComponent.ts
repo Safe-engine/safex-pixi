@@ -10,11 +10,11 @@ export class EnhancedComponent<Props = object, N extends NodeComp<Container> = N
   private _timers: Map<any, any>
 
   constructor(data?: BaseComponentProps<EnhancedComponent> & Props) {
-    this.init(data)
+    this._init(data)
     this._ticker = Ticker.shared
     this._timers = new Map() // Map<Function, TimerInfo>
   }
-  init(data?: Props) {
+  _init(data?: Props) {
     if (data) {
       // console.log('constructor', this.constructor.name, data)
       Object.keys(data).forEach((key) => {

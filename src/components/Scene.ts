@@ -3,6 +3,7 @@ import { EnhancedComponent, GameWorld } from '../base'
 import { NodeComp } from './NodeComp'
 
 export class SceneComponent extends EnhancedComponent<object, NodeComp> {
+  preLoad: () => Promise<void>
   render() {
     const world = GameWorld.Instance
     world.entities.reset()
