@@ -1,6 +1,6 @@
 {
   "name": "@safe-engine/pixi",
-  "version": "8.9.4",
+  "version": "8.9.5",
   "description": "safex pixi plugin",
   "type": "module",
   "main": "dist/index.js",

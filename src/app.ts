@@ -60,13 +60,17 @@ function initWorld(defaultFont?: string) {
   world.systems.addThenConfigure(NoRenderSystem)
 }
 
-export function loadAll(assets: any, cb?: (progress: number) => void) {
+function getAllAssets(assets: any) {
   const allAssets = []
   Object.values(assets).forEach((value: any) => {
     if (value.skeleton) {
       allAssets.push(value.skeleton, value.atlas)
       if (value.texture) {
-        allAssets.push(value.texture)
+        if (Array.isArray(value.texture)) {
+          allAssets.push(...value.texture)
+        } else {
+          allAssets.push(value.texture)
+        }
       } else {
         allAssets.push(value.atlas.replace('.atlas', '.png'))
       }
@@ -74,5 +78,13 @@ export function loadAll(assets: any, cb?: (progress: number) => void) {
       allAssets.push(value)
     }
   })
-  return Assets.load(allAssets, cb)
+  return allAssets
+}
+
+export function loadAll(assets: any, cb?: (progress: number) => void) {
+  return Assets.load(getAllAssets(assets), cb)
+}
+
+export function unloadAll(assets: any) {
+  return Assets.unload(getAllAssets(assets))
 }
