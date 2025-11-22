@@ -12,7 +12,6 @@ export class NodeComp<C extends Container = Container> {
   instance: C
   parent: NodeComp
   children: NodeComp[] = []
-  private actionsList: Animation[] = []
   name: string
   private _active = true
 
