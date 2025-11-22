@@ -1,4 +1,3 @@
-import { actionManager } from 'pixi-action-ease'
 import { Application, Assets, AssetsClass, Renderer } from 'pixi.js'
 
 import { GameWorld } from './base'
@@ -45,7 +44,6 @@ function startGameLoop(world: GameWorld) {
   // Listen for frame updates
   world.app.ticker.add(() => {
     const dt = world.app.ticker.deltaMS * 0.001
-    actionManager.update(dt)
     world.update(dt)
   })
   // app.ticker.speed = 0.5

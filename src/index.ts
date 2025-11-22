@@ -1,5 +1,3 @@
-export * from 'pixi-action-ease'
-export * from 'pixi.js'
 export * from './app'
 export * from './base'
 export * from './components/BaseComponent'
@@ -11,3 +9,4 @@ export * from './norender'
 export * from './render/RenderComponent'
 export * from './render/RenderSystem'
 
+export * from 'pixi.js'

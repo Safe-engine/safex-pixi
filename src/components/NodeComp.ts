@@ -1,5 +1,4 @@
 import { ComponentType, Constructor, Entity } from 'entityx-ts'
-import { Action, actionManager, Animation } from 'pixi-action-ease'
 import { ColorSource, Container, Point, Sprite, Text } from 'pixi.js'
 
 import { EnhancedComponent, instantiate } from '..'
@@ -241,30 +240,6 @@ export class NodeComp<C extends Container = Container> {
     this.instance.setSize(size)
   }
 
-  runAction(act: Action) {
-    const animation = actionManager.runAction(this.instance as any, act)
-    this.actionsList.push(animation)
-  }
-
-  stopAllActions() {
-    this.actionsList.forEach((act) => {
-      actionManager.cancelAction(act)
-    })
-    this.actionsList = []
-  }
-
-  pauseAllActionsAndSchedule() {
-    this.actionsList.forEach((anim: Animation) => {
-      anim.isPause = true
-    })
-  }
-
-  resumeAllActionsAndSchedule() {
-    this.actionsList.forEach((anim: Animation) => {
-      anim.isPause = false
-    })
-  }
-
   destroy() {
     if (this.parent) {
       this.parent.children = this.parent.children.filter(({ entity }) => entity.id !== this.entity.id)
@@ -274,13 +249,11 @@ export class NodeComp<C extends Container = Container> {
     })
     this.parent = null
     this.entity.destroy()
-    this.stopAllActions()
     this.instance.destroy()
   }
 
   removeFromParent() {
     this.active = false
-    this.stopAllActions()
     this.instance.removeFromParent()
   }
 

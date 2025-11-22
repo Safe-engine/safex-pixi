@@ -61,10 +61,10 @@ export class ExtraDataComp extends ComponentX<ExtraDataProps> {
 }
 
 interface ButtonCompProps extends BaseComponentProps<ButtonComp> {
-  normalImage?: string
-  selectedImage?: string
-  disableImage?: string
-  zoomScale?: number
+  // normalImage?: string
+  // selectedImage?: string
+  // disableImage?: string
+  // zoomScale?: number
   onPress: (target: ButtonComp) => void
 }
 export class ButtonComp extends ComponentX<ButtonCompProps> { }

@@ -1,5 +1,4 @@
 import { Constructor } from 'entityx-ts'
-import { REPEAT_FOREVER } from 'pixi-action-ease'
 import { BaseComponentProps, Container, Ticker } from '..'
 import { NodeComp } from '../components/NodeComp'
 
@@ -36,7 +35,7 @@ export class EnhancedComponent<Props = object, N extends NodeComp<Container> = N
   getComponentInChildren<T extends ComponentType>(component: Constructor<T>): T {
     return this.node.getComponentInChildren(component)
   }
-  schedule(callback, interval, repeat = REPEAT_FOREVER, delay = 0) {
+  schedule(callback, interval, repeat = Infinity, delay = 0) {
     if (this._timers.has(callback)) {
       this.unschedule(callback)
     }

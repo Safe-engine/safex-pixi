@@ -2,7 +2,7 @@ import { BaseComponentProps, registerSystem, Vec2 } from '..'
 import { ComponentX, render } from '../components/BaseComponent'
 import { Spine } from './lib'
 
-interface SpineData {
+export interface SpineData {
   atlas: string
   skeleton: string
   texture?: string
