@@ -1,9 +1,9 @@
-import { CheckBox, Input, List, RadioGroup, ScrollBox } from '@pixi/ui'
+import { CheckBox, Input, List, RadioGroup } from '@pixi/ui'
 import { EventManager, EventTypes, System } from 'entityx-ts'
 
 import { Color4B, NodeComp } from '..'
 import { GameWorld } from '../base'
-import { CheckBoxComp, InputComp, ListComp, RadioGroupComp, ScrollView } from './GUIComponent'
+import { CheckBoxComp, InputComp, ListComp, RadioGroupComp } from './GUIComponent'
 
 export class GUISystem implements System {
   configure(event_manager: EventManager<GameWorld>) {
@@ -12,11 +12,6 @@ export class GUISystem implements System {
     //   const node = new ProgressBar({ bg, fill, progress })
     //   component.node = entity.assign(new NodeComp(node, entity))
     // })
-    event_manager.subscribe(EventTypes.ComponentAdded, ScrollView, ({ entity, component }) => {
-      const { width, height } = component.props
-      const view = new ScrollBox({ width, height })
-      component.node = entity.assign(new NodeComp(view, entity))
-    })
     event_manager.subscribe(EventTypes.ComponentAdded, ListComp, ({ entity, component }) => {
       const view = new List()
       component.node = entity.assign(new NodeComp(view, entity))

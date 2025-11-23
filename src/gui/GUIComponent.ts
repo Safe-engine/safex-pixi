@@ -28,14 +28,6 @@ export class ProgressBarComp extends ComponentX<{}, ProgressBar> {
   }
 }
 
-interface ScrollViewProps {
-  width: number
-  height: number
-}
-export class ScrollView extends ComponentX<ScrollViewProps> { }
-
-export class BlockInputEventsComp extends ComponentX { }
-
 interface InputCompProps extends BaseComponentProps<InputComp> {
   placeHolder?: string
   font?: string
