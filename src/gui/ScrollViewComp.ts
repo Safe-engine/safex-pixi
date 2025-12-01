@@ -1,4 +1,4 @@
-import { FancyButton, ScrollBox } from '@pixi/ui'
+import { ScrollBox } from '@pixi/ui'
 import { BaseComponentProps, GameWorld, NodeComp, registerSystem } from '..'
 import { ComponentX } from '../components/BaseComponent'
 
@@ -7,13 +7,13 @@ interface ScrollViewCompProps extends BaseComponentProps<ScrollViewComp> {
   height: number
 }
 
-export class ScrollViewComp extends ComponentX<ScrollViewCompProps, FancyButton> {
+export class ScrollViewComp extends ComponentX<ScrollViewCompProps, ScrollBox> {
   render() {
     const { width, height } = this.props
     const view = new ScrollBox({ width, height })
     const world = GameWorld.Instance
     const entity = world.entities.create()
-    entity.assign(new NodeComp(view, entity))
+    this.node = entity.assign(new NodeComp(view, entity))
     const comp = entity.assign(this)
     return comp
   }

@@ -40,7 +40,7 @@ export class FancyButtonComp extends ComponentX<FancyButtonCompProps, FancyButto
     })
     const world = GameWorld.Instance
     const entity = world.entities.create()
-    entity.assign(new NodeComp(button, entity))
+    this.node = entity.assign(new NodeComp(button, entity))
     const comp = entity.assign(this)
     return comp
   }

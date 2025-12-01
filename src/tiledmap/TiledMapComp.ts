@@ -19,7 +19,7 @@ export class TiledMapComp extends ComponentX<TiledMapCompProps, TiledMapContaine
     const tiledMap = loadIsometricMap(this.props.mapFile)
     const world = GameWorld.Instance
     const entity = world.entities.create()
-    entity.assign(new NodeComp(tiledMap, entity))
+    this.node = entity.assign(new NodeComp(tiledMap, entity))
     const comp = entity.assign(this)
     return comp
   }
