@@ -24,9 +24,30 @@ export class SpineSkeleton extends ComponentX<SpineSkeletonProps, Spine> {
   }
 
   setSkeletonData(data: SpineData) {
-    // const skel = this.node.instance
+    const skel = this.node.instance
     // const { atlas, skeleton } = data
     // skel.skeleton.initWithArgs(skeleton, atlas)
+    const { skin, animation, loop = true, timeScale } = this.props
+    const node = Spine.from(data)
+    if (skin) {
+      node.skeleton.setSkinByName(skin)
+    }
+    if (animation) {
+      node.state.setAnimation(0, animation, loop)
+    }
+    if (timeScale) {
+      node.state.timeScale = timeScale
+    }
+    node.x = skel.x
+    node.y = skel.y
+    node.scale = skel.scale
+    node.rotation = skel.rotation
+    const parent = skel.parent
+    if (parent) {
+      parent.addChild(node)
+      parent.removeChild(skel)
+    }
+    this.node.instance = node
   }
 }
 
