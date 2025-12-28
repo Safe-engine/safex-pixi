@@ -13,8 +13,9 @@ export async function startGame(
   const app = new Application()
   await app.init({
     antialias: true,
-    resolution: window.devicePixelRatio,
+    resolution: window.devicePixelRatio || 1,
     resizeTo: window,
+    autoDensity: true,
     eventFeatures: {
       move: true,
       /** disables the global move events which can be very expensive in large scenes */
@@ -29,6 +30,8 @@ export async function startGame(
     height: `${window.innerHeight}px`,
     overflow: 'visible',
   })
+  app.stage.eventMode = 'static'
+  app.stage.hitArea = app.screen
   const { width, height } = designedResolution
   app.renderer.resize(width, height)
   // app.stage.position.y = app.renderer.height / app.renderer.resolution
