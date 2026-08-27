@@ -17,14 +17,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@esotericsoftware/spine-core": "^4.2.95",
+    "@esotericsoftware/spine-core": "^4.3.13",
     "@pixi/tilemap": "^5.0.2",
-    "@pixi/ui": "^2.2.7",
+    "@pixi/ui": "^2.3.2",
+    "@xmldom/xmldom": "^0.9.12",
     "box2d-wasm": "^7.0.0",
     "entityx-ts": "^2.3.1",
     "pixi-tagged-text-plus": "0.0.1-next.2",
     "pixi.js": "8.12.0",
-    "planck": "^1.4.2"
+    "planck": "^1.5.0"
   },
   "devDependencies": {
     "typescript": "^5.9.3"
